@@ -3,6 +3,33 @@ import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import type { Metadata } from 'next';
+import { Anybody, Hanken_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
+import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
+import '@mantine/charts/styles.css';
+import '../globals.css';
+import { theme } from '@/styles/theme';
+
+const anybody = Anybody({
+  subsets: ['latin'],
+  variable: '--font-anybody',
+  weight: ['400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
+});
+
+const hankenGrotesk = Hanken_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-hanken',
+  weight: ['400', '500', '600', '700'],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  weight: ['400', '500', '600', '700'],
+});
 
 type Locale = 'vi' | 'en' | 'fr' | 'ko' | 'zh' | 'ja' | 'pt';
 
@@ -55,10 +82,19 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={langMap[locale as Locale] ?? locale}>
-      <NextIntlClientProvider locale={locale} messages={messages}>
-        {children}
-      </NextIntlClientProvider>
+    <html lang={langMap[locale as Locale] ?? locale} suppressHydrationWarning>
+      <head>
+        <ColorSchemeScript forceColorScheme="dark" />
+      </head>
+      <body className={`${anybody.variable} ${hankenGrotesk.variable} ${jetbrainsMono.variable}`}>
+        <MantineProvider theme={theme} forceColorScheme="dark">
+          <Notifications position="top-right" />
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </MantineProvider>
+      </body>
     </html>
   );
 }
+

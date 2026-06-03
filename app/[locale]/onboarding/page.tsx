@@ -957,12 +957,12 @@ export default function OnboardingPage() {
               {currentStep.id === 'workoutDays' && (
                 <div className="space-y-4">
                   <label className="text-sm opacity-70 block">{dict.workoutDaysLabel}</label>
-                  <div className="grid grid-cols-7 gap-2">
+                  <div className="grid grid-cols-7 gap-1.5 sm:gap-2">
                     {[1, 2, 3, 4, 5, 6, 7].map((day) => (
                       <button
                         key={day}
                         onClick={() => setWorkoutDays(day)}
-                        className="py-4 rounded-xl text-lg font-bold transition-all"
+                        className="py-2.5 sm:py-4 rounded-xl text-sm sm:text-lg font-bold transition-all"
                         style={{
                           backgroundColor: workoutDays === day ? '#ff003c' : 'rgba(46,20,20,0.3)',
                           border: workoutDays === day ? '1px solid #ff525c' : '1px solid #4e2a2a',

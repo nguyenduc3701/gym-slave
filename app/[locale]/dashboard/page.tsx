@@ -737,11 +737,11 @@ function ExerciseDetailModal({
         body: { padding: 0 },
       }}
     >
-      <div className="flex flex-col md:flex-row" style={{ minHeight: '560px' }}>
+      <div className="flex flex-col md:flex-row" style={{ minHeight: 'auto' }}>
         {/* Left — Technique demo */}
         <div
-          className="w-full md:w-[340px] flex-shrink-0 relative overflow-hidden"
-          style={{ backgroundColor: '#000', aspectRatio: '9/16', maxHeight: '600px' }}
+          className="w-full md:w-[340px] flex-shrink-0 relative overflow-hidden aspect-video md:aspect-[9/16] h-48 md:h-auto"
+          style={{ backgroundColor: '#000' }}
         >
           <img
             src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=400"
@@ -1184,7 +1184,7 @@ export default function DashboardPage() {
               style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a' }}
             >
               {/* Section header */}
-              <div className="p-6 flex items-center justify-between border-b" style={{ borderColor: '#4e2a2a' }}>
+              <div className="p-4 sm:p-6 flex items-center justify-between border-b" style={{ borderColor: '#4e2a2a' }}>
                 <div>
                   <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '20px', color: '#fff' }}>{t('weeklyScheduleTitle')}</h2>
                   <p style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.08em', color: '#e9bcba', textTransform: 'uppercase', marginTop: '2px' }}>
@@ -1198,7 +1198,7 @@ export default function DashboardPage() {
                 {currentSchedule.map((day) => (
                   <div
                     key={day.day}
-                    className="p-6"
+                    className="p-4 sm:p-6"
                     style={{
                       backgroundColor: day.isToday ? 'rgba(255,0,60,0.06)' : day.isRest ? 'transparent' : 'rgba(46, 20, 20, 0.15)',
                     }}
@@ -1256,56 +1256,111 @@ export default function DashboardPage() {
                     ) : day.exercises.length === 0 ? (
                       <p style={{ color: '#af8786', fontStyle: 'italic', fontSize: '12px' }}>{t('noExercisesDay')}</p>
                     ) : (
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-left text-sm border-collapse">
-                          <thead>
-                            <tr style={{ borderBottom: '1px solid rgba(78, 42, 42, 0.4)' }}>
-                              {[t('tableExercise'), t('tableMuscle'), t('tableSets'), t('tableReps'), ''].map((h) => (
-                                <th
-                                  key={h}
-                                  className="py-2 pr-4 uppercase"
-                                  style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '9px', letterSpacing: '0.08em', color: '#e9bcba', fontWeight: 500 }}
-                                >
-                                  {h}
-                                </th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {day.exercises.map((ex, idx) => (
-                              <tr
-                                key={`${ex.name}-${idx}`}
-                                className="cursor-pointer transition-colors"
-                                style={{ borderBottom: '1px solid rgba(78, 42, 42, 0.15)' }}
-                                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(78, 42, 42, 0.2)'; }}
-                                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent'; }}
-                              >
-                                <td className="py-3 pr-4 font-semibold text-white" onClick={() => openModal(ex, day.day)}>
-                                  {ex.name}
+                      <>
+                        {/* Mobile view: List of cards */}
+                        <div className="block md:hidden space-y-3">
+                          {day.exercises.map((ex, idx) => (
+                            <div
+                              key={`${ex.name}-${idx}`}
+                              onClick={() => openModal(ex, day.day)}
+                              className="p-4 rounded-xl border relative flex flex-col gap-2 active:scale-[0.99] transition-transform"
+                              style={{
+                                backgroundColor: 'rgba(255, 255, 255, 0.02)',
+                                borderColor: 'rgba(78, 42, 42, 0.4)',
+                              }}
+                            >
+                              <div className="flex justify-between items-start pr-6">
+                                <div>
+                                  <span className="font-semibold text-white text-base block">
+                                    {ex.name}
+                                  </span>
                                   {renderTierBadge(ex.tier)}
-                                </td>
-                                <td className="py-3 px-4" style={{ color: '#e9bcba' }} onClick={() => openModal(ex, day.day)}>{getLocalizedTarget(ex.target, t)}</td>
-                                <td className="py-3 px-4" onClick={() => openModal(ex, day.day)}>{ex.sets}</td>
-                                <td className="py-3 px-4" onClick={() => openModal(ex, day.day)}>{ex.reps}</td>
-                                <td className="py-3 pl-4 text-right">
-                                  {/* Delete action */}
-                                  <button
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      handleDeleteExercise(day.day, idx);
-                                    }}
-                                    className="text-[#ff525c] hover:text-red-500 font-bold bg-none border-none text-xs transition-colors p-1"
-                                    style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-                                    title={t('deleteExercise')}
+                                </div>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteExercise(day.day, idx);
+                                  }}
+                                  className="absolute top-4 right-4 text-[#ff525c] hover:text-red-500 font-bold text-sm p-1"
+                                  style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                                  title={t('deleteExercise')}
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                              
+                              <div className="flex justify-between text-xs text-[#e9bcba] pt-2 border-t border-dashed border-[#4e2a2a]/40">
+                                <div>
+                                  <span className="opacity-60">{t('tableMuscle')}:</span>{' '}
+                                  <span className="font-medium text-white">{getLocalizedTarget(ex.target, t)}</span>
+                                </div>
+                                <div className="flex gap-4">
+                                  <div>
+                                    <span className="opacity-60">{t('tableSets')}:</span>{' '}
+                                    <span className="font-mono font-bold text-white">{ex.sets}</span>
+                                  </div>
+                                  <div>
+                                    <span className="opacity-60">{t('tableReps')}:</span>{' '}
+                                    <span className="font-mono font-bold text-white">{ex.reps}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Desktop view: Table */}
+                        <div className="hidden md:block overflow-x-auto">
+                          <table className="w-full text-left text-sm border-collapse">
+                            <thead>
+                              <tr style={{ borderBottom: '1px solid rgba(78, 42, 42, 0.4)' }}>
+                                {[t('tableExercise'), t('tableMuscle'), t('tableSets'), t('tableReps'), ''].map((h) => (
+                                  <th
+                                    key={h}
+                                    className="py-2 pr-4 uppercase"
+                                    style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '9px', letterSpacing: '0.08em', color: '#e9bcba', fontWeight: 500 }}
                                   >
-                                    ✕
-                                  </button>
-                                </td>
+                                    {h}
+                                  </th>
+                                ))}
                               </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
+                            </thead>
+                            <tbody>
+                              {day.exercises.map((ex, idx) => (
+                                <tr
+                                  key={`${ex.name}-${idx}`}
+                                  className="cursor-pointer transition-colors"
+                                  style={{ borderBottom: '1px solid rgba(78, 42, 42, 0.15)' }}
+                                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(78, 42, 42, 0.2)'; }}
+                                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent'; }}
+                                >
+                                  <td className="py-3 pr-4 font-semibold text-white" onClick={() => openModal(ex, day.day)}>
+                                    {ex.name}
+                                    {renderTierBadge(ex.tier)}
+                                  </td>
+                                  <td className="py-3 px-4" style={{ color: '#e9bcba' }} onClick={() => openModal(ex, day.day)}>{getLocalizedTarget(ex.target, t)}</td>
+                                  <td className="py-3 px-4" onClick={() => openModal(ex, day.day)}>{ex.sets}</td>
+                                  <td className="py-3 px-4" onClick={() => openModal(ex, day.day)}>{ex.reps}</td>
+                                  <td className="py-3 pl-4 text-right">
+                                    {/* Delete action */}
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDeleteExercise(day.day, idx);
+                                      }}
+                                      className="text-[#ff525c] hover:text-red-500 font-bold bg-none border-none text-xs transition-colors p-1"
+                                      style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                                      title={t('deleteExercise')}
+                                    >
+                                      ✕
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </>
                     )}
                   </div>
                 ))}
