@@ -14,6 +14,7 @@ import {
   ActionIcon,
   Stepper,
   Button,
+  Modal,
 } from '@mantine/core';
 import {
   IconBarbell,
@@ -62,6 +63,7 @@ export default function WorkoutPage() {
   const [workoutName, setWorkoutName] = useState('');
   const [search, setSearch] = useState('');
   const [exercises, setExercises] = useState<ExerciseEntry[]>([]);
+  const [exerciseToDelete, setExerciseToDelete] = useState<number | null>(null);
 
   const filteredExercises = exerciseLibrary.filter(
     (e) =>
@@ -307,7 +309,7 @@ export default function WorkoutPage() {
                         <Text fw={700} style={{ fontFamily: 'var(--font-anybody)' }}>{ex.name}</Text>
                         <p className="label-caps" style={{ fontSize: '9px', color: '#fe6b00' }}>{ex.group}</p>
                       </div>
-                      <ActionIcon variant="subtle" color="red" size="sm" onClick={() => removeExercise(ex.id)}>
+                      <ActionIcon variant="subtle" color="red" size="sm" onClick={() => setExerciseToDelete(ex.id)}>
                         <IconTrash size={14} />
                       </ActionIcon>
                     </div>
@@ -363,6 +365,31 @@ export default function WorkoutPage() {
           )}
         </Grid.Col>
       </Grid>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        opened={exerciseToDelete !== null}
+        onClose={() => setExerciseToDelete(null)}
+        title="Xác nhận xoá"
+        centered
+        overlayProps={{ blur: 3, backgroundOpacity: 0.5 }}
+        styles={{
+          content: { backgroundColor: '#1a1a1a', color: '#ffdad8', border: '1px solid #4e2a2a' },
+          header: { backgroundColor: '#1a1a1a' },
+          title: { fontWeight: 'bold' }
+        }}
+      >
+        <Text size="sm" mb="lg">Bạn có chắc chắn muốn xoá bài tập này khỏi danh sách không?</Text>
+        <Group justify="flex-end">
+          <Button variant="default" onClick={() => setExerciseToDelete(null)} style={{ backgroundColor: 'transparent', borderColor: '#4e2a2a', color: '#ffdad8' }}>Hủy</Button>
+          <Button color="red" onClick={() => {
+            if (exerciseToDelete !== null) {
+              removeExercise(exerciseToDelete);
+              setExerciseToDelete(null);
+            }
+          }}>Xoá</Button>
+        </Group>
+      </Modal>
     </div>
   );
 }

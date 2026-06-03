@@ -893,6 +893,7 @@ export default function DashboardPage() {
   
   const [opened, { open, close }] = useDisclosure(false);
   const [addModalOpened, setAddModalOpened] = useState(false);
+  const [exerciseToDelete, setExerciseToDelete] = useState<{ dayName: string; index: number } | null>(null);
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [selectedExerciseDay, setSelectedExerciseDay] = useState<string>('');
   const [isHydrated, setIsHydrated] = useState(false);
@@ -1332,7 +1333,7 @@ export default function DashboardPage() {
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
-                                    handleDeleteExercise(day.day, idx);
+                                    setExerciseToDelete({ dayName: day.day, index: idx });
                                   }}
                                   className="absolute top-4 right-4 text-[#ff525c] hover:text-red-500 font-bold text-sm p-1"
                                   style={{ background: 'none', border: 'none', cursor: 'pointer' }}
@@ -1399,7 +1400,7 @@ export default function DashboardPage() {
                                     <button
                                       onClick={(e) => {
                                         e.stopPropagation();
-                                        handleDeleteExercise(day.day, idx);
+                                        setExerciseToDelete({ dayName: day.day, index: idx });
                                       }}
                                       className="text-[#ff525c] hover:text-red-500 font-bold bg-none border-none text-xs transition-colors p-1"
                                       style={{ background: 'none', border: 'none', cursor: 'pointer' }}
@@ -1839,6 +1840,45 @@ export default function DashboardPage() {
             </button>
           </div>
 
+        </div>
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        opened={exerciseToDelete !== null}
+        onClose={() => setExerciseToDelete(null)}
+        title="Xác nhận xoá"
+        centered
+        overlayProps={{ blur: 3, backgroundOpacity: 0.5 }}
+        styles={{
+          content: { backgroundColor: '#1a1a1a', color: '#ffdad8', border: '1px solid #4e2a2a' },
+          header: { backgroundColor: '#1a1a1a' },
+          title: { fontWeight: 'bold' }
+        }}
+      >
+        <div style={{ fontSize: '14px', marginBottom: '20px' }}>
+          Bạn có chắc chắn muốn xoá bài tập này khỏi lịch tập không?
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+          <button 
+            className="px-4 py-2 rounded-lg font-bold transition-all"
+            style={{ backgroundColor: 'transparent', border: '1px solid #4e2a2a', color: '#ffdad8', cursor: 'pointer' }}
+            onClick={() => setExerciseToDelete(null)}
+          >
+            Hủy
+          </button>
+          <button 
+            className="px-4 py-2 rounded-lg font-bold transition-all"
+            style={{ backgroundColor: '#dc2626', color: '#fff', border: 'none', cursor: 'pointer' }}
+            onClick={() => {
+              if (exerciseToDelete) {
+                handleDeleteExercise(exerciseToDelete.dayName, exerciseToDelete.index);
+                setExerciseToDelete(null);
+              }
+            }}
+          >
+            Xoá
+          </button>
         </div>
       </Modal>
     </div>
