@@ -1,0 +1,347 @@
+{
+  "metadata": {
+    "home": {
+      "title": "Gym Slave – Luyện Tập Thông Minh. Chinh Phục Mục Tiêu.",
+      "description": "Gym Slave là ứng dụng lập lịch tập gym cá nhân hoá theo cơ thể, giới tính và mục tiêu của bạn."
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "description": "Xem tổng quan lịch tập gym cá nhân của bạn được tạo tự động bởi Gym Slave."
+    },
+    "workout": {
+      "title": "Lịch Tập Workout",
+      "description": "Ghi lại và quản lý các buổi tập workout cá nhân hoá theo mục tiêu của bạn."
+    },
+    "nutrition": {
+      "title": "Dinh Dưỡng",
+      "description": "Theo dõi lượng calo và dinh dưỡng hàng ngày để hỗ trợ mục tiêu tập luyện."
+    },
+    "progress": {
+      "title": "Tiến Độ Tập Luyện",
+      "description": "Theo dõi tiến độ tập gym theo thời gian với biểu đồ chi tiết."
+    },
+    "onboarding": {
+      "title": "Thiết Lập Hồ Sơ",
+      "description": "Nhập thông tin cá nhân để nhận lịch tập gym được tùy chỉnh riêng cho bạn."
+    },
+    "settings": {
+      "title": "Cài Đặt",
+      "description": "Quản lý cài đặt tài khoản và hồ sơ cá nhân của bạn trên Gym Slave."
+    }
+  },
+  "common": {
+    "appName": "GYM SLAVE",
+    "loading": "Đang tải...",
+    "save": "Lưu thay đổi",
+    "skip": "Bỏ qua",
+    "next": "Tiếp theo",
+    "back": "Quay lại",
+    "finish": "Hoàn thành",
+    "optional": "Tự chọn",
+    "required": "Bắt buộc",
+    "version": "PHIÊN BẢN 1.0"
+  },
+  "nav": {
+    "mainMenu": "Menu chính",
+    "dashboard": "Dashboard",
+    "workout": "Workout",
+    "nutrition": "Dinh Dưỡng",
+    "progress": "Tiến Độ",
+    "settings": "Cài Đặt"
+  },
+  "header": {
+    "brand": "GYM SLAVE",
+    "pages": {
+      "dashboard": "Dashboard",
+      "workout": "Workout",
+      "nutrition": "Dinh Dưỡng",
+      "progress": "Tiến Độ",
+      "settings": "Cài Đặt"
+    }
+  },
+  "language": {
+    "label": "Ngôn ngữ",
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "fr": "Français",
+    "ko": "한국어",
+    "zh": "中文",
+    "ja": "日本語",
+    "pt": "Português"
+  },
+  "onboarding": {
+    "steps": {
+      "gender": {
+        "label": "GIỚI TÍNH",
+        "sublabel": "Xác định đặc tính sinh học"
+      },
+      "age": {
+        "label": "TUỔI TÁC",
+        "sublabel": "Tối ưu hóa phục hồi theo độ tuổi"
+      },
+      "weight": {
+        "label": "CÂN NẶNG HIỆN TẠI",
+        "sublabel": "Chỉ số cân nặng hôm nay"
+      },
+      "height": {
+        "label": "CHIỀU CAO",
+        "sublabel": "Chiều cao đứng không giày"
+      },
+      "targetWeight": {
+        "label": "MỤC TIÊU CÂN NẶNG",
+        "sublabel": "Cân nặng bạn muốn đạt tới"
+      },
+      "workoutDays": {
+        "label": "TẦN SUẤT TẬP",
+        "sublabel": "Số ngày tập luyện trong tuần"
+      },
+      "bodyType": {
+        "label": "TẠNG NGƯỜI",
+        "sublabel": "Xác định tạng người qua kích cỡ cổ tay"
+      },
+      "location": {
+        "label": "ĐỊA ĐIỂM TẬP LUYỆN",
+        "sublabel": "Nơi thực hiện các bài tập"
+      },
+      "targetWeeks": {
+        "label": "THỜI HẠN MỤC TIÊU",
+        "sublabel": "Số tuần cam kết để đạt mục tiêu"
+      },
+      "bodyFat": {
+        "label": "TỶ LỆ MỠ (BFR)",
+        "sublabel": "Tỷ lệ mỡ ước lượng trong cơ thể"
+      },
+      "avgCalories": {
+        "label": "LƯỢNG CALO TIÊU THỤ",
+        "sublabel": "Lượng calo trung bình ăn tuần này"
+      },
+      "focusMuscles": {
+        "label": "NHÓM CƠ ƯU TIÊN",
+        "sublabel": "Các vùng cơ bạn muốn tập trung phát triển"
+      },
+      "supplements": {
+        "label": "THỰC PHẨM BỔ SUNG",
+        "sublabel": "Các thực phẩm bổ sung đang sử dụng"
+      },
+      "sleep": {
+        "label": "GIẤC NGỦ HÀNG NGÀY",
+        "sublabel": "Số tiếng ngủ mỗi đêm trung bình"
+      }
+    },
+    "gender": {
+      "male": "Nam",
+      "female": "Nữ",
+      "maleDesc": "Testosterone cao, tỷ lệ cơ cao hơn",
+      "femaleDesc": "Estrogen cao, phân bố mỡ khác"
+    },
+    "bodyType": {
+      "ectomorph": "Người Gầy",
+      "mesomorph": "Cân Đối",
+      "endomorph": "Người To"
+    },
+    "location": {
+      "gym": "Phòng Gym",
+      "home": "Tập tại Nhà"
+    },
+    "ageError": {
+      "tooYoung": "Chương trình này được thiết kế cho người từ 10 tuổi trở lên",
+      "tooOld": "Hãy tham khảo ý kiến bác sĩ nếu bạn trên 65 tuổi"
+    },
+    "complete": {
+      "title": "THIẾT LẬP HOÀN TẤT",
+      "subtitle": "Hồ sơ của bạn đã được tạo. Sẵn sàng chinh phục mục tiêu?",
+      "button": "Vào Dashboard"
+    }
+  },
+  "dashboard": {
+    "title": "LỊCH TẬP TUẦN NÀY",
+    "weeklySchedule": "LỊCH TUẦN",
+    "rest": "NGHỈ NGƠI",
+    "restDesc": "Phục hồi cơ bắp",
+    "noExercises": "Không có bài tập",
+    "todayBadge": "HÔM NAY",
+    "nutrition": "GỢI Ý DINH DƯỠNG",
+    "nutritionDesc": "Dựa trên mục tiêu của bạn",
+    "calories": "Calo",
+    "protein": "Protein",
+    "carbs": "Carbs",
+    "fat": "Chất béo",
+    "customSchedule": "LỊCH TÙY CHỈNH",
+    "resetSchedule": "Đặt lại lịch",
+    "greeting": "Chào buổi sáng, Chiến binh",
+    "profileGender": "Giới tính",
+    "genderMale": "Nam",
+    "genderFemale": "Nữ",
+    "profileLocation": "Địa điểm tập",
+    "locationGym": "Phòng Gym",
+    "locationHome": "Tại Nhà",
+    "profileCommitment": "Kế hoạch cam kết",
+    "commitmentWeeks": "{weeks} tuần",
+    "focusMuscleLabel": "Nhóm cơ ưu tiên",
+    "focusMuscleBoost": "(Đã tăng cường bài tập đặc thù)",
+    "weeklyScheduleTitle": "Kế hoạch tập luyện 7 ngày",
+    "weeklyFrequency": "Tần suất: {days} ngày / tuần • Thiết kế cá nhân hóa",
+    "restDayDesc": "Nghỉ ngơi cơ bắp & Phục hồi hoàn toàn.",
+    "noExercisesDay": "Không có bài tập nào cho ngày hôm nay.",
+    "addExerciseBtn": "+ Thêm bài tập",
+    "tableExercise": "Bài Tập",
+    "tableMuscle": "Cơ Mục Tiêu",
+    "tableSets": "Hiệp",
+    "tableReps": "Lần",
+    "deleteExercise": "Xóa bài tập này",
+    "nutritionTitle": "Gợi ý dinh dưỡng",
+    "nutritionWeightLoss": "Chế độ Giảm mỡ",
+    "nutritionMuscleGain": "Chế độ Tăng cơ",
+    "nutritionGeneral": "Chế độ Cân bằng",
+    "nutritionCurated": "THỰC PHẨM ĐƯỢC CHỌN LỌC",
+    "nutritionPer": "Định lượng",
+    "tdeeLabel": "Mục tiêu năng lượng (TDEE)",
+    "kcalPerDay": "KCAL / NGÀY",
+    "bmrLabel": "Chỉ số chuyển hóa cơ bản (BMR): {bmr} kcal",
+    "proteinLabel": "ĐẠM (PROTEIN)",
+    "carbsLabel": "Tinh bột",
+    "fatLabel": "Béo",
+    "quickAdjustTitle": "Điều chỉnh mục tiêu nhanh",
+    "currentWeightLabel": "CÂN NẶNG HIỆN TẠI:",
+    "targetWeightLabel": "CÂN NẶNG MỤC TIÊU:",
+    "locationLabel": "ĐỊA ĐIỂM TẬP LUYỆN:",
+    "locationGymBtn": "🏢 Phòng Gym",
+    "locationHomeBtn": "🏠 Tại Nhà",
+    "frequencyLabel": "TẦN SUẤT TẬP LUYỆN:",
+    "frequencyDays": "{days} ngày/tuần",
+    "frequencyLight": "💡 Nhẹ nhàng / Tập duy trì",
+    "frequencyOptimal": "⚡ Tối ưu cho tăng cơ / giảm mỡ",
+    "frequencyHard": "🔥 Thử thách và cường độ cao",
+    "frequencyHardcore": "💀 Lịch tập hardcore / Chuyên nghiệp",
+    "recalculateBtn": "CẬP NHẬT & TÍNH TOÁN LẠI ✓",
+    "bodyStatsTitle": "Thông số thể trạng",
+    "bmiLabel": "Chỉ số hình thể (BMI)",
+    "bmiUnderweight": "Thiếu cân (Underweight)",
+    "bmiNormal": "Bình thường (Healthy)",
+    "bmiOverweight": "Thừa cân (Overweight)",
+    "bmiObese": "Béo phì (Obese)",
+    "weightGoalLabel": "Mục tiêu cân nặng",
+    "goalWeightLoss": "GIẢM CÂN",
+    "goalMuscleGain": "TĂNG CƠ",
+    "goalMaintain": "GIỮ CÂN",
+    "progressWeeks": "{pct}% lộ trình tuần {weeks}",
+    "recreateBtn": "↺ TẠO LẠI LỊCH TẬP",
+    "loadingText": "Đang tải và tính toán dữ liệu thể chất cá nhân...",
+    "addExerciseModalTitle": "THÊM BÀI TẬP",
+    "muscleGroupLabel": "1. CHỌN NHÓM CƠ MỤC TIÊU",
+    "exerciseSelectLabel": "2. CHỌN BÀI TẬP",
+    "noExerciseOption": "Không có bài tập phù hợp",
+    "setsLabel": "SỐ HIỆP (SETS)",
+    "repsLabel": "SỐ LẦN / HIỆP (REPS)",
+    "cancelBtn": "HỦY BỎ",
+    "confirmAddBtn": "XÁC NHẬN THÊM",
+    "muscleUpperChest": "Ngực trên (Upper Chest)",
+    "muscleMidLowerChest": "Ngực giữa & dưới (Mid/Lower Chest)",
+    "muscleLats": "Lưng rộng / Xô (Lats)",
+    "muscleUpperBack": "Lưng trên / Giữa (Upper Back)",
+    "muscleLowerBack": "Lưng dưới (Lower Back)",
+    "muscleFrontDelts": "Vai trước (Front Delts)",
+    "muscleSideDelts": "Vai giữa (Side Delts)",
+    "muscleRearDelts": "Vai sau (Rear Delts)",
+    "muscleBiceps": "Tay trước (Biceps)",
+    "muscleTriceps": "Tay sau (Triceps)",
+    "muscleQuads": "Đùi trước (Quads)",
+    "muscleHamGlutes": "Đùi sau & Mông (Hamstrings/Glutes)",
+    "muscleCalves": "Bắp chân (Calves)",
+    "muscleAbs": "Bụng & Cơ lõi (Abs/Core)",
+    "muscleCardio": "Cardio / Thể lực (Cardio)",
+    "swapTooltip": "Đổi sang bài tập này",
+    "currentlyViewing": "(Đang xem)",
+    "exerciseCount": "{count} BÀI TẬP",
+    "sameGroupLabel": "Danh sách cùng nhóm cơ",
+    "techniqueTitle": "HƯỚNG DẪN KỸ THUẬT",
+    "focusArea": "Focus Area",
+    "strengthBadge": "STRENGTH",
+    "techniqueNote": "Hãy cố định khớp xương vai và giữ khuỷu tay góc chéo 45 độ so với cơ thể để tối ưu áp lực cơ bắp. Cố gắng phát lực dứt khoát và kiểm soát pha hạ tạ chậm trong khoảng 2 giây.",
+    "techniqueSectionTitle": "LƯU Ý KỸ THUẬT CHUYÊN SÂU",
+    "setsStatLabel": "SỐ HIỆP",
+    "repsStatLabel": "SỐ LẦN (REPS)",
+    "restStatLabel": "NGHỈ (GIÂY)",
+    "dayMon": "THỨ 2",
+    "dayTue": "THỨ 3",
+    "dayWed": "THỨ 4",
+    "dayThu": "THỨ 5",
+    "dayFri": "THỨ 6",
+    "daySat": "THỨ 7",
+    "daySun": "CHỦ NHẬT",
+    "sessionFullBody": "Full Body (Toàn Thân)",
+    "sessionRest": "Nghỉ Ngơi",
+    "sessionPull": "Kéo (Pull Day)",
+    "sessionPush": "Đẩy (Push Day)",
+    "sessionLegs": "Chân & Bụng (Legs Day)",
+    "sessionUpper": "Thân Trên (Upper Body)",
+    "sessionLower": "Thân Dưới (Lower Body)",
+    "sessionAbsCardio": "Bụng & Cardio nhẹ"
+  },
+  "workout": {
+    "title": "Ghi Nhật Ký Tập",
+    "phase": "Giai đoạn",
+    "sessionProgress": "Tiến độ buổi tập",
+    "setsCompleted": "{done} sets đã hoàn thành",
+    "setsRemaining": "{remaining} còn lại",
+    "workoutDetails": "Chi tiết buổi tập",
+    "workoutName": "Tên buổi tập",
+    "workoutNamePlaceholder": "Ví dụ: Ngực & Vai – Tuần 4",
+    "primaryFocus": "Nhóm cơ chính",
+    "selectMuscleGroup": "Chọn nhóm cơ",
+    "quickStats": "Thống kê nhanh",
+    "exercises": "Bài tập",
+    "sets": "Sets",
+    "exerciseLibrary": "Thư viện bài tập",
+    "searchExercises": "Tìm kiếm bài tập...",
+    "activeExercises": "Bài tập đang thực hiện",
+    "addSet": "Thêm set",
+    "finishWorkout": "Kết thúc tập"
+  },
+  "nutrition": {
+    "title": "Dinh Dưỡng",
+    "subtitle": "Theo dõi chế độ ăn hôm nay",
+    "calories": "Calo",
+    "protein": "Protein",
+    "carbs": "Carbs",
+    "fat": "Chất béo",
+    "consumed": "Đã ăn",
+    "remaining": "Còn lại",
+    "addMeal": "Thêm bữa ăn",
+    "todayLog": "Nhật ký hôm nay"
+  },
+  "progress": {
+    "title": "Tiến Độ",
+    "subtitle": "Theo dõi hành trình của bạn",
+    "weight": "Cân nặng",
+    "bodyFat": "Tỷ lệ mỡ",
+    "workouts": "Buổi tập",
+    "volume": "Khối lượng"
+  },
+  "settings": {
+    "title": "Cài Đặt",
+    "subtitle": "Cấu hình",
+    "profile": "Hồ sơ",
+    "name": "Tên",
+    "goal": "Mục tiêu",
+    "goals": {
+      "weight_loss": "Giảm mỡ",
+      "muscle_gain": "Tăng cơ",
+      "endurance": "Sức bền",
+      "general": "Thể lực tổng thể"
+    },
+    "dailyTargets": "Mục tiêu hàng ngày",
+    "calorieTarget": "Mục tiêu calo",
+    "proteinTarget": "Mục tiêu protein",
+    "notifications": "Thông báo",
+    "workoutReminders": "Nhắc nhở tập luyện",
+    "workoutRemindersDesc": "Nhắc bạn tập đúng giờ đã lên lịch",
+    "mealLogging": "Ghi nhật ký bữa ăn",
+    "mealLoggingDesc": "Nhắc ghi lại các bữa ăn trong ngày",
+    "weeklySummary": "Tổng kết tuần",
+    "weeklySummaryDesc": "Nhận bản tóm tắt hiệu suất mỗi Chủ nhật",
+    "language": "Ngôn ngữ",
+    "languageDesc": "Chọn ngôn ngữ hiển thị",
+    "saveChanges": "Lưu thay đổi"
+  }
+}

@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { Modal, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useUserStore } from '@/store/useUserStore';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
+import { useTranslations } from 'next-intl';
 
 interface Exercise {
   name: string;
@@ -487,6 +489,62 @@ function generateWorkoutSchedule(
     });
   }
 
+  // Post-process for female workouts: reduce upper body, increase lower body, add cardio
+  if (gender === 'female') {
+    schedule.forEach((dayObj) => {
+      if (dayObj.isRest) return;
+
+      // 1. If it's an Upper body day (or Push/Pull day)
+      if (dayObj.label.includes('Thân Trên') || dayObj.label.includes('Đẩy') || dayObj.label.includes('Kéo')) {
+        const upperExercises = dayObj.exercises.filter(ex => 
+          !ex.target.includes('Mông') && !ex.target.includes('Đùi') && !ex.target.includes('Bắp chân') && !ex.target.includes('Cardio')
+        );
+        const nonUpperExercises = dayObj.exercises.filter(ex => 
+          ex.target.includes('Mông') || ex.target.includes('Đùi') || ex.target.includes('Bắp chân') || ex.target.includes('Cardio')
+        );
+
+        const reducedUpper = upperExercises.slice(0, 3);
+        
+        const hasCardio = dayObj.exercises.some(ex => ex.target.includes('Cardio'));
+        const cardioExercises: any[] = [];
+        if (!hasCardio) {
+          const cardioPool = MASTER_EXERCISES[location].cardio || [];
+          if (cardioPool.length > 0) {
+            const cEx = cardioPool[0];
+            cardioExercises.push({
+              name: cEx.name,
+              target: cEx.target,
+              sets: 3,
+              reps: '15-20 mins',
+              tier: cEx.tier
+            });
+          }
+        }
+        
+        dayObj.exercises = [...reducedUpper, ...nonUpperExercises, ...cardioExercises];
+      }
+
+      // 2. If it's a Lower body day (or Legs day)
+      if (dayObj.label.includes('Thân Dưới') || dayObj.label.includes('Chân')) {
+        const extraLower = location === 'gym' 
+          ? [
+              { name: "Glute Bridge (Cầu mông)", target: "Mông", sets: 4, reps: "15", tier: "B" as const },
+              { name: "Abductor Machine", target: "Mông đùi ngoài", sets: 4, reps: "15", tier: "B" as const }
+            ]
+          : [
+              { name: "Single-Leg Glute Bridge (Cầu mông 1 chân)", target: "Mông & Đùi sau", sets: 3, reps: "15", tier: "A" as const },
+              { name: "Dumbbell Donkey Kicks", target: "Cơ mông", sets: 3, reps: "15", tier: "B" as const }
+            ];
+
+        extraLower.forEach(ex => {
+          if (!dayObj.exercises.some(existing => existing.name === ex.name)) {
+            dayObj.exercises.push(ex);
+          }
+        });
+      }
+    });
+  }
+
   if (focusMuscles.length > 0) {
     let boosterCount = 0;
     
@@ -542,6 +600,59 @@ function generateWorkoutSchedule(
   return schedule;
 }
 
+// Localized mappers for legacy/hardcoded database strings
+function getLocalizedDay(day: string, t: any): string {
+  if (!day) return '';
+  const d = day.toUpperCase().trim();
+  switch (d) {
+    case 'THỨ 2': return t('dayMon');
+    case 'THỨ 3': return t('dayTue');
+    case 'THỨ 4': return t('dayWed');
+    case 'THỨ 5': return t('dayThu');
+    case 'THỨ 6': return t('dayFri');
+    case 'THỨ 7': return t('daySat');
+    case 'CHỦ NHẬT': return t('daySun');
+    default: return day;
+  }
+}
+
+function getLocalizedLabel(label: string, t: any): string {
+  if (!label) return '';
+  const l = label.toLowerCase();
+  if (l.includes('nghỉ ngơi')) return t('sessionRest');
+  if (l.includes('full body') || l.includes('toàn thân')) return t('sessionFullBody');
+  if (l.includes('kéo') || l.includes('pull')) return t('sessionPull');
+  if (l.includes('đẩy') || l.includes('push')) return t('sessionPush');
+  if (l.includes('chân & bụng') || l.includes('chân') || l.includes('legs')) return t('sessionLegs');
+  if (l.includes('thân trên') || l.includes('upper')) return t('sessionUpper');
+  if (l.includes('thân dưới') || l.includes('lower')) return t('sessionLower');
+  if (l.includes('bụng & cardio') || l.includes('cardio')) return t('sessionAbsCardio');
+  return label;
+}
+
+function getLocalizedTarget(target: string, t: any): string {
+  if (!target) return '';
+  const lower = target.toLowerCase();
+  
+  if (lower.includes('ngực trên')) return t('muscleUpperChest');
+  if (lower.includes('ngực giữa') || lower.includes('ngực dưới') || lower.includes('ngực trong')) return t('muscleMidLowerChest');
+  if (lower.includes('lưng xô') || lower.includes('lưng rộng') || lower.includes('xô')) return t('muscleLats');
+  if (lower.includes('lưng giữa') || lower.includes('lưng trên') || lower.includes('cầu vai')) return t('muscleUpperBack');
+  if (lower.includes('lưng dưới')) return t('muscleLowerBack');
+  if (lower.includes('vai trước')) return t('muscleFrontDelts');
+  if (lower.includes('vai giữa')) return t('muscleSideDelts');
+  if (lower.includes('vai sau')) return t('muscleRearDelts');
+  if (lower.includes('tay trước')) return t('muscleBiceps');
+  if (lower.includes('tay sau')) return t('muscleTriceps');
+  if (lower.includes('đùi trước')) return t('muscleQuads');
+  if (lower.includes('đùi sau') || lower.includes('mông') || lower.includes('đùi mông') || lower.includes('cơ mông')) return t('muscleHamGlutes');
+  if (lower.includes('bắp chân')) return t('muscleCalves');
+  if (lower.includes('bụng') || lower.includes('cơ core')) return t('muscleAbs');
+  if (lower.includes('cardio') || lower.includes('tim mạch')) return t('muscleCardio');
+  
+  return target;
+}
+
 // ── ExerciseDetailModal ────────────────────────────────────────────────────────
 function ExerciseDetailModal({
   exercise,
@@ -555,6 +666,7 @@ function ExerciseDetailModal({
   onClose: () => void;
 }) {
   const { profile, updateProfile } = useUserStore();
+  const t = useTranslations('dashboard');
 
   if (!exercise) return null;
 
@@ -641,8 +753,8 @@ function ExerciseDetailModal({
             <div className="flex items-center gap-2 mb-4">
               <div className="w-1 h-10 rounded-full" style={{ background: 'linear-gradient(180deg,#ff525c,#fe6b00)' }} />
               <div>
-                <div style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.1em', color: '#ffb3b2', textTransform: 'uppercase' }}>Focus Area</div>
-                <div style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fff' }}>HƯỚNG DẪN KỸ THUẬT</div>
+                <div style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.1em', color: '#ffb3b2', textTransform: 'uppercase' }}>{t('focusArea')}</div>
+                <div style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fff' }}>{t('techniqueTitle')}</div>
               </div>
             </div>
           </div>
@@ -664,10 +776,10 @@ function ExerciseDetailModal({
                 className="px-2 py-1 rounded text-xs"
                 style={{ fontFamily: 'var(--font-jetbrains)', backgroundColor: 'rgba(255,82,92,0.2)', color: '#ff525c', letterSpacing: '0.06em' }}
               >
-                STRENGTH
+                {t('strengthBadge')}
               </span>
               <span style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '11px', color: '#e9bcba', letterSpacing: '0.06em' }}>
-                {exercise.target.toUpperCase()}
+                {getLocalizedTarget(exercise.target, t).toUpperCase()}
               </span>
               {renderTierBadge(exercise.tier)}
             </div>
@@ -687,9 +799,9 @@ function ExerciseDetailModal({
 
           <div className="grid grid-cols-3 gap-3">
             {[
-              { label: 'SỐ HIỆP', value: exercise.sets || 4 },
-              { label: 'SỐ LẦN (REPS)', value: exercise.reps || '12' },
-              { label: 'NGHỈ (GIÂY)', value: 90 },
+              { label: t('setsStatLabel'), value: exercise.sets || 4 },
+              { label: t('repsStatLabel'), value: exercise.reps || '12' },
+              { label: t('restStatLabel'), value: 90 },
             ].map((s) => (
               <div
                 key={s.label}
@@ -707,17 +819,17 @@ function ExerciseDetailModal({
               className="pl-3 border-l-2"
               style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '11px', letterSpacing: '0.08em', color: '#ffb3b2', textTransform: 'uppercase', borderColor: '#ff003c' }}
             >
-              LƯU Ý KỸ THUẬT CHUYÊN SÂU
+              {t('techniqueSectionTitle')}
             </h3>
             <p style={{ fontSize: '14px', lineHeight: 1.6, color: '#e9bcba' }}>
-              Hãy cố định khớp xương vai và giữ khuỷu tay góc chéo 45 độ so với cơ thể để tối ưu áp lực cơ bắp. Cố gắng phát lực dứt khoát và kiểm soát pha hạ tạ chậm trong khoảng 2 giây.
+              {t('techniqueNote')}
             </p>
           </div>
 
           <div className="flex flex-col gap-4 pt-4 border-t" style={{ borderColor: '#5f3e3e' }}>
             <div className="flex justify-between items-center">
-              <h3 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '16px', textTransform: 'uppercase' }}>Danh sách cùng nhóm cơ</h3>
-              <span style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', color: '#e9bcba', letterSpacing: '0.06em' }}>{listToRender.length} BÀI TẬP</span>
+              <h3 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '16px', textTransform: 'uppercase' }}>{t('sameGroupLabel')}</h3>
+              <span style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', color: '#e9bcba', letterSpacing: '0.06em' }}>{t('exerciseCount', { count: listToRender.length })}</span>
             </div>
             <div className="flex flex-col gap-2 overflow-y-auto max-h-[220px] pr-1.5">
               {listToRender.map((item) => {
@@ -738,15 +850,15 @@ function ExerciseDetailModal({
                       />
                       <div>
                         <div style={{ fontWeight: 600, fontSize: '14px', color: isCurrent ? '#ffdad8' : '#e9bcba' }}>
-                          {item.name} {isCurrent && <span className="text-[10px] text-[#ff525c] ml-2">(Đang xem)</span>}
+                          {item.name} {isCurrent && <span className="text-[10px] text-[#ff525c] ml-2">{t('currentlyViewing')}</span>}
                         </div>
-                        <div style={{ fontSize: '11px', color: '#a78584' }}>{item.target}</div>
+                        <div style={{ fontSize: '11px', color: '#a78584' }}>{getLocalizedTarget(item.target, t)}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-3">
                       {renderTierBadge(item.tier)}
                       {!isCurrent && dayName && (
-                        <Tooltip label="Đổi sang bài tập này" position="top" withArrow color="dark">
+                        <Tooltip label={t('swapTooltip')} position="top" withArrow color="dark">
                           <button
                             onClick={() => handleSwap(item)}
                             className="w-8 h-8 rounded-lg text-sm font-bold transition-all duration-200 hover:bg-[#ff003c] hover:border-transparent hover:text-white hover:scale-[1.05] hover:shadow-[0_0_12px_rgba(255,0,60,0.35)] flex items-center justify-center"
@@ -777,11 +889,16 @@ function ExerciseDetailModal({
 export default function DashboardPage() {
   const router = useRouter();
   const { profile, updateProfile, resetStore } = useUserStore();
+  const t = useTranslations('dashboard');
   
   const [opened, { open, close }] = useDisclosure(false);
   const [addModalOpened, setAddModalOpened] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [selectedExerciseDay, setSelectedExerciseDay] = useState<string>('');
+  const [isHydrated, setIsHydrated] = useState(false);
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
   
   // Local state for dashboard adjustments
   const [weightInput, setWeightInput] = useState<number>(70);
@@ -967,13 +1084,33 @@ export default function DashboardPage() {
     setAddModalOpened(false);
   };
 
+  if (!isHydrated || !profile.customSchedule) {
+    return (
+      <div 
+        className="min-h-screen flex flex-col justify-center items-center"
+        style={{ backgroundColor: '#140707', color: '#ffdad8', fontFamily: 'var(--font-hanken)' }}
+      >
+        <div className="flex flex-col items-center gap-4">
+          <div className="relative w-16 h-16">
+            <div className="absolute inset-0 rounded-full border-4 border-t-red-600 border-r-transparent border-b-orange-500 border-l-transparent animate-spin"></div>
+            <div className="absolute inset-2 rounded-full bg-red-950/20 blur-sm"></div>
+          </div>
+          <div className="text-center space-y-1 mt-2">
+            <h2 className="text-lg font-bold uppercase tracking-wider text-white font-mono animate-pulse">GYM SLAVE</h2>
+            <p className="text-xs opacity-70 font-mono">{t('loadingText')}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const currentSchedule = profile.customSchedule || [];
 
   const getBmiCategory = (val: number) => {
-    if (val < 18.5) return { text: 'Thiếu cân (Underweight)', color: '#6cd7d8' };
-    if (val < 24.9) return { text: 'Bình thường (Healthy)', color: '#4caf50' };
-    if (val < 29.9) return { text: 'Thừa cân (Overweight)', color: '#fe6b00' };
-    return { text: 'Béo phì (Obese)', color: '#ff003c' };
+    if (val < 18.5) return { text: t('bmiUnderweight'), color: '#6cd7d8' };
+    if (val < 24.9) return { text: t('bmiNormal'), color: '#4caf50' };
+    if (val < 29.9) return { text: t('bmiOverweight'), color: '#fe6b00' };
+    return { text: t('bmiObese'), color: '#ff003c' };
   };
 
   const bmiDetails = getBmiCategory(profile.bmi || 22.0);
@@ -996,23 +1133,26 @@ export default function DashboardPage() {
             style={{ fontFamily: 'var(--font-anybody)', fontWeight: 800, fontSize: '20px', letterSpacing: '-0.02em', textTransform: 'uppercase' }}
             className="gradient-text"
           >
-            IRON_PULSE
+            GYM SLAVE
           </span>
-          <button
-            onClick={handleRecreateWorkout}
-            className="flex items-center gap-2 px-5 py-2 rounded-lg uppercase transition-all active:scale-95 font-bold"
-            style={{
-              background: 'linear-gradient(135deg, #bf002a, #fe6b00)',
-              color: '#fff',
-              fontFamily: 'var(--font-jetbrains)',
-              fontSize: '11px',
-              letterSpacing: '0.08em',
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            ↺ TẠO LẠI LỊCH TẬP
-          </button>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <button
+              onClick={handleRecreateWorkout}
+              className="flex items-center gap-2 px-5 py-2 rounded-lg uppercase transition-all active:scale-95 font-bold"
+              style={{
+                background: 'linear-gradient(135deg, #bf002a, #fe6b00)',
+                color: '#fff',
+                fontFamily: 'var(--font-jetbrains)',
+                fontSize: '11px',
+                letterSpacing: '0.08em',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              {t('recreateBtn')}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -1022,14 +1162,14 @@ export default function DashboardPage() {
         {/* Profile greeting */}
         <div className="mb-12">
           <h1 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 800, fontSize: 'clamp(32px,5vw,44px)', lineHeight: 1.1, letterSpacing: '-0.02em', color: '#fff' }}>
-            Chào buổi sáng, Chiến binh
+            {t('greeting')}
           </h1>
           <p style={{ fontSize: '16px', color: '#e9bcba', marginTop: '4px' }}>
-            Giới tính: <span className="font-bold text-white uppercase">{profile.gender === 'male' ? 'Nam' : 'Nữ'}</span> • Địa điểm tập: <span className="font-bold text-white uppercase">{profile.trainingLocation === 'gym' ? 'Phòng Gym' : 'Tại Nhà'}</span> • Kế hoạch cam kết: <span className="font-bold text-white">{profile.targetWeeks || 12} tuần</span>
+            {t('profileGender')}: <span className="font-bold text-white uppercase">{profile.gender === 'male' ? t('genderMale') : t('genderFemale')}</span> • {t('profileLocation')}: <span className="font-bold text-white uppercase">{profile.trainingLocation === 'gym' ? t('locationGym') : t('locationHome')}</span> • {t('profileCommitment')}: <span className="font-bold text-white">{t('commitmentWeeks', { weeks: profile.targetWeeks || 12 })}</span>
           </p>
           {profile.focusMuscleGroups && profile.focusMuscleGroups.length > 0 && (
             <p style={{ fontSize: '13px', color: '#fe6b00', marginTop: '4px' }}>
-              Nhóm cơ ưu tiên: <span className="font-bold text-white uppercase">{profile.focusMuscleGroups.join(', ')} (Đã tăng cường bài tập đặc thù)</span>
+              {t('focusMuscleLabel')}: <span className="font-bold text-white uppercase">{profile.focusMuscleGroups.join(', ')} {t('focusMuscleBoost')}</span>
             </p>
           )}
         </div>
@@ -1046,9 +1186,9 @@ export default function DashboardPage() {
               {/* Section header */}
               <div className="p-6 flex items-center justify-between border-b" style={{ borderColor: '#4e2a2a' }}>
                 <div>
-                  <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '20px', color: '#fff' }}>Kế hoạch tập luyện 7 ngày</h2>
+                  <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '20px', color: '#fff' }}>{t('weeklyScheduleTitle')}</h2>
                   <p style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.08em', color: '#e9bcba', textTransform: 'uppercase', marginTop: '2px' }}>
-                    Tần suất: {profile.workoutDaysPerWeek || 4} ngày / tuần • Thiết kế cá nhân hóa
+                    {t('weeklyFrequency', { days: profile.workoutDaysPerWeek || 4 })}
                   </p>
                 </div>
               </div>
@@ -1075,7 +1215,7 @@ export default function DashboardPage() {
                             letterSpacing: '0.06em',
                           }}
                         >
-                          {day.day}
+                          {getLocalizedDay(day.day, t)}
                         </span>
                         <h3
                           style={{
@@ -1087,14 +1227,14 @@ export default function DashboardPage() {
                             color: day.isRest ? '#af8786' : '#fff',
                           }}
                         >
-                          {day.label}
+                          {getLocalizedLabel(day.label, t)}
                         </h3>
                         {day.isToday && (
                           <span
                             className="px-2 py-0.5 rounded-full text-[9px] font-bold"
                             style={{ backgroundColor: 'rgba(255,82,92,0.15)', color: '#ff525c', fontFamily: 'var(--font-jetbrains)', letterSpacing: '0.06em' }}
                           >
-                            HÔM NAY
+                            {t('todayBadge')}
                           </span>
                         )}
                       </div>
@@ -1106,21 +1246,21 @@ export default function DashboardPage() {
                           className="text-[10px] px-3 py-1 rounded border border-[#fe6b00]/30 hover:border-[#fe6b00] text-[#fe6b00] font-bold uppercase transition-all font-mono"
                           style={{ background: 'none', cursor: 'pointer' }}
                         >
-                          + Thêm bài tập
+                          {t('addExerciseBtn')}
                         </button>
                       )}
                     </div>
 
                     {day.isRest ? (
-                      <p style={{ color: '#af8786', fontStyle: 'italic', fontSize: '13px' }}>Nghỉ ngơi cơ bắp & Phục hồi hoàn toàn.</p>
+                      <p style={{ color: '#af8786', fontStyle: 'italic', fontSize: '13px' }}>{t('restDayDesc')}</p>
                     ) : day.exercises.length === 0 ? (
-                      <p style={{ color: '#af8786', fontStyle: 'italic', fontSize: '12px' }}>Không có bài tập nào cho ngày hôm nay.</p>
+                      <p style={{ color: '#af8786', fontStyle: 'italic', fontSize: '12px' }}>{t('noExercisesDay')}</p>
                     ) : (
                       <div className="overflow-x-auto">
                         <table className="w-full text-left text-sm border-collapse">
                           <thead>
                             <tr style={{ borderBottom: '1px solid rgba(78, 42, 42, 0.4)' }}>
-                              {['Bài Tập', 'Cơ Mục Tiêu', 'Hiệp', 'Lần', ''].map((h) => (
+                              {[t('tableExercise'), t('tableMuscle'), t('tableSets'), t('tableReps'), ''].map((h) => (
                                 <th
                                   key={h}
                                   className="py-2 pr-4 uppercase"
@@ -1144,7 +1284,7 @@ export default function DashboardPage() {
                                   {ex.name}
                                   {renderTierBadge(ex.tier)}
                                 </td>
-                                <td className="py-3 px-4" style={{ color: '#e9bcba' }} onClick={() => openModal(ex, day.day)}>{ex.target}</td>
+                                <td className="py-3 px-4" style={{ color: '#e9bcba' }} onClick={() => openModal(ex, day.day)}>{getLocalizedTarget(ex.target, t)}</td>
                                 <td className="py-3 px-4" onClick={() => openModal(ex, day.day)}>{ex.sets}</td>
                                 <td className="py-3 px-4" onClick={() => openModal(ex, day.day)}>{ex.reps}</td>
                                 <td className="py-3 pl-4 text-right">
@@ -1156,7 +1296,7 @@ export default function DashboardPage() {
                                     }}
                                     className="text-[#ff525c] hover:text-red-500 font-bold bg-none border-none text-xs transition-colors p-1"
                                     style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-                                    title="Xóa bài tập này"
+                                    title={t('deleteExercise')}
                                   >
                                     ✕
                                   </button>
@@ -1176,10 +1316,10 @@ export default function DashboardPage() {
             <section>
               <div className="flex items-center justify-between mb-3 mt-10">
                 <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '20px', color: '#fff' }}>
-                  Gợi ý dinh dưỡng ({profile.goal === 'weight_loss' ? 'Chế độ Giảm mỡ' : profile.goal === 'muscle_gain' ? 'Chế độ Tăng cơ' : 'Chế độ Cân bằng'})
+                  {t('nutritionTitle')} ({profile.goal === 'weight_loss' ? t('nutritionWeightLoss') : profile.goal === 'muscle_gain' ? t('nutritionMuscleGain') : t('nutritionGeneral')})
                 </h2>
                 <span style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.08em', color: '#e9bcba', textTransform: 'uppercase' }}>
-                  THỰC PHẨM ĐƯỢC CHỌN LỌC
+                  {t('nutritionCurated')}
                 </span>
               </div>
               <div className="rounded-xl border overflow-hidden" style={{ backgroundColor: 'rgba(46,20,20,0.3)', borderColor: '#4e2a2a' }}>
@@ -1196,7 +1336,7 @@ export default function DashboardPage() {
                       <div>
                         <span className="fontWeight-600 text-white" style={{ fontSize: '15px' }}>{food.name}</span>
                         <span className="block text-[11px] text-[#e9bcba] mt-0.5">
-                          Định lượng: {food.per}
+                          {t('nutritionPer')}: {food.per}
                         </span>
                       </div>
                     </div>
@@ -1229,28 +1369,28 @@ export default function DashboardPage() {
                   className="block mb-2"
                   style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.1em', color: '#e9bcba', textTransform: 'uppercase' }}
                 >
-                  Mục tiêu năng lượng (TDEE)
+                  {t('tdeeLabel')}
                 </span>
                 <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 800, fontSize: '42px', lineHeight: 1, letterSpacing: '-0.02em', color: '#fff' }}>
                   {profile.dailyCalorieTarget || 2200}{' '}
-                  <span style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fe6b00' }}>KCAL / NGÀY</span>
+                  <span style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fe6b00' }}>{t('kcalPerDay')}</span>
                 </h2>
                 {profile.tdee && (
-                  <span className="text-[11px] opacity-60 mt-1 font-mono">Chỉ số chuyển hóa cơ bản (BMR): {profile.bmr} kcal</span>
+                  <span className="text-[11px] opacity-60 mt-1 font-mono">{t('bmrLabel', { bmr: profile.bmr })}</span>
                 )}
               </div>
               <div className="flex justify-between px-2 pt-4 border-t border-[#4e2a2a]/40" style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '11px' }}>
                 <div className="text-left">
                   <p style={{ color: '#6cd7d8', fontWeight: 700, fontSize: '15px' }}>{profile.dailyProteinTarget || 140}g</p>
-                  <p style={{ color: '#e9bcba', textTransform: 'uppercase', fontSize: '9px' }}>ĐẠM (PROTEIN)</p>
+                  <p style={{ color: '#e9bcba', textTransform: 'uppercase', fontSize: '9px' }}>{t('proteinLabel')}</p>
                 </div>
                 <div className="text-center">
                   <p style={{ color: '#ffb693', fontWeight: 700, fontSize: '15px' }}>~{Math.round((profile.dailyCalorieTarget * 0.5) / 4)}g</p>
-                  <p style={{ color: '#e9bcba', textTransform: 'uppercase', fontSize: '9px' }}>Tinh bột</p>
+                  <p style={{ color: '#e9bcba', textTransform: 'uppercase', fontSize: '9px' }}>{t('carbsLabel')}</p>
                 </div>
                 <div className="text-right">
                   <p style={{ color: '#ffb4ab', fontWeight: 700, fontSize: '15px' }}>~{Math.round((profile.dailyCalorieTarget * 0.2) / 9)}g</p>
-                  <p style={{ color: '#e9bcba', textTransform: 'uppercase', fontSize: '9px' }}>Béo</p>
+                  <p style={{ color: '#e9bcba', textTransform: 'uppercase', fontSize: '9px' }}>{t('fatLabel')}</p>
                 </div>
               </div>
             </section>
@@ -1261,13 +1401,13 @@ export default function DashboardPage() {
               style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a' }}
             >
               <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fff' }}>
-                ⚙️ Điều chỉnh mục tiêu nhanh
+                ⚙️ {t('quickAdjustTitle')}
               </h2>
 
               {/* Adjust Current Weight */}
               <div className="space-y-2">
                 <div className="flex justify-between text-xs font-mono">
-                  <span style={{ color: '#e9bcba' }}>CÂN NẶNG HIỆN TẠI:</span>
+                  <span style={{ color: '#e9bcba' }}>{t('currentWeightLabel')}</span>
                   <span className="font-bold text-white">{weightInput} KG</span>
                 </div>
                 <input
@@ -1287,7 +1427,7 @@ export default function DashboardPage() {
               {/* Adjust Weight Goal */}
               <div className="space-y-2">
                 <div className="flex justify-between text-xs font-mono">
-                  <span style={{ color: '#e9bcba' }}>CÂN NẶNG MỤC TIÊU:</span>
+                  <span style={{ color: '#e9bcba' }}>{t('targetWeightLabel')}</span>
                   <span className="font-bold text-white">{targetWeightInput} KG</span>
                 </div>
                 <input
@@ -1307,7 +1447,7 @@ export default function DashboardPage() {
               {/* Adjust Location Gym/Home */}
               <div className="space-y-2">
                 <label className="block text-xs font-mono" style={{ color: '#e9bcba' }}>
-                  ĐỊA ĐIỂM TẬP LUYỆN:
+                  {t('locationLabel')}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
@@ -1320,7 +1460,7 @@ export default function DashboardPage() {
                       cursor: 'pointer',
                     }}
                   >
-                    🏢 Phòng Gym
+                    {t('locationGymBtn')}
                   </button>
                   <button
                     onClick={() => setLocationInput('home')}
@@ -1332,7 +1472,7 @@ export default function DashboardPage() {
                       cursor: 'pointer',
                     }}
                   >
-                    🏠 Tại Nhà
+                    {t('locationHomeBtn')}
                   </button>
                 </div>
               </div>
@@ -1341,10 +1481,10 @@ export default function DashboardPage() {
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <label className="text-xs font-mono" style={{ color: '#e9bcba' }}>
-                    TẦN SUẤT TẬP LUYỆN:
+                    {t('frequencyLabel')}
                   </label>
                   <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-[#ff003c]/20 border border-[#ff003c]/40 text-[#ff525c]">
-                    {workoutDaysInput} ngày/tuần
+                    {t('frequencyDays', { days: workoutDaysInput })}
                   </span>
                 </div>
                 <div className="grid grid-cols-7 gap-1.5">
@@ -1381,10 +1521,10 @@ export default function DashboardPage() {
                   })}
                 </div>
                 <div className="text-[10px] text-right font-mono" style={{ color: '#a38a8a' }}>
-                  {workoutDaysInput <= 2 && '💡 Nhẹ nhàng / Tập duy trì'}
-                  {workoutDaysInput >= 3 && workoutDaysInput <= 4 && '⚡ Tối ưu cho tăng cơ / giảm mỡ'}
-                  {workoutDaysInput === 5 && '🔥 Thử thách và cường độ cao'}
-                  {workoutDaysInput >= 6 && '💀 Lịch tập hardcore / Chuyên nghiệp'}
+                  {workoutDaysInput <= 2 && t('frequencyLight')}
+                  {workoutDaysInput >= 3 && workoutDaysInput <= 4 && t('frequencyOptimal')}
+                  {workoutDaysInput === 5 && t('frequencyHard')}
+                  {workoutDaysInput >= 6 && t('frequencyHardcore')}
                 </div>
               </div>
 
@@ -1403,13 +1543,13 @@ export default function DashboardPage() {
                   boxShadow: '0 4px 15px rgba(255,0,60,0.2)',
                 }}
               >
-                CẬP NHẬT & TÍNH TOÁN LẠI ✓
+                {t('recalculateBtn')}
               </button>
             </section>
 
             {/* Target Settings with BMI display */}
             <section className="rounded-xl p-6 border space-y-6" style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a' }}>
-              <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fff' }}>Thông số thể trạng</h2>
+              <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fff' }}>{t('bodyStatsTitle')}</h2>
 
               {/* BMI Output */}
               <div>
@@ -1417,7 +1557,7 @@ export default function DashboardPage() {
                   className="block mb-2"
                   style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.08em', color: '#e9bcba', textTransform: 'uppercase' }}
                 >
-                  Chỉ số hình thể (BMI)
+                  {t('bmiLabel')}
                 </label>
                 <div
                   className="p-4 rounded-xl border flex justify-between items-center"
@@ -1439,7 +1579,7 @@ export default function DashboardPage() {
                   className="block mb-2"
                   style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.08em', color: '#e9bcba', textTransform: 'uppercase' }}
                 >
-                  Mục tiêu cân nặng
+                  {t('weightGoalLabel')}
                 </label>
                 <div
                   className="flex items-center justify-between p-3 rounded-lg border"
@@ -1447,7 +1587,7 @@ export default function DashboardPage() {
                 >
                   <span style={{ fontWeight: 700, fontSize: '16px', color: '#fff' }}>{profile.targetWeight || 70} kg</span>
                   <span className="text-xs px-2 py-0.5 rounded bg-orange-950/20 border border-[#fe6b00] text-[#fe6b00]" style={{ fontFamily: 'var(--font-jetbrains)' }}>
-                    {profile.goal === 'weight_loss' ? 'GIẢM CÂN' : profile.goal === 'muscle_gain' ? 'TĂNG CƠ' : 'GIỮ CÂN'}
+                    {profile.goal === 'weight_loss' ? t('goalWeightLoss') : profile.goal === 'muscle_gain' ? t('goalMuscleGain') : t('goalMaintain')}
                   </span>
                 </div>
               </div>
@@ -1468,7 +1608,7 @@ export default function DashboardPage() {
                   className="mt-3 text-center uppercase"
                   style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '9px', letterSpacing: '0.08em', color: '#e9bcba' }}
                 >
-                  {progressPct}% lộ trình tuần {profile.targetWeeks || 12}
+                  {t('progressWeeks', { pct: progressPct, weeks: profile.targetWeeks || 12 })}
                 </p>
               </div>
             </section>
@@ -1483,7 +1623,7 @@ export default function DashboardPage() {
       <Modal
         opened={addModalOpened}
         onClose={() => setAddModalOpened(false)}
-        title={`THÊM BÀI TẬP - ${targetDayName}`}
+        title={`${t('addExerciseModalTitle')} - ${getLocalizedDay(targetDayName, t)}`}
         radius="lg"
         centered
         overlayProps={{ blur: 15, backgroundOpacity: 0.8, color: '#0d0d0d' }}
@@ -1496,34 +1636,34 @@ export default function DashboardPage() {
           
           {/* Dropdown 1: Target Muscle */}
           <div className="flex flex-col gap-1">
-            <label className="text-[11px] font-mono text-[#e9bcba]">1. CHỌN NHÓM CƠ MỤC TIÊU</label>
+            <label className="text-[11px] font-mono text-[#e9bcba]">{t('muscleGroupLabel')}</label>
             <select
               value={selectedMuscle}
               onChange={(e) => setSelectedMuscle(e.target.value)}
               className="px-3 py-2.5 rounded-lg border cursor-pointer focus:outline-none"
               style={{ backgroundColor: '#2e1414', borderColor: '#4e2a2a', color: '#fff' }}
             >
-              <option value="nguc_tren">Ngực trên (Upper Chest)</option>
-              <option value="nguc_giua_duoi">Ngực giữa & dưới (Mid/Lower Chest)</option>
-              <option value="lung_xo">Lưng rộng / Xô (Lats)</option>
-              <option value="lung_tren">Lưng trên / Giữa (Upper Back)</option>
-              <option value="lung_duoi">Lưng dưới (Lower Back)</option>
-              <option value="vai_truoc">Vai trước (Front Delts)</option>
-              <option value="vai_giua">Vai giữa (Side Delts)</option>
-              <option value="vai_sau">Vai sau (Rear Delts)</option>
-              <option value="tay_truoc">Tay trước (Biceps)</option>
-              <option value="tay_sau">Tay sau (Triceps)</option>
-              <option value="dui_truoc">Đùi trước (Quads)</option>
-              <option value="dui_sau_mong">Đùi sau & Mông (Hamstrings/Glutes)</option>
-              <option value="bap_chan">Bắp chân (Calves)</option>
-              <option value="bung">Bụng & Cơ lõi (Abs/Core)</option>
-              <option value="cardio">Cardio / Thể lực (Cardio)</option>
+              <option value="nguc_tren">{t('muscleUpperChest')}</option>
+              <option value="nguc_giua_duoi">{t('muscleMidLowerChest')}</option>
+              <option value="lung_xo">{t('muscleLats')}</option>
+              <option value="lung_tren">{t('muscleUpperBack')}</option>
+              <option value="lung_duoi">{t('muscleLowerBack')}</option>
+              <option value="vai_truoc">{t('muscleFrontDelts')}</option>
+              <option value="vai_giua">{t('muscleSideDelts')}</option>
+              <option value="vai_sau">{t('muscleRearDelts')}</option>
+              <option value="tay_truoc">{t('muscleBiceps')}</option>
+              <option value="tay_sau">{t('muscleTriceps')}</option>
+              <option value="dui_truoc">{t('muscleQuads')}</option>
+              <option value="dui_sau_mong">{t('muscleHamGlutes')}</option>
+              <option value="bap_chan">{t('muscleCalves')}</option>
+              <option value="bung">{t('muscleAbs')}</option>
+              <option value="cardio">{t('muscleCardio')}</option>
             </select>
           </div>
 
           {/* Dropdown 2: Exercises matching chosen Muscle Group */}
           <div className="flex flex-col gap-1">
-            <label className="text-[11px] font-mono text-[#e9bcba]">2. CHỌN BÀI TẬP</label>
+            <label className="text-[11px] font-mono text-[#e9bcba]">{t('exerciseSelectLabel')}</label>
             <select
               value={selectedExerciseName}
               onChange={(e) => setSelectedExerciseName(e.target.value)}
@@ -1531,7 +1671,7 @@ export default function DashboardPage() {
               style={{ backgroundColor: '#2e1414', borderColor: '#4e2a2a', color: '#fff' }}
             >
               {availableExercisesList.length === 0 ? (
-                <option value="">Không có bài tập phù hợp</option>
+                <option value="">{t('noExerciseOption')}</option>
               ) : (
                 availableExercisesList.map((ex) => (
                   <option key={ex.name} value={ex.name}>
@@ -1545,7 +1685,7 @@ export default function DashboardPage() {
           {/* Sets and Reps inputs */}
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1">
-              <label className="text-[11px] font-mono text-[#e9bcba]">SỐ HIỆP (SETS)</label>
+              <label className="text-[11px] font-mono text-[#e9bcba]">{t('setsLabel')}</label>
               <input
                 type="number"
                 min={1}
@@ -1557,7 +1697,7 @@ export default function DashboardPage() {
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-[11px] font-mono text-[#e9bcba]">SỐ LẦN / HIỆP (REPS)</label>
+              <label className="text-[11px] font-mono text-[#e9bcba]">{t('repsLabel')}</label>
               <input
                 type="text"
                 value={customReps}
@@ -1575,7 +1715,7 @@ export default function DashboardPage() {
               className="px-4 py-2.5 rounded-lg border transition-all text-xs font-bold uppercase font-mono"
               style={{ backgroundColor: 'transparent', borderColor: '#4e2a2a', color: '#e9bcba', cursor: 'pointer' }}
             >
-              HỦY BỎ
+              {t('cancelBtn')}
             </button>
             <button
               onClick={handleConfirmAddExercise}
@@ -1587,7 +1727,7 @@ export default function DashboardPage() {
                 cursor: 'pointer',
               }}
             >
-              XÁC NHẬN THÊM
+              {t('confirmAddBtn')}
             </button>
           </div>
 

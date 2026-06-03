@@ -1,26 +1,28 @@
 'use client';
 
 import { ActionIcon, Avatar, Badge, Text, Indicator } from '@mantine/core';
-import { IconMenu2, IconBell, IconSearch } from '@tabler/icons-react';
+import { IconMenu2, IconBell } from '@tabler/icons-react';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useAppStore } from '@/store/useAppStore';
 import { useUserStore } from '@/store/useUserStore';
-
-const pageTitles: Record<string, string> = {
-  '/dashboard': 'Dashboard',
-  '/workout': 'Workout',
-  '/nutrition': 'Nutrition',
-  '/progress': 'Progress',
-  '/settings': 'Settings',
-};
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 
 export function Header() {
   const pathname = usePathname();
   const { toggleSidebar } = useAppStore();
   const { profile } = useUserStore();
+  const t = useTranslations('header');
 
-  const pageTitle =
-    Object.entries(pageTitles).find(([key]) => pathname.startsWith(key))?.[1] ?? 'Ignite';
+  // Map pathname segment to translation key
+  const getPageTitle = () => {
+    if (pathname.includes('/dashboard')) return t('pages.dashboard');
+    if (pathname.includes('/workout')) return t('pages.workout');
+    if (pathname.includes('/nutrition')) return t('pages.nutrition');
+    if (pathname.includes('/progress')) return t('pages.progress');
+    if (pathname.includes('/settings')) return t('pages.settings');
+    return 'Gym Slave';
+  };
 
   return (
     <header
@@ -39,7 +41,7 @@ export function Header() {
         </ActionIcon>
         <div>
           <p className="label-caps" style={{ color: '#5f3e3e' }}>
-            IGNITE FITNESS
+            {t('brand')}
           </p>
           <Text
             style={{
@@ -50,15 +52,14 @@ export function Header() {
               lineHeight: 1.2,
             }}
           >
-            {pageTitle}
+            {getPageTitle()}
           </Text>
         </div>
       </div>
 
       <div className="flex items-center gap-3">
-        <ActionIcon variant="subtle" color="gray" size="lg" radius="lg">
-          <IconSearch size={18} />
-        </ActionIcon>
+        {/* Language Switcher */}
+        <LanguageSwitcher />
 
         <Indicator color="red" size={8} offset={4}>
           <ActionIcon variant="subtle" color="gray" size="lg" radius="lg">

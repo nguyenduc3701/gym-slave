@@ -1,0 +1,347 @@
+{
+  "metadata": {
+    "home": {
+      "title": "Gym Slave – Entraîne-toi. Suis tes progrès. Domine.",
+      "description": "Gym Slave est une application de planning fitness personnalisé selon votre morphologie, sexe et objectifs."
+    },
+    "dashboard": {
+      "title": "Tableau de bord",
+      "description": "Consultez votre programme d'entraînement hebdomadaire personnalisé généré par Gym Slave."
+    },
+    "workout": {
+      "title": "Journal d'entraînement",
+      "description": "Enregistrez et gérez vos séances d'entraînement personnalisées selon vos objectifs."
+    },
+    "nutrition": {
+      "title": "Nutrition",
+      "description": "Suivez votre apport calorique et nutritionnel quotidien pour soutenir vos objectifs."
+    },
+    "progress": {
+      "title": "Suivi des progrès",
+      "description": "Surveillez vos progrès en salle de sport au fil du temps avec des graphiques détaillés."
+    },
+    "onboarding": {
+      "title": "Créer votre profil",
+      "description": "Entrez vos informations personnelles pour recevoir un programme sur mesure."
+    },
+    "settings": {
+      "title": "Paramètres",
+      "description": "Gérez vos paramètres de compte et votre profil personnel sur Gym Slave."
+    }
+  },
+  "common": {
+    "appName": "GYM SLAVE",
+    "loading": "Chargement...",
+    "save": "Enregistrer",
+    "skip": "Ignorer",
+    "next": "Suivant",
+    "back": "Retour",
+    "finish": "Terminer",
+    "optional": "Optionnel",
+    "required": "Obligatoire",
+    "version": "VERSION 1.0"
+  },
+  "nav": {
+    "mainMenu": "Menu principal",
+    "dashboard": "Tableau de bord",
+    "workout": "Entraînement",
+    "nutrition": "Nutrition",
+    "progress": "Progrès",
+    "settings": "Paramètres"
+  },
+  "header": {
+    "brand": "GYM SLAVE",
+    "pages": {
+      "dashboard": "Tableau de bord",
+      "workout": "Entraînement",
+      "nutrition": "Nutrition",
+      "progress": "Progrès",
+      "settings": "Paramètres"
+    }
+  },
+  "language": {
+    "label": "Langue",
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "fr": "Français",
+    "ko": "한국어",
+    "zh": "中文",
+    "ja": "日本語",
+    "pt": "Português"
+  },
+  "onboarding": {
+    "steps": {
+      "gender": {
+        "label": "SEXE",
+        "sublabel": "Déterminer les caractéristiques biologiques"
+      },
+      "age": {
+        "label": "ÂGE",
+        "sublabel": "Optimiser la récupération selon l'âge"
+      },
+      "weight": {
+        "label": "POIDS ACTUEL",
+        "sublabel": "Votre poids aujourd'hui"
+      },
+      "height": {
+        "label": "TAILLE",
+        "sublabel": "Taille debout sans chaussures"
+      },
+      "targetWeight": {
+        "label": "POIDS CIBLE",
+        "sublabel": "Le poids que vous souhaitez atteindre"
+      },
+      "workoutDays": {
+        "label": "FRÉQUENCE D'ENTRAÎNEMENT",
+        "sublabel": "Jours d'entraînement par semaine"
+      },
+      "bodyType": {
+        "label": "TYPE CORPOREL",
+        "sublabel": "Déterminer le type par la taille du poignet"
+      },
+      "location": {
+        "label": "LIEU D'ENTRAÎNEMENT",
+        "sublabel": "Où vous effectuez vos exercices"
+      },
+      "targetWeeks": {
+        "label": "DÉLAI OBJECTIF",
+        "sublabel": "Semaines engagées pour atteindre l'objectif"
+      },
+      "bodyFat": {
+        "label": "TAUX DE GRAISSE (%)",
+        "sublabel": "Pourcentage de graisse corporelle estimé"
+      },
+      "avgCalories": {
+        "label": "APPORT CALORIQUE",
+        "sublabel": "Calories moyennes par jour cette semaine"
+      },
+      "focusMuscles": {
+        "label": "MUSCLES PRIORITAIRES",
+        "sublabel": "Groupes musculaires à développer"
+      },
+      "supplements": {
+        "label": "COMPLÉMENTS",
+        "sublabel": "Compléments alimentaires actuellement utilisés"
+      },
+      "sleep": {
+        "label": "SOMMEIL QUOTIDIEN",
+        "sublabel": "Heures de sommeil moyennes par nuit"
+      }
+    },
+    "gender": {
+      "male": "Homme",
+      "female": "Femme",
+      "maleDesc": "Testostérone élevée, plus grande masse musculaire",
+      "femaleDesc": "Œstrogènes élevés, répartition différente des graisses"
+    },
+    "bodyType": {
+      "ectomorph": "Morphologie mince",
+      "mesomorph": "Morphologie athlétique",
+      "endomorph": "Morphologie forte"
+    },
+    "location": {
+      "gym": "Salle de sport",
+      "home": "Entraînement à domicile"
+    },
+    "ageError": {
+      "tooYoung": "Ce programme est conçu pour les personnes de 10 ans et plus",
+      "tooOld": "Veuillez consulter un médecin si vous avez plus de 65 ans"
+    },
+    "complete": {
+      "title": "CONFIGURATION TERMINÉE",
+      "subtitle": "Votre profil a été créé. Prêt à atteindre vos objectifs ?",
+      "button": "Aller au tableau de bord"
+    }
+  },
+  "dashboard": {
+    "title": "PROGRAMME DE LA SEMAINE",
+    "weeklySchedule": "PLANNING HEBDOMADAIRE",
+    "rest": "REPOS",
+    "restDesc": "Récupération musculaire",
+    "noExercises": "Aucun exercice",
+    "todayBadge": "AUJOURD'HUI",
+    "nutrition": "SUGGESTIONS NUTRITIONNELLES",
+    "nutritionDesc": "Basé sur votre objectif",
+    "calories": "Calories",
+    "protein": "Protéines",
+    "carbs": "Glucides",
+    "fat": "Lipides",
+    "customSchedule": "PLANNING PERSONNALISÉ",
+    "resetSchedule": "Réinitialiser",
+    "greeting": "Bonjour, Guerrier",
+    "profileGender": "Sexe",
+    "genderMale": "Homme",
+    "genderFemale": "Femme",
+    "profileLocation": "Lieu d'entraînement",
+    "locationGym": "Salle de sport",
+    "locationHome": "À domicile",
+    "profileCommitment": "Plan d'engagement",
+    "commitmentWeeks": "{weeks} semaines",
+    "focusMuscleLabel": "Groupe musculaire prioritaire",
+    "focusMuscleBoost": "(Exercices ciblés renforcés)",
+    "weeklyScheduleTitle": "Plan d'entraînement 7 jours",
+    "weeklyFrequency": "Fréquence : {days} jours / semaine • Conception personnalisée",
+    "restDayDesc": "Repos musculaire & Récupération complète.",
+    "noExercisesDay": "Aucun exercice pour aujourd'hui.",
+    "addExerciseBtn": "+ Ajouter un exercice",
+    "tableExercise": "Exercice",
+    "tableMuscle": "Muscle ciblé",
+    "tableSets": "Séries",
+    "tableReps": "Répétitions",
+    "deleteExercise": "Supprimer cet exercice",
+    "nutritionTitle": "Suggestions nutritionnelles",
+    "nutritionWeightLoss": "Régime perte de graisse",
+    "nutritionMuscleGain": "Régime prise de muscle",
+    "nutritionGeneral": "Régime équilibré",
+    "nutritionCurated": "ALIMENTS SÉLECTIONNÉS",
+    "nutritionPer": "Portion",
+    "tdeeLabel": "Objectif énergétique (TDEE)",
+    "kcalPerDay": "KCAL / JOUR",
+    "bmrLabel": "Métabolisme de base (BMR) : {bmr} kcal",
+    "proteinLabel": "PROTÉINES",
+    "carbsLabel": "Glucides",
+    "fatLabel": "Lipides",
+    "quickAdjustTitle": "Ajustement rapide des objectifs",
+    "currentWeightLabel": "POIDS ACTUEL :",
+    "targetWeightLabel": "POIDS CIBLE :",
+    "locationLabel": "LIEU D'ENTRAÎNEMENT :",
+    "locationGymBtn": "🏢 Salle de sport",
+    "locationHomeBtn": "🏠 À domicile",
+    "frequencyLabel": "FRÉQUENCE D'ENTRAÎNEMENT :",
+    "frequencyDays": "{days} jours/semaine",
+    "frequencyLight": "💡 Léger / Entretien",
+    "frequencyOptimal": "⚡ Optimal pour prise de muscle / perte de graisse",
+    "frequencyHard": "🔥 Challengeant & haute intensité",
+    "frequencyHardcore": "💀 Programme hardcore / Professionnel",
+    "recalculateBtn": "METTRE À JOUR & RECALCULER ✓",
+    "bodyStatsTitle": "Statistiques corporelles",
+    "bmiLabel": "Indice de masse corporelle (IMC)",
+    "bmiUnderweight": "Insuffisance pondérale",
+    "bmiNormal": "Normal (Santé)",
+    "bmiOverweight": "Surpoids",
+    "bmiObese": "Obèse",
+    "weightGoalLabel": "Objectif de poids",
+    "goalWeightLoss": "PERTE DE POIDS",
+    "goalMuscleGain": "PRISE DE MUSCLE",
+    "goalMaintain": "MAINTIEN",
+    "progressWeeks": "{pct}% du parcours semaine {weeks}",
+    "recreateBtn": "↺ RÉGÉNÉRER LE PROGRAMME",
+    "loadingText": "Chargement et calcul des données corporelles personnelles...",
+    "addExerciseModalTitle": "AJOUTER UN EXERCICE",
+    "muscleGroupLabel": "1. SÉLECTIONNER LE GROUPE MUSCULAIRE CIBLE",
+    "exerciseSelectLabel": "2. SÉLECTIONNER L'EXERCICE",
+    "noExerciseOption": "Aucun exercice correspondant",
+    "setsLabel": "SÉRIES",
+    "repsLabel": "RÉPÉTITIONS / SÉRIE",
+    "cancelBtn": "ANNULER",
+    "confirmAddBtn": "CONFIRMER L'AJOUT",
+    "muscleUpperChest": "Pectoraux supérieurs",
+    "muscleMidLowerChest": "Pectoraux moyens / inférieurs",
+    "muscleLats": "Grand dorsal",
+    "muscleUpperBack": "Haut / Milieu du dos",
+    "muscleLowerBack": "Bas du dos",
+    "muscleFrontDelts": "Deltoïdes antérieurs",
+    "muscleSideDelts": "Deltoïdes latéraux",
+    "muscleRearDelts": "Deltoïdes postérieurs",
+    "muscleBiceps": "Biceps",
+    "muscleTriceps": "Triceps",
+    "muscleQuads": "Quadriceps",
+    "muscleHamGlutes": "Ischio-jambiers / Fessiers",
+    "muscleCalves": "Mollets",
+    "muscleAbs": "Abdominaux / Core",
+    "muscleCardio": "Cardio / Endurance",
+    "swapTooltip": "Passer à cet exercice",
+    "currentlyViewing": "(Actuellement affiché)",
+    "exerciseCount": "{count} EXERCICES",
+    "sameGroupLabel": "Liste du même groupe musculaire",
+    "techniqueTitle": "GUIDE DE TECHNIQUE",
+    "focusArea": "Zone ciblée",
+    "strengthBadge": "FORCE",
+    "techniqueNote": "Fixez l'articulation de l'épaule et maintenez le coude à un angle de 45 degrés par rapport au corps pour maximiser la tension musculaire. Concentrez-vous sur une force concentrique explosive et contrôlez la phase excentrique lentement sur environ 2 secondes.",
+    "techniqueSectionTitle": "NOTES DE TECHNIQUE APPROFONDIES",
+    "setsStatLabel": "SÉRIES",
+    "repsStatLabel": "RÉPÉTITIONS",
+    "restStatLabel": "REPOS (SEC)",
+    "dayMon": "Lundi",
+    "dayTue": "Mardi",
+    "dayWed": "Mercredi",
+    "dayThu": "Jeudi",
+    "dayFri": "Vendredi",
+    "daySat": "Samedi",
+    "daySun": "Dimanche",
+    "sessionFullBody": "Entraînement complet du corps",
+    "sessionRest": "Jour de repos",
+    "sessionPull": "Jour de tirage (Pull)",
+    "sessionPush": "Jour de poussée (Push)",
+    "sessionLegs": "Jour jambes & abdos",
+    "sessionUpper": "Haut du corps",
+    "sessionLower": "Bas du corps",
+    "sessionAbsCardio": "Abdos & cardio léger"
+  },
+  "workout": {
+    "title": "Journal d'entraînement",
+    "phase": "Phase",
+    "sessionProgress": "Progression de la séance",
+    "setsCompleted": "{done} séries terminées",
+    "setsRemaining": "{remaining} restantes",
+    "workoutDetails": "Détails de l'entraînement",
+    "workoutName": "Nom de la séance",
+    "workoutNamePlaceholder": "Ex : Poussée – Semaine 4",
+    "primaryFocus": "Groupe musculaire principal",
+    "selectMuscleGroup": "Sélectionner un groupe",
+    "quickStats": "Statistiques rapides",
+    "exercises": "Exercices",
+    "sets": "Séries",
+    "exerciseLibrary": "Bibliothèque d'exercices",
+    "searchExercises": "Rechercher des exercices...",
+    "activeExercises": "Exercices actifs",
+    "addSet": "Ajouter une série",
+    "finishWorkout": "Terminer la séance"
+  },
+  "nutrition": {
+    "title": "Nutrition",
+    "subtitle": "Suivre l'alimentation du jour",
+    "calories": "Calories",
+    "protein": "Protéines",
+    "carbs": "Glucides",
+    "fat": "Lipides",
+    "consumed": "Consommé",
+    "remaining": "Restant",
+    "addMeal": "Ajouter un repas",
+    "todayLog": "Journal du jour"
+  },
+  "progress": {
+    "title": "Progrès",
+    "subtitle": "Suivez votre parcours",
+    "weight": "Poids",
+    "bodyFat": "Taux de graisse",
+    "workouts": "Séances",
+    "volume": "Volume"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "subtitle": "Configuration",
+    "profile": "Profil",
+    "name": "Nom",
+    "goal": "Objectif",
+    "goals": {
+      "weight_loss": "Perte de poids",
+      "muscle_gain": "Prise de muscle",
+      "endurance": "Endurance",
+      "general": "Forme générale"
+    },
+    "dailyTargets": "Objectifs quotidiens",
+    "calorieTarget": "Objectif calorique",
+    "proteinTarget": "Objectif protéines",
+    "notifications": "Notifications",
+    "workoutReminders": "Rappels d'entraînement",
+    "workoutRemindersDesc": "Recevez un rappel pour vous entraîner à l'heure prévue",
+    "mealLogging": "Journal alimentaire",
+    "mealLoggingDesc": "Rappels pour enregistrer vos repas tout au long de la journée",
+    "weeklySummary": "Résumé hebdomadaire",
+    "weeklySummaryDesc": "Recevez un bilan de performance chaque dimanche",
+    "language": "Langue",
+    "languageDesc": "Sélectionner la langue d'affichage",
+    "saveChanges": "Enregistrer les modifications"
+  }
+}

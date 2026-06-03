@@ -1,0 +1,347 @@
+{
+  "metadata": {
+    "home": {
+      "title": "Gym Slave – 努力训练。智能记录。全面主导。",
+      "description": "Gym Slave 是一款根据您的体型、性别和健身目标个性化定制的健身计划应用。"
+    },
+    "dashboard": {
+      "title": "仪表板",
+      "description": "查看 Gym Slave 为您自动生成的个性化每周健身计划。"
+    },
+    "workout": {
+      "title": "训练日志",
+      "description": "记录和管理根据您的健身目标个性化定制的训练课程。"
+    },
+    "nutrition": {
+      "title": "营养管理",
+      "description": "追踪您的每日卡路里和营养摄入，支持您的训练目标。"
+    },
+    "progress": {
+      "title": "进度追踪",
+      "description": "通过详细图表监测您随时间的健身进展。"
+    },
+    "onboarding": {
+      "title": "设置个人资料",
+      "description": "输入您的个人信息，获取专为您定制的健身计划。"
+    },
+    "settings": {
+      "title": "设置",
+      "description": "在 Gym Slave 管理您的账户设置和个人资料。"
+    }
+  },
+  "common": {
+    "appName": "GYM SLAVE",
+    "loading": "加载中...",
+    "save": "保存",
+    "skip": "跳过",
+    "next": "下一步",
+    "back": "返回",
+    "finish": "完成",
+    "optional": "可选",
+    "required": "必填",
+    "version": "版本 1.0"
+  },
+  "nav": {
+    "mainMenu": "主菜单",
+    "dashboard": "仪表板",
+    "workout": "训练",
+    "nutrition": "营养",
+    "progress": "进度",
+    "settings": "设置"
+  },
+  "header": {
+    "brand": "GYM SLAVE",
+    "pages": {
+      "dashboard": "仪表板",
+      "workout": "训练",
+      "nutrition": "营养",
+      "progress": "进度",
+      "settings": "设置"
+    }
+  },
+  "language": {
+    "label": "语言",
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "fr": "Français",
+    "ko": "한국어",
+    "zh": "中文",
+    "ja": "日本語",
+    "pt": "Português"
+  },
+  "onboarding": {
+    "steps": {
+      "gender": {
+        "label": "性别",
+        "sublabel": "确定生物学特征"
+      },
+      "age": {
+        "label": "年龄",
+        "sublabel": "按年龄优化恢复"
+      },
+      "weight": {
+        "label": "当前体重",
+        "sublabel": "今天的体重"
+      },
+      "height": {
+        "label": "身高",
+        "sublabel": "不穿鞋的站立身高"
+      },
+      "targetWeight": {
+        "label": "目标体重",
+        "sublabel": "您想达到的体重"
+      },
+      "workoutDays": {
+        "label": "训练频率",
+        "sublabel": "每周计划训练天数"
+      },
+      "bodyType": {
+        "label": "体型",
+        "sublabel": "通过手腕尺寸确定体型"
+      },
+      "location": {
+        "label": "训练地点",
+        "sublabel": "进行锻炼的地方"
+      },
+      "targetWeeks": {
+        "label": "目标期限",
+        "sublabel": "承诺达成目标的周数"
+      },
+      "bodyFat": {
+        "label": "体脂率 (%)",
+        "sublabel": "估计体脂百分比"
+      },
+      "avgCalories": {
+        "label": "卡路里摄入",
+        "sublabel": "本周平均每日卡路里"
+      },
+      "focusMuscles": {
+        "label": "重点肌群",
+        "sublabel": "您想重点发展的肌肉群"
+      },
+      "supplements": {
+        "label": "补充剂",
+        "sublabel": "目前使用的补充剂"
+      },
+      "sleep": {
+        "label": "每日睡眠",
+        "sublabel": "每晚平均睡眠时间"
+      }
+    },
+    "gender": {
+      "male": "男性",
+      "female": "女性",
+      "maleDesc": "睾酮水平高，肌肉量更大",
+      "femaleDesc": "雌激素水平高，脂肪分布不同"
+    },
+    "bodyType": {
+      "ectomorph": "瘦型",
+      "mesomorph": "均衡型",
+      "endomorph": "壮型"
+    },
+    "location": {
+      "gym": "健身房",
+      "home": "居家训练"
+    },
+    "ageError": {
+      "tooYoung": "此计划专为10岁及以上人群设计",
+      "tooOld": "如果您超过65岁，请咨询医生"
+    },
+    "complete": {
+      "title": "设置完成",
+      "subtitle": "您的个人资料已创建。准备好实现您的目标了吗？",
+      "button": "前往仪表板"
+    }
+  },
+  "dashboard": {
+    "title": "本周计划",
+    "weeklySchedule": "每周计划",
+    "rest": "休息日",
+    "restDesc": "肌肉恢复",
+    "noExercises": "无训练",
+    "todayBadge": "今天",
+    "nutrition": "营养建议",
+    "nutritionDesc": "基于您的目标",
+    "calories": "卡路里",
+    "protein": "蛋白质",
+    "carbs": "碳水化合物",
+    "fat": "脂肪",
+    "customSchedule": "自定义计划",
+    "resetSchedule": "重置计划",
+    "greeting": "早上好，战士",
+    "profileGender": "性别",
+    "genderMale": "男",
+    "genderFemale": "女",
+    "profileLocation": "训练地点",
+    "locationGym": "健身房",
+    "locationHome": "在家",
+    "profileCommitment": "承诺计划",
+    "commitmentWeeks": "{weeks} 周",
+    "focusMuscleLabel": "重点肌群",
+    "focusMuscleBoost": "（已强化针对性训练）",
+    "weeklyScheduleTitle": "7天训练计划",
+    "weeklyFrequency": "频率：{days} 天/周 • 个性化设计",
+    "restDayDesc": "肌肉休息 & 完全恢复。",
+    "noExercisesDay": "今天没有训练。",
+    "addExerciseBtn": "+ 添加训练",
+    "tableExercise": "训练动作",
+    "tableMuscle": "目标肌肉",
+    "tableSets": "组数",
+    "tableReps": "次数",
+    "deleteExercise": "删除此训练",
+    "nutritionTitle": "营养建议",
+    "nutritionWeightLoss": "减脂饮食",
+    "nutritionMuscleGain": "增肌饮食",
+    "nutritionGeneral": "均衡饮食",
+    "nutritionCurated": "精选食材",
+    "nutritionPer": "每份",
+    "tdeeLabel": "能量目标 (TDEE)",
+    "kcalPerDay": "千卡 / 天",
+    "bmrLabel": "基础代谢率 (BMR)：{bmr} 千卡",
+    "proteinLabel": "蛋白质",
+    "carbsLabel": "碳水化合物",
+    "fatLabel": "脂肪",
+    "quickAdjustTitle": "快速目标调整",
+    "currentWeightLabel": "当前体重：",
+    "targetWeightLabel": "目标体重：",
+    "locationLabel": "训练地点：",
+    "locationGymBtn": "🏢 健身房",
+    "locationHomeBtn": "🏠 在家",
+    "frequencyLabel": "训练频率：",
+    "frequencyDays": "{days} 天/周",
+    "frequencyLight": "💡 轻松 / 维持训练",
+    "frequencyOptimal": "⚡ 增肌 / 减脂最佳",
+    "frequencyHard": "🔥 挑战性 & 高强度",
+    "frequencyHardcore": "💀 高强度 / 专业计划",
+    "recalculateBtn": "更新 & 重新计算 ✓",
+    "bodyStatsTitle": "身体数据",
+    "bmiLabel": "体质指数 (BMI)",
+    "bmiUnderweight": "体重不足",
+    "bmiNormal": "正常（健康）",
+    "bmiOverweight": "超重",
+    "bmiObese": "肥胖",
+    "weightGoalLabel": "体重目标",
+    "goalWeightLoss": "减重",
+    "goalMuscleGain": "增肌",
+    "goalMaintain": "维持",
+    "progressWeeks": "第 {weeks} 周路线图的 {pct}%",
+    "recreateBtn": "↺ 重新生成计划",
+    "loadingText": "正在加载和计算个人身体数据...",
+    "addExerciseModalTitle": "添加训练",
+    "muscleGroupLabel": "1. 选择目标肌群",
+    "exerciseSelectLabel": "2. 选择训练动作",
+    "noExerciseOption": "无匹配训练",
+    "setsLabel": "组数",
+    "repsLabel": "每组次数",
+    "cancelBtn": "取消",
+    "confirmAddBtn": "确认添加",
+    "muscleUpperChest": "上胸（Upper Chest）",
+    "muscleMidLowerChest": "中下胸（Mid/Lower Chest）",
+    "muscleLats": "背阔肌（Lats）",
+    "muscleUpperBack": "上中背（Upper Back）",
+    "muscleLowerBack": "下背（Lower Back）",
+    "muscleFrontDelts": "前三角肌（Front Delts）",
+    "muscleSideDelts": "侧三角肌（Side Delts）",
+    "muscleRearDelts": "后三角肌（Rear Delts）",
+    "muscleBiceps": "肱二头肌（Biceps）",
+    "muscleTriceps": "肱三头肌（Triceps）",
+    "muscleQuads": "股四头肌（Quads）",
+    "muscleHamGlutes": "腘绳肌 / 臀肌（Hamstrings/Glutes）",
+    "muscleCalves": "小腿（Calves）",
+    "muscleAbs": "腹肌 / 核心（Abs/Core）",
+    "muscleCardio": "有氧 / 体能（Cardio）",
+    "swapTooltip": "切换到此训练",
+    "currentlyViewing": "（当前查看）",
+    "exerciseCount": "{count} 个训练",
+    "sameGroupLabel": "同肌群列表",
+    "techniqueTitle": "技术指导",
+    "focusArea": "重点区域",
+    "strengthBadge": "力量",
+    "techniqueNote": "固定肩关节，保持肘部与身体成45度角，以最大化肌肉张力。专注于爆发性向心力量，并以约2秒缓慢控制离心阶段。",
+    "techniqueSectionTitle": "深度技术笔记",
+    "setsStatLabel": "组数",
+    "repsStatLabel": "次数",
+    "restStatLabel": "休息（秒）",
+    "dayMon": "星期一",
+    "dayTue": "星期二",
+    "dayWed": "星期三",
+    "dayThu": "星期四",
+    "dayFri": "星期五",
+    "daySat": "星期六",
+    "daySun": "星期日",
+    "sessionFullBody": "全身训练",
+    "sessionRest": "休息日",
+    "sessionPull": "拉系列 (Pull Day)",
+    "sessionPush": "推系列 (Push Day)",
+    "sessionLegs": "腿部与腹肌训练",
+    "sessionUpper": "上肢训练",
+    "sessionLower": "下肢训练",
+    "sessionAbsCardio": "腹肌与轻度有氧"
+  },
+  "workout": {
+    "title": "记录训练",
+    "phase": "阶段",
+    "sessionProgress": "本次训练进度",
+    "setsCompleted": "已完成 {done} 组",
+    "setsRemaining": "剩余 {remaining} 组",
+    "workoutDetails": "训练详情",
+    "workoutName": "训练名称",
+    "workoutNamePlaceholder": "例：推举日 – 第4周",
+    "primaryFocus": "主要肌群",
+    "selectMuscleGroup": "选择肌群",
+    "quickStats": "快速统计",
+    "exercises": "练习",
+    "sets": "组数",
+    "exerciseLibrary": "练习库",
+    "searchExercises": "搜索练习...",
+    "activeExercises": "进行中的练习",
+    "addSet": "添加组",
+    "finishWorkout": "完成训练"
+  },
+  "nutrition": {
+    "title": "营养管理",
+    "subtitle": "追踪今日饮食",
+    "calories": "卡路里",
+    "protein": "蛋白质",
+    "carbs": "碳水化合物",
+    "fat": "脂肪",
+    "consumed": "已摄入",
+    "remaining": "剩余",
+    "addMeal": "添加餐食",
+    "todayLog": "今日记录"
+  },
+  "progress": {
+    "title": "进度",
+    "subtitle": "追踪您的旅程",
+    "weight": "体重",
+    "bodyFat": "体脂",
+    "workouts": "训练次数",
+    "volume": "训练量"
+  },
+  "settings": {
+    "title": "设置",
+    "subtitle": "配置",
+    "profile": "个人资料",
+    "name": "姓名",
+    "goal": "目标",
+    "goals": {
+      "weight_loss": "减脂",
+      "muscle_gain": "增肌",
+      "endurance": "耐力",
+      "general": "综合体能"
+    },
+    "dailyTargets": "每日目标",
+    "calorieTarget": "卡路里目标",
+    "proteinTarget": "蛋白质目标",
+    "notifications": "通知",
+    "workoutReminders": "训练提醒",
+    "workoutRemindersDesc": "在预定时间收到训练提醒",
+    "mealLogging": "饮食记录",
+    "mealLoggingDesc": "全天提醒记录餐食",
+    "weeklySummary": "每周总结",
+    "weeklySummaryDesc": "每周日收到绩效摘要",
+    "language": "语言",
+    "languageDesc": "选择显示语言",
+    "saveChanges": "保存更改"
+  }
+}

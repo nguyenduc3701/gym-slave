@@ -1,0 +1,347 @@
+{
+  "metadata": {
+    "home": {
+      "title": "Gym Slave – 열심히 운동하라. 스마트하게 기록하라. 지배하라.",
+      "description": "Gym Slave는 체형, 성별, 피트니스 목표에 맞춘 개인화된 헬스장 스케줄 앱입니다."
+    },
+    "dashboard": {
+      "title": "대시보드",
+      "description": "Gym Slave가 자동으로 생성한 나만의 주간 운동 스케줄을 확인하세요."
+    },
+    "workout": {
+      "title": "운동 기록",
+      "description": "목표에 맞게 개인화된 운동 세션을 기록하고 관리하세요."
+    },
+    "nutrition": {
+      "title": "영양 관리",
+      "description": "훈련 목표를 지원하기 위해 일일 칼로리 및 영양 섭취량을 추적하세요."
+    },
+    "progress": {
+      "title": "진행 상황",
+      "description": "상세한 차트로 시간에 따른 운동 발전을 모니터링하세요."
+    },
+    "onboarding": {
+      "title": "프로필 설정",
+      "description": "개인 정보를 입력하여 맞춤형 운동 스케줄을 받으세요."
+    },
+    "settings": {
+      "title": "설정",
+      "description": "Gym Slave에서 계정 설정 및 개인 프로필을 관리하세요."
+    }
+  },
+  "common": {
+    "appName": "GYM SLAVE",
+    "loading": "로딩 중...",
+    "save": "저장",
+    "skip": "건너뛰기",
+    "next": "다음",
+    "back": "뒤로",
+    "finish": "완료",
+    "optional": "선택사항",
+    "required": "필수",
+    "version": "버전 1.0"
+  },
+  "nav": {
+    "mainMenu": "메인 메뉴",
+    "dashboard": "대시보드",
+    "workout": "운동",
+    "nutrition": "영양",
+    "progress": "진행 상황",
+    "settings": "설정"
+  },
+  "header": {
+    "brand": "GYM SLAVE",
+    "pages": {
+      "dashboard": "대시보드",
+      "workout": "운동",
+      "nutrition": "영양",
+      "progress": "진행 상황",
+      "settings": "설정"
+    }
+  },
+  "language": {
+    "label": "언어",
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "fr": "Français",
+    "ko": "한국어",
+    "zh": "中文",
+    "ja": "日本語",
+    "pt": "Português"
+  },
+  "onboarding": {
+    "steps": {
+      "gender": {
+        "label": "성별",
+        "sublabel": "생물학적 특성 결정"
+      },
+      "age": {
+        "label": "나이",
+        "sublabel": "연령대별 회복 최적화"
+      },
+      "weight": {
+        "label": "현재 체중",
+        "sublabel": "오늘의 체중"
+      },
+      "height": {
+        "label": "키",
+        "sublabel": "신발 없이 선 키"
+      },
+      "targetWeight": {
+        "label": "목표 체중",
+        "sublabel": "달성하고 싶은 체중"
+      },
+      "workoutDays": {
+        "label": "운동 빈도",
+        "sublabel": "주당 운동 계획 일수"
+      },
+      "bodyType": {
+        "label": "체형",
+        "sublabel": "손목 크기로 체형 결정"
+      },
+      "location": {
+        "label": "운동 장소",
+        "sublabel": "운동을 수행하는 장소"
+      },
+      "targetWeeks": {
+        "label": "목표 기간",
+        "sublabel": "목표 달성을 위한 주 수"
+      },
+      "bodyFat": {
+        "label": "체지방률 (%)",
+        "sublabel": "예상 체지방 비율"
+      },
+      "avgCalories": {
+        "label": "칼로리 섭취",
+        "sublabel": "이번 주 평균 일일 칼로리"
+      },
+      "focusMuscles": {
+        "label": "집중 근육",
+        "sublabel": "발달시키고 싶은 근육 그룹"
+      },
+      "supplements": {
+        "label": "보충제",
+        "sublabel": "현재 사용 중인 보충제"
+      },
+      "sleep": {
+        "label": "수면 시간",
+        "sublabel": "평균 야간 수면 시간"
+      }
+    },
+    "gender": {
+      "male": "남성",
+      "female": "여성",
+      "maleDesc": "테스토스테론 높음, 더 큰 근육량",
+      "femaleDesc": "에스트로겐 높음, 다른 지방 분포"
+    },
+    "bodyType": {
+      "ectomorph": "마른 체형",
+      "mesomorph": "균형 잡힌 체형",
+      "endomorph": "큰 체형"
+    },
+    "location": {
+      "gym": "헬스장",
+      "home": "홈 트레이닝"
+    },
+    "ageError": {
+      "tooYoung": "이 프로그램은 10세 이상을 위해 설계되었습니다",
+      "tooOld": "65세 이상이라면 의사와 상담하세요"
+    },
+    "complete": {
+      "title": "설정 완료",
+      "subtitle": "프로필이 생성되었습니다. 목표를 달성할 준비가 되셨나요?",
+      "button": "대시보드로 이동"
+    }
+  },
+  "dashboard": {
+    "title": "이번 주 스케줄",
+    "weeklySchedule": "주간 스케줄",
+    "rest": "휴식일",
+    "restDesc": "근육 회복",
+    "noExercises": "운동 없음",
+    "todayBadge": "오늘",
+    "nutrition": "영양 제안",
+    "nutritionDesc": "목표에 기반",
+    "calories": "칼로리",
+    "protein": "단백질",
+    "carbs": "탄수화물",
+    "fat": "지방",
+    "customSchedule": "맞춤 스케줄",
+    "resetSchedule": "스케줄 초기화",
+    "greeting": "좋은 아침이에요, 전사여",
+    "profileGender": "성별",
+    "genderMale": "남성",
+    "genderFemale": "여성",
+    "profileLocation": "운동 장소",
+    "locationGym": "헬스장",
+    "locationHome": "집에서",
+    "profileCommitment": "목표 약속 계획",
+    "commitmentWeeks": "{weeks}주",
+    "focusMuscleLabel": "우선 근육 그룹",
+    "focusMuscleBoost": "(집중 운동 강화됨)",
+    "weeklyScheduleTitle": "7일 트레이닝 계획",
+    "weeklyFrequency": "빈도: {days}일 / 주 • 개인 맞춤 설계",
+    "restDayDesc": "근육 휴식 & 완전한 회복.",
+    "noExercisesDay": "오늘 운동이 없습니다.",
+    "addExerciseBtn": "+ 운동 추가",
+    "tableExercise": "운동",
+    "tableMuscle": "목표 근육",
+    "tableSets": "세트",
+    "tableReps": "횟수",
+    "deleteExercise": "이 운동 삭제",
+    "nutritionTitle": "영양 제안",
+    "nutritionWeightLoss": "지방 감량 식단",
+    "nutritionMuscleGain": "근육 증가 식단",
+    "nutritionGeneral": "균형 식단",
+    "nutritionCurated": "엄선된 식품",
+    "nutritionPer": "1회 제공량",
+    "tdeeLabel": "에너지 목표 (TDEE)",
+    "kcalPerDay": "KCAL / 일",
+    "bmrLabel": "기초 대사량 (BMR): {bmr} kcal",
+    "proteinLabel": "단백질",
+    "carbsLabel": "탄수화물",
+    "fatLabel": "지방",
+    "quickAdjustTitle": "목표 빠른 조정",
+    "currentWeightLabel": "현재 체중:",
+    "targetWeightLabel": "목표 체중:",
+    "locationLabel": "운동 장소:",
+    "locationGymBtn": "🏢 헬스장",
+    "locationHomeBtn": "🏠 집에서",
+    "frequencyLabel": "운동 빈도:",
+    "frequencyDays": "{days}일/주",
+    "frequencyLight": "💡 가볍게 / 유지 운동",
+    "frequencyOptimal": "⚡ 근육 증가 / 지방 감량 최적",
+    "frequencyHard": "🔥 도전적 & 고강도",
+    "frequencyHardcore": "💀 하드코어 / 전문가 스케줄",
+    "recalculateBtn": "업데이트 & 재계산 ✓",
+    "bodyStatsTitle": "신체 통계",
+    "bmiLabel": "체질량지수 (BMI)",
+    "bmiUnderweight": "저체중",
+    "bmiNormal": "정상 (건강)",
+    "bmiOverweight": "과체중",
+    "bmiObese": "비만",
+    "weightGoalLabel": "체중 목표",
+    "goalWeightLoss": "체중 감량",
+    "goalMuscleGain": "근육 증가",
+    "goalMaintain": "유지",
+    "progressWeeks": "{weeks}주 로드맵의 {pct}%",
+    "recreateBtn": "↺ 스케줄 재생성",
+    "loadingText": "개인 신체 데이터 로드 및 계산 중...",
+    "addExerciseModalTitle": "운동 추가",
+    "muscleGroupLabel": "1. 목표 근육 그룹 선택",
+    "exerciseSelectLabel": "2. 운동 선택",
+    "noExerciseOption": "일치하는 운동 없음",
+    "setsLabel": "세트 수",
+    "repsLabel": "세트당 횟수",
+    "cancelBtn": "취소",
+    "confirmAddBtn": "추가 확인",
+    "muscleUpperChest": "상부 가슴 (Upper Chest)",
+    "muscleMidLowerChest": "중하부 가슴 (Mid/Lower Chest)",
+    "muscleLats": "광배근 (Lats)",
+    "muscleUpperBack": "상중부 등 (Upper Back)",
+    "muscleLowerBack": "하부 등 (Lower Back)",
+    "muscleFrontDelts": "전면 삼각근 (Front Delts)",
+    "muscleSideDelts": "측면 삼각근 (Side Delts)",
+    "muscleRearDelts": "후면 삼각근 (Rear Delts)",
+    "muscleBiceps": "이두근 (Biceps)",
+    "muscleTriceps": "삼두근 (Triceps)",
+    "muscleQuads": "대퇴사두근 (Quads)",
+    "muscleHamGlutes": "햄스트링 / 둔근 (Hamstrings/Glutes)",
+    "muscleCalves": "종아리 (Calves)",
+    "muscleAbs": "복근 / 코어 (Abs/Core)",
+    "muscleCardio": "유산소 / 체력 (Cardio)",
+    "swapTooltip": "이 운동으로 교체",
+    "currentlyViewing": "(현재 보는 중)",
+    "exerciseCount": "{count}개 운동",
+    "sameGroupLabel": "같은 근육 그룹 목록",
+    "techniqueTitle": "기술 가이드",
+    "focusArea": "집중 부위",
+    "strengthBadge": "근력",
+    "techniqueNote": "어깨 관절을 고정하고 팔꿈치를 몸통에서 45도 각도로 유지하여 근육 긴장을 극대화하세요. 폭발적인 구심성 힘에 집중하고 약 2초에 걸쳐 천천히 원심성 단계를 조절하세요.",
+    "techniqueSectionTitle": "심화 기술 노트",
+    "setsStatLabel": "세트 수",
+    "repsStatLabel": "횟수",
+    "restStatLabel": "휴식 (초)",
+    "dayMon": "월요일",
+    "dayTue": "화요일",
+    "dayWed": "수요일",
+    "dayThu": "목요일",
+    "dayFri": "금요일",
+    "daySat": "토요일",
+    "daySun": "일요일",
+    "sessionFullBody": "전신 운동",
+    "sessionRest": "휴식일",
+    "sessionPull": "당기기 (Pull Day)",
+    "sessionPush": "밀기 (Push Day)",
+    "sessionLegs": "하체 및 복근 운동",
+    "sessionUpper": "상체 운동",
+    "sessionLower": "하체 운동",
+    "sessionAbsCardio": "복근 및 가벼운 유산소"
+  },
+  "workout": {
+    "title": "운동 기록하기",
+    "phase": "단계",
+    "sessionProgress": "세션 진행률",
+    "setsCompleted": "{done}세트 완료",
+    "setsRemaining": "{remaining}세트 남음",
+    "workoutDetails": "운동 세부 사항",
+    "workoutName": "운동 이름",
+    "workoutNamePlaceholder": "예: 가슴 & 어깨 – 4주차",
+    "primaryFocus": "주요 근육 그룹",
+    "selectMuscleGroup": "근육 그룹 선택",
+    "quickStats": "빠른 통계",
+    "exercises": "운동",
+    "sets": "세트",
+    "exerciseLibrary": "운동 라이브러리",
+    "searchExercises": "운동 검색...",
+    "activeExercises": "진행 중인 운동",
+    "addSet": "세트 추가",
+    "finishWorkout": "운동 종료"
+  },
+  "nutrition": {
+    "title": "영양 관리",
+    "subtitle": "오늘의 식단 추적",
+    "calories": "칼로리",
+    "protein": "단백질",
+    "carbs": "탄수화물",
+    "fat": "지방",
+    "consumed": "섭취",
+    "remaining": "남은 양",
+    "addMeal": "식사 추가",
+    "todayLog": "오늘 기록"
+  },
+  "progress": {
+    "title": "진행 상황",
+    "subtitle": "여정을 추적하세요",
+    "weight": "체중",
+    "bodyFat": "체지방",
+    "workouts": "운동 횟수",
+    "volume": "볼륨"
+  },
+  "settings": {
+    "title": "설정",
+    "subtitle": "구성",
+    "profile": "프로필",
+    "name": "이름",
+    "goal": "목표",
+    "goals": {
+      "weight_loss": "체중 감량",
+      "muscle_gain": "근육 증가",
+      "endurance": "지구력",
+      "general": "전반적인 체력"
+    },
+    "dailyTargets": "일일 목표",
+    "calorieTarget": "칼로리 목표",
+    "proteinTarget": "단백질 목표",
+    "notifications": "알림",
+    "workoutReminders": "운동 알림",
+    "workoutRemindersDesc": "예약된 시간에 운동하도록 알림 받기",
+    "mealLogging": "식사 기록",
+    "mealLoggingDesc": "하루 종일 식사를 기록하도록 알림",
+    "weeklySummary": "주간 요약",
+    "weeklySummaryDesc": "매주 일요일 성과 요약 받기",
+    "language": "언어",
+    "languageDesc": "표시 언어 선택",
+    "saveChanges": "변경 사항 저장"
+  }
+}

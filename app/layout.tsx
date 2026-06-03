@@ -28,13 +28,45 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://gym-slave.vercel.app'),
   title: {
-    template: '%s | Ignite Fitness',
-    default: 'Ignite Fitness – Train. Track. Dominate.',
+    template: '%s | Gym Slave',
+    default: 'Gym Slave – Train Hard. Track Smart. Dominate.',
   },
   description:
-    'High-performance fitness dashboard for serious athletes. Track workouts, nutrition, and performance metrics in real time.',
-  keywords: ['fitness', 'workout tracker', 'nutrition', 'gym', 'dashboard'],
+    'Gym Slave là ứng dụng quản lý lịch tập gym cá nhân hoá theo cơ thể, giới tính và mục tiêu của bạn.',
+  keywords: [
+    'gym', 'lịch tập gym', 'tập gym', 'workout tracker', 'gym slave',
+    'fitness app', 'personal training', 'gym schedule', 'health app',
+  ],
+  authors: [{ name: 'Gym Slave Team' }],
+  creator: 'Gym Slave',
+  publisher: 'Gym Slave',
+  openGraph: {
+    type: 'website',
+    siteName: 'Gym Slave',
+    title: 'Gym Slave – Train Hard. Track Smart. Dominate.',
+    description: 'Personalized gym schedule app tailored to your body, gender and goals.',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Gym Slave' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Gym Slave – Train Hard. Track Smart. Dominate.',
+    description: 'Personalized gym schedule app tailored to your body, gender and goals.',
+    images: ['/og-image.png'],
+    creator: '@gymslave',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -43,14 +75,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${anybody.variable} ${hankenGrotesk.variable} ${jetbrainsMono.variable}`}
-    >
+    // Note: lang is set dynamically per locale in app/[locale]/layout.tsx
+    // This root layout provides global fonts, styles and Mantine
+    <html suppressHydrationWarning>
       <head>
         <ColorSchemeScript forceColorScheme="dark" />
       </head>
-      <body>
+      <body className={`${anybody.variable} ${hankenGrotesk.variable} ${jetbrainsMono.variable}`}>
         <MantineProvider theme={theme} forceColorScheme="dark">
           <Notifications position="top-right" />
           {children}

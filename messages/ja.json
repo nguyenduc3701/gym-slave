@@ -1,0 +1,347 @@
+{
+  "metadata": {
+    "home": {
+      "title": "Gym Slave – 鍛えろ。記録しろ。支配しろ。",
+      "description": "Gym Slaveは体型・性別・フィットネス目標に合わせて個人化されたジムスケジュールアプリです。"
+    },
+    "dashboard": {
+      "title": "ダッシュボード",
+      "description": "Gym Slaveが自動生成したあなた専用の週間トレーニングスケジュールを確認しましょう。"
+    },
+    "workout": {
+      "title": "トレーニング記録",
+      "description": "あなたの目標に合わせた個人化されたトレーニングセッションを記録・管理しましょう。"
+    },
+    "nutrition": {
+      "title": "栄養管理",
+      "description": "トレーニング目標をサポートするため、毎日のカロリーと栄養摂取量を追跡しましょう。"
+    },
+    "progress": {
+      "title": "進捗トラッカー",
+      "description": "詳細なグラフで時間経過に伴うトレーニングの進歩を監視しましょう。"
+    },
+    "onboarding": {
+      "title": "プロフィール設定",
+      "description": "個人情報を入力して、あなた専用のジムスケジュールを受け取りましょう。"
+    },
+    "settings": {
+      "title": "設定",
+      "description": "Gym Slaveでアカウント設定と個人プロフィールを管理しましょう。"
+    }
+  },
+  "common": {
+    "appName": "GYM SLAVE",
+    "loading": "読み込み中...",
+    "save": "保存",
+    "skip": "スキップ",
+    "next": "次へ",
+    "back": "戻る",
+    "finish": "完了",
+    "optional": "任意",
+    "required": "必須",
+    "version": "バージョン 1.0"
+  },
+  "nav": {
+    "mainMenu": "メインメニュー",
+    "dashboard": "ダッシュボード",
+    "workout": "トレーニング",
+    "nutrition": "栄養",
+    "progress": "進捗",
+    "settings": "設定"
+  },
+  "header": {
+    "brand": "GYM SLAVE",
+    "pages": {
+      "dashboard": "ダッシュボード",
+      "workout": "トレーニング",
+      "nutrition": "栄養",
+      "progress": "進捗",
+      "settings": "設定"
+    }
+  },
+  "language": {
+    "label": "言語",
+    "vi": "Tiếng Việt",
+    "en": "English",
+    "fr": "Français",
+    "ko": "한국어",
+    "zh": "中文",
+    "ja": "日本語",
+    "pt": "Português"
+  },
+  "onboarding": {
+    "steps": {
+      "gender": {
+        "label": "性別",
+        "sublabel": "生物学的特性の確認"
+      },
+      "age": {
+        "label": "年齢",
+        "sublabel": "年齢別の回復を最適化"
+      },
+      "weight": {
+        "label": "現在の体重",
+        "sublabel": "今日の体重"
+      },
+      "height": {
+        "label": "身長",
+        "sublabel": "靴なしで立った身長"
+      },
+      "targetWeight": {
+        "label": "目標体重",
+        "sublabel": "達成したい体重"
+      },
+      "workoutDays": {
+        "label": "トレーニング頻度",
+        "sublabel": "週あたりのトレーニング日数"
+      },
+      "bodyType": {
+        "label": "体型",
+        "sublabel": "手首のサイズで体型を確認"
+      },
+      "location": {
+        "label": "トレーニング場所",
+        "sublabel": "運動を行う場所"
+      },
+      "targetWeeks": {
+        "label": "目標期間",
+        "sublabel": "目標達成のためのコミット週数"
+      },
+      "bodyFat": {
+        "label": "体脂肪率 (%)",
+        "sublabel": "推定体脂肪率"
+      },
+      "avgCalories": {
+        "label": "カロリー摂取量",
+        "sublabel": "今週の平均日次カロリー"
+      },
+      "focusMuscles": {
+        "label": "重点筋肉",
+        "sublabel": "発達させたい筋肉グループ"
+      },
+      "supplements": {
+        "label": "サプリメント",
+        "sublabel": "現在使用中のサプリメント"
+      },
+      "sleep": {
+        "label": "毎日の睡眠",
+        "sublabel": "一晩の平均睡眠時間"
+      }
+    },
+    "gender": {
+      "male": "男性",
+      "female": "女性",
+      "maleDesc": "テストステロン高め、筋肉量が多い",
+      "femaleDesc": "エストロゲン高め、脂肪分布が異なる"
+    },
+    "bodyType": {
+      "ectomorph": "細身体型",
+      "mesomorph": "バランス体型",
+      "endomorph": "がっちり体型"
+    },
+    "location": {
+      "gym": "ジム",
+      "home": "自宅トレーニング"
+    },
+    "ageError": {
+      "tooYoung": "このプログラムは10歳以上を対象としています",
+      "tooOld": "65歳以上の場合は医師に相談してください"
+    },
+    "complete": {
+      "title": "設定完了",
+      "subtitle": "プロフィールが作成されました。目標を達成する準備はできましたか？",
+      "button": "ダッシュボードへ"
+    }
+  },
+  "dashboard": {
+    "title": "今週のスケジュール",
+    "weeklySchedule": "週間スケジュール",
+    "rest": "休息日",
+    "restDesc": "筋肉の回復",
+    "noExercises": "運動なし",
+    "todayBadge": "今日",
+    "nutrition": "栄養提案",
+    "nutritionDesc": "目標に基づく",
+    "calories": "カロリー",
+    "protein": "タンパク質",
+    "carbs": "炭水化物",
+    "fat": "脂質",
+    "customSchedule": "カスタムスケジュール",
+    "resetSchedule": "スケジュールをリセット",
+    "greeting": "おはようございます、戦士よ",
+    "profileGender": "性別",
+    "genderMale": "男性",
+    "genderFemale": "女性",
+    "profileLocation": "トレーニング場所",
+    "locationGym": "ジム",
+    "locationHome": "自宅",
+    "profileCommitment": "コミットメントプラン",
+    "commitmentWeeks": "{weeks}週間",
+    "focusMuscleLabel": "優先筋肉グループ",
+    "focusMuscleBoost": "（ターゲット種目強化済み）",
+    "weeklyScheduleTitle": "7日間トレーニングプラン",
+    "weeklyFrequency": "頻度：{days}日 / 週 • 個人化設計",
+    "restDayDesc": "筋肉の休息 & 完全な回復。",
+    "noExercisesDay": "本日のエクササイズはありません。",
+    "addExerciseBtn": "+ エクササイズ追加",
+    "tableExercise": "エクササイズ",
+    "tableMuscle": "ターゲット筋肉",
+    "tableSets": "セット",
+    "tableReps": "レップ",
+    "deleteExercise": "このエクササイズを削除",
+    "nutritionTitle": "栄養提案",
+    "nutritionWeightLoss": "脂肪燃焼食事",
+    "nutritionMuscleGain": "筋肉増加食事",
+    "nutritionGeneral": "バランス食事",
+    "nutritionCurated": "厳選食材",
+    "nutritionPer": "1食分",
+    "tdeeLabel": "エネルギー目標 (TDEE)",
+    "kcalPerDay": "KCAL / 日",
+    "bmrLabel": "基礎代謝量 (BMR)：{bmr} kcal",
+    "proteinLabel": "タンパク質",
+    "carbsLabel": "炭水化物",
+    "fatLabel": "脂質",
+    "quickAdjustTitle": "目標クイック調整",
+    "currentWeightLabel": "現在の体重：",
+    "targetWeightLabel": "目標体重：",
+    "locationLabel": "トレーニング場所：",
+    "locationGymBtn": "🏢 ジム",
+    "locationHomeBtn": "🏠 自宅",
+    "frequencyLabel": "トレーニング頻度：",
+    "frequencyDays": "{days}日/週",
+    "frequencyLight": "💡 軽め / 維持トレーニング",
+    "frequencyOptimal": "⚡ 筋肉増加 / 脂肪燃焼に最適",
+    "frequencyHard": "🔥 チャレンジング & 高強度",
+    "frequencyHardcore": "💀 ハードコア / プロスケジュール",
+    "recalculateBtn": "更新 & 再計算 ✓",
+    "bodyStatsTitle": "身体データ",
+    "bmiLabel": "ボディマス指数 (BMI)",
+    "bmiUnderweight": "低体重",
+    "bmiNormal": "標準（健康）",
+    "bmiOverweight": "過体重",
+    "bmiObese": "肥満",
+    "weightGoalLabel": "体重目標",
+    "goalWeightLoss": "減量",
+    "goalMuscleGain": "筋肉増加",
+    "goalMaintain": "維持",
+    "progressWeeks": "{weeks}週ロードマップの{pct}%",
+    "recreateBtn": "↺ スケジュール再生成",
+    "loadingText": "個人の身体データを読み込み・計算中...",
+    "addExerciseModalTitle": "エクササイズ追加",
+    "muscleGroupLabel": "1. ターゲット筋肉グループを選択",
+    "exerciseSelectLabel": "2. エクササイズを選択",
+    "noExerciseOption": "一致するエクササイズなし",
+    "setsLabel": "セット数",
+    "repsLabel": "セットあたりのレップ数",
+    "cancelBtn": "キャンセル",
+    "confirmAddBtn": "追加を確認",
+    "muscleUpperChest": "上胸筋 (Upper Chest)",
+    "muscleMidLowerChest": "中・下胸筋 (Mid/Lower Chest)",
+    "muscleLats": "広背筋 (Lats)",
+    "muscleUpperBack": "上・中背部 (Upper Back)",
+    "muscleLowerBack": "下背部 (Lower Back)",
+    "muscleFrontDelts": "前部三角筋 (Front Delts)",
+    "muscleSideDelts": "側部三角筋 (Side Delts)",
+    "muscleRearDelts": "後部三角筋 (Rear Delts)",
+    "muscleBiceps": "上腕二頭筋 (Biceps)",
+    "muscleTriceps": "上腕三頭筋 (Triceps)",
+    "muscleQuads": "大腿四頭筋 (Quads)",
+    "muscleHamGlutes": "ハムストリング / 臀筋 (Hamstrings/Glutes)",
+    "muscleCalves": "下腿三頭筋 (Calves)",
+    "muscleAbs": "腹筋 / コア (Abs/Core)",
+    "muscleCardio": "有酸素 / 体力 (Cardio)",
+    "swapTooltip": "このエクササイズに切り替え",
+    "currentlyViewing": "（現在表示中）",
+    "exerciseCount": "{count}種目",
+    "sameGroupLabel": "同筋肉グループ一覧",
+    "techniqueTitle": "テクニックガイド",
+    "focusArea": "フォーカス部位",
+    "strengthBadge": "STRENGTH",
+    "techniqueNote": "肩関節を固定し、肘を体に対して45度の角度に保つことで筋肉への張力を最大化します。爆発的な求心性の力に集中し、約2秒かけてゆっくりと遠心性フェーズをコントロールしてください。",
+    "techniqueSectionTitle": "詳細テクニックノート",
+    "setsStatLabel": "セット数",
+    "repsStatLabel": "レップ数",
+    "restStatLabel": "休憩（秒）",
+    "dayMon": "月曜日",
+    "dayTue": "火曜日",
+    "dayWed": "水曜日",
+    "dayThu": "木曜日",
+    "dayFri": "金曜日",
+    "daySat": "土曜日",
+    "daySun": "日曜日",
+    "sessionFullBody": "全身トレーニング",
+    "sessionRest": "休息日",
+    "sessionPull": "プルデイ (Pull Day)",
+    "sessionPush": "プレスデイ (Push Day)",
+    "sessionLegs": "脚＆腹筋の日",
+    "sessionUpper": "上半身",
+    "sessionLower": "下半身",
+    "sessionAbsCardio": "腹筋＆軽めの有氧"
+  },
+  "workout": {
+    "title": "トレーニングを記録",
+    "phase": "フェーズ",
+    "sessionProgress": "セッション進捗",
+    "setsCompleted": "{done}セット完了",
+    "setsRemaining": "{remaining}セット残り",
+    "workoutDetails": "トレーニング詳細",
+    "workoutName": "トレーニング名",
+    "workoutNamePlaceholder": "例：プッシュデー – 第4週",
+    "primaryFocus": "メイン筋肉グループ",
+    "selectMuscleGroup": "筋肉グループを選択",
+    "quickStats": "クイック統計",
+    "exercises": "エクササイズ",
+    "sets": "セット",
+    "exerciseLibrary": "エクササイズライブラリ",
+    "searchExercises": "エクササイズを検索...",
+    "activeExercises": "実行中のエクササイズ",
+    "addSet": "セット追加",
+    "finishWorkout": "トレーニング終了"
+  },
+  "nutrition": {
+    "title": "栄養管理",
+    "subtitle": "今日の食事を追跡",
+    "calories": "カロリー",
+    "protein": "タンパク質",
+    "carbs": "炭水化物",
+    "fat": "脂質",
+    "consumed": "摂取済み",
+    "remaining": "残り",
+    "addMeal": "食事を追加",
+    "todayLog": "今日の記録"
+  },
+  "progress": {
+    "title": "進捗",
+    "subtitle": "あなたの旅を追跡",
+    "weight": "体重",
+    "bodyFat": "体脂肪",
+    "workouts": "トレーニング数",
+    "volume": "ボリューム"
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "構成",
+    "profile": "プロフィール",
+    "name": "名前",
+    "goal": "目標",
+    "goals": {
+      "weight_loss": "減量",
+      "muscle_gain": "筋肉増加",
+      "endurance": "持久力",
+      "general": "総合体力"
+    },
+    "dailyTargets": "日次目標",
+    "calorieTarget": "カロリー目標",
+    "proteinTarget": "タンパク質目標",
+    "notifications": "通知",
+    "workoutReminders": "トレーニングリマインダー",
+    "workoutRemindersDesc": "予定時間にトレーニングのリマインダーを受け取る",
+    "mealLogging": "食事記録",
+    "mealLoggingDesc": "一日を通して食事を記録するリマインダー",
+    "weeklySummary": "週次サマリー",
+    "weeklySummaryDesc": "毎週日曜日にパフォーマンスダイジェストを受け取る",
+    "language": "言語",
+    "languageDesc": "表示言語を選択",
+    "saveChanges": "変更を保存"
+  }
+}
