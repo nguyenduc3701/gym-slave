@@ -13,6 +13,7 @@ import {
   Progress,
   ActionIcon,
   Stepper,
+  Button,
 } from '@mantine/core';
 import {
   IconBarbell,
@@ -21,6 +22,7 @@ import {
   IconCheck,
   IconSearch,
   IconChevronRight,
+  IconDownload,
 } from '@tabler/icons-react';
 import { DashboardCard } from '@/components/ui/DashboardCard';
 import { GradientButton } from '@/components/ui/GradientButton';
@@ -110,6 +112,32 @@ export default function WorkoutPage() {
   const doneSets = exercises.reduce((acc, e) => acc + e.sets.filter((s) => s.done).length, 0);
   const progress = totalSets > 0 ? Math.round((doneSets / totalSets) * 100) : 0;
 
+  const handleExport = () => {
+    let content = `Workout: ${workoutName || 'Unnamed Workout'}\n`;
+    content += `Date: ${new Date().toLocaleDateString()}\n`;
+    content += `Total Sets: ${totalSets} | Completed: ${doneSets}\n`;
+    content += `---------------------------\n\n`;
+
+    exercises.forEach((ex, i) => {
+      content += `${i + 1}. ${ex.name} (${ex.group})\n`;
+      ex.sets.forEach((set, j) => {
+        const status = set.done ? '[x]' : '[ ]';
+        content += `   Set ${j + 1}: ${set.weight}kg x ${set.reps} reps ${status}\n`;
+      });
+      content += '\n';
+    });
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${workoutName || 'workout_schedule'}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="space-y-6 max-w-[1200px] mx-auto">
 
@@ -129,9 +157,20 @@ export default function WorkoutPage() {
           </Text>
         </div>
         {exercises.length > 0 && (
-          <GradientButton leftSection={<IconCheck size={16} />} onClick={() => setActiveStep(2)}>
-            Finish Workout
-          </GradientButton>
+          <Group>
+            <Button
+              variant="outline"
+              color="gray"
+              leftSection={<IconDownload size={16} />}
+              onClick={handleExport}
+              style={{ borderColor: 'rgba(255,255,255,0.1)', color: '#ffdad8' }}
+            >
+              Export (.txt)
+            </Button>
+            <GradientButton leftSection={<IconCheck size={16} />} onClick={() => setActiveStep(2)}>
+              Finish Workout
+            </GradientButton>
+          </Group>
         )}
       </div>
 

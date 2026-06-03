@@ -1084,6 +1084,40 @@ export default function DashboardPage() {
     setAddModalOpened(false);
   };
 
+  const handleExportSchedule = () => {
+    let content = `GYM SLAVE - WEEKLY WORKOUT SCHEDULE\n`;
+    content += `Goal: ${profile.goal}\n`;
+    content += `Frequency: ${profile.workoutDaysPerWeek} days/week\n`;
+    content += `Location: ${profile.trainingLocation}\n`;
+    content += `--------------------------------------------------\n\n`;
+
+    const currentSchedule = profile.customSchedule || [];
+    currentSchedule.forEach((dayObj) => {
+      content += `${dayObj.day} - ${getLocalizedLabel(dayObj.label, t)}\n`;
+      if (dayObj.isRest) {
+        content += `  Rest Day\n\n`;
+      } else if (dayObj.exercises.length === 0) {
+        content += `  No exercises\n\n`;
+      } else {
+        dayObj.exercises.forEach((ex, idx) => {
+          content += `  ${idx + 1}. ${ex.name} (${getLocalizedTarget(ex.target, t)})\n`;
+          content += `     Sets: ${ex.sets} | Reps: ${ex.reps}\n`;
+        });
+        content += `\n`;
+      }
+    });
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `weekly_schedule.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   if (!isHydrated || !profile.customSchedule) {
     return (
       <div 
@@ -1160,18 +1194,37 @@ export default function DashboardPage() {
       <main className="pt-24 pb-12 px-5 md:px-12 max-w-[1200px] mx-auto">
         
         {/* Profile greeting */}
-        <div className="mb-12">
-          <h1 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 800, fontSize: 'clamp(32px,5vw,44px)', lineHeight: 1.1, letterSpacing: '-0.02em', color: '#fff' }}>
-            {t('greeting')}
-          </h1>
-          <p style={{ fontSize: '16px', color: '#e9bcba', marginTop: '4px' }}>
-            {t('profileGender')}: <span className="font-bold text-white uppercase">{profile.gender === 'male' ? t('genderMale') : t('genderFemale')}</span> • {t('profileLocation')}: <span className="font-bold text-white uppercase">{profile.trainingLocation === 'gym' ? t('locationGym') : t('locationHome')}</span> • {t('profileCommitment')}: <span className="font-bold text-white">{t('commitmentWeeks', { weeks: profile.targetWeeks || 12 })}</span>
-          </p>
-          {profile.focusMuscleGroups && profile.focusMuscleGroups.length > 0 && (
-            <p style={{ fontSize: '13px', color: '#fe6b00', marginTop: '4px' }}>
-              {t('focusMuscleLabel')}: <span className="font-bold text-white uppercase">{profile.focusMuscleGroups.join(', ')} {t('focusMuscleBoost')}</span>
+        <div className="mb-12 flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+          <div>
+            <h1 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 800, fontSize: 'clamp(32px,5vw,44px)', lineHeight: 1.1, letterSpacing: '-0.02em', color: '#fff' }}>
+              {t('greeting')}
+            </h1>
+            <p style={{ fontSize: '16px', color: '#e9bcba', marginTop: '4px' }}>
+              {t('profileGender')}: <span className="font-bold text-white uppercase">{profile.gender === 'male' ? t('genderMale') : t('genderFemale')}</span> • {t('profileLocation')}: <span className="font-bold text-white uppercase">{profile.trainingLocation === 'gym' ? t('locationGym') : t('locationHome')}</span> • {t('profileCommitment')}: <span className="font-bold text-white">{t('commitmentWeeks', { weeks: profile.targetWeeks || 12 })}</span>
             </p>
-          )}
+            {profile.focusMuscleGroups && profile.focusMuscleGroups.length > 0 && (
+              <p style={{ fontSize: '13px', color: '#fe6b00', marginTop: '4px' }}>
+                {t('focusMuscleLabel')}: <span className="font-bold text-white uppercase">{profile.focusMuscleGroups.join(', ')} {t('focusMuscleBoost')}</span>
+              </p>
+            )}
+          </div>
+          <div className="flex justify-end mt-2 md:mt-0">
+            <button
+              onClick={handleExportSchedule}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg uppercase transition-all active:scale-95 font-bold border hover:bg-white/5"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                color: '#fff',
+                fontFamily: 'var(--font-jetbrains)',
+                fontSize: '11px',
+                letterSpacing: '0.08em',
+                cursor: 'pointer',
+              }}
+            >
+              Export Schedule
+            </button>
+          </div>
         </div>
 
         {/* Bento Grid */}
