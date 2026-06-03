@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* ── Base Design Tokens ───────────────────────────────── */
+:root {
+  --color-bg: #0d0d0d;
+  --color-surface: #1a1a1a;
+  --color-surface-high: #262626;
+  --color-surface-highest: #2e2e2e;
+  --color-primary: #ff003c;
+  --color-secondary: #fe6b00;
+  --color-tertiary: #6cd7d8;
+  --color-on-bg: #ffdad8;
+  --color-on-surface: #ffdad8;
+  --color-on-surface-variant: #e9bcba;
+  --color-outline: #af8786;
+  --color-outline-variant: #5f3e3e;
+
+  --font-anybody: 'Anybody', sans-serif;
+  --font-hanken: 'Hanken Grotesk', sans-serif;
+  --font-jetbrains: 'JetBrains Mono', monospace;
+}
+
+/* ── Global Reset & Base ──────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--color-bg);
+  color: var(--color-on-bg);
+  font-family: var(--font-hanken);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Gradient Utilities ───────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(90deg, #ff003c, #fe6b00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #ff003c, #fe6b00);
+}
+
+.gradient-border {
+  border: 1px solid transparent;
+  background: linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+              linear-gradient(135deg, #ff003c, #fe6b00) border-box;
+}
+
+/* ── Card Glow Effect ─────────────────────────────────── */
+.card-glow:hover {
+  border-color: #fe6b00 !important;
+  box-shadow: 0 0 24px rgba(254, 107, 0, 0.2), 0 0 8px rgba(255, 0, 60, 0.1) !important;
+}
+
+/* ── Sidebar ──────────────────────────────────────────── */
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  color: var(--color-on-surface-variant);
+  font-family: var(--font-jetbrains);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.sidebar-nav-item:hover {
+  background-color: var(--color-surface-high);
+  color: var(--color-on-surface);
+}
+
+.sidebar-nav-item.active {
+  background: linear-gradient(135deg, rgba(255,0,60,0.15), rgba(254,107,0,0.15));
+  border-color: rgba(255,0,60,0.3);
+  color: #ffb3b2;
+}
+
+.sidebar-nav-item.active svg {
+  color: #ff003c;
+}
+
+/* ── Stat Number ──────────────────────────────────────── */
+.stat-number {
+  font-family: var(--font-anybody);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* ── Label Caps ───────────────────────────────────────── */
+.label-caps {
+  font-family: var(--font-jetbrains);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-outline);
+}
+
+/* ── Scrollbar Styling ────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-outline);
+}
+
+/* ── Mantine Overrides ────────────────────────────────── */
+.mantine-Card-root {
+  background-color: var(--color-surface) !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
+.mantine-Progress-bar {
+  background: linear-gradient(90deg, #ff003c, #fe6b00) !important;
+}
+
+/* ── Animations ───────────────────────────────────────── */
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 0, 60, 0.4); }
+  50% { box-shadow: 0 0 24px rgba(255, 0, 60, 0.8); }
+}
+
+.pulse-active {
+  animation: pulse-red 2s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #1a1a1a 25%, #262626 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
