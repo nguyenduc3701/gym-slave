@@ -5,15 +5,20 @@ import { useRouter } from 'next/navigation';
 import { Modal, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useUserStore } from '@/store/useUserStore';
-import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
-import { useTranslations } from 'next-intl';
+import { Header } from '@/components/layout/Header';
+import { useTranslations, useLocale } from 'next-intl';
+import Link from 'next/link';
+import { routing } from '@/i18n/routing';
+import { useExerciseStore } from '@/store/useExerciseStore';
 
 interface Exercise {
   name: string;
   target: string;
   sets: number;
   reps: string;
-  tier: 'S' | 'A' | 'B';
+  tier: 'S' | 'A' | 'B' | 'C';
+  priority?: 'low' | 'medium' | 'high' | number;
+  description?: string;
 }
 
 interface DaySchedule {
@@ -58,94 +63,97 @@ const foodPools: { [key: string]: FoodSuggestion[] } = {
 };
 
 // Raw exercises library map for Gym & Home (by muscle group targets)
-// Raw exercises library map for Gym & Home (by muscle group targets)
 const MASTER_EXERCISES = {
   gym: {
     nguc_tren: [
-      { name: "Incline Barbell Bench Press", target: "Ngực trên", tier: "S" as const },
-      { name: "Incline Dumbbell Press", target: "Ngực trên", tier: "A" as const },
-      { name: "Low-to-High Cable Fly", target: "Ngực trên & Ngực trong", tier: "A" as const },
-      { name: "Incline Dumbbell Fly", target: "Ngực trên", tier: "A" as const }
+      { name: "Incline Dumbbell Press", target: "Ngực trên", tier: "S" as const, priority: "high" as const },
+      { name: "Incline Smith Machine Press", target: "Ngực trên", tier: "S" as const, priority: "high" as const },
+      { name: "Incline Barbell Bench Press", target: "Ngực trên", tier: "A" as const, priority: "high" as const },
+      { name: "Low-to-High Cable Fly", target: "Ngực trên & Ngực trong", tier: "A" as const, priority: "medium" as const },
+      { name: "Incline Dumbbell Fly", target: "Ngực trên", tier: "B" as const, priority: "medium" as const }
     ],
     nguc_giua_duoi: [
-      { name: "Bench Press", target: "Ngực giữa", tier: "S" as const },
-      { name: "Chest Press Machine", target: "Ngực giữa (Cô lập)", tier: "A" as const },
-      { name: "Chest Dips (Xà kép ngực)", target: "Ngực dưới & Vai", tier: "A" as const },
-      { name: "Push-Up (Chống đẩy)", target: "Ngực vai", tier: "B" as const },
-      { name: "Cable Crossover", target: "Ngực dưới", tier: "B" as const }
+      { name: "Bench Press", target: "Ngực giữa", tier: "S" as const, priority: "high" as const },
+      { name: "Chest Press Machine", target: "Ngực giữa (Cô lập)", tier: "A" as const, priority: "high" as const },
+      { name: "Chest Dips (Xà kép ngực)", target: "Ngực dưới & Vai trước", tier: "A" as const, priority: "high" as const },
+      { name: "Chest Fly Machine (Pec Deck)", target: "Ngực giữa (Cô lập)", tier: "A" as const, priority: "medium" as const },
+      { name: "Cable Crossover", target: "Ngực dưới", tier: "A" as const, priority: "medium" as const },
+      { name: "Push-Up (Chống đẩy)", target: "Ngực & Vai", tier: "B" as const, priority: "medium" as const }
     ],
     lung_xo: [
-      { name: "Lat Pulldown", target: "Lưng rộng", tier: "A" as const },
-      { name: "Barbell Row", target: "Lưng xô", tier: "A" as const },
-      { name: "Pull-Up (Xà đơn)", target: "Lưng xô", tier: "A" as const },
-      { name: "Single-Arm Dumbbell Row", target: "Lưng xô (Đơn phương)", tier: "A" as const },
-      { name: "Straight-Arm Cable Pull-Down", target: "Lưng xô (Cô lập)", tier: "B" as const }
+      { name: "Pull-Up (Xà đơn)", target: "Lưng xô", tier: "S" as const, priority: "high" as const },
+      { name: "Lat Pulldown", target: "Lưng rộng", tier: "S" as const, priority: "high" as const },
+      { name: "Barbell Row", target: "Lưng xô", tier: "A" as const, priority: "high" as const },
+      { name: "Single-Arm Dumbbell Row", target: "Lưng xô (Đơn phương)", tier: "A" as const, priority: "high" as const },
+      { name: "Straight-Arm Cable Pull-Down", target: "Lưng xô (Cô lập kéo giãn)", tier: "A" as const, priority: "medium" as const }
     ],
     lung_tren: [
-      { name: "Seated Cable Row", target: "Lưng giữa", tier: "A" as const },
-      { name: "T-Bar Row", target: "Lưng giữa & Cầu vai", tier: "A" as const },
-      { name: "Dumbbell Shrugs", target: "Cầu vai trên", tier: "B" as const }
+      { name: "Chest-Supported T-Bar Row", target: "Lưng giữa & Lưng trên", tier: "S" as const, priority: "high" as const },
+      { name: "Seated Cable Row", target: "Lưng giữa", tier: "A" as const, priority: "high" as const },
+      { name: "T-Bar Row (Free Weight)", target: "Lưng giữa & Cầu vai", tier: "A" as const, priority: "high" as const },
+      { name: "Dumbbell Shrugs", target: "Cầu vai trên", tier: "B" as const, priority: "low" as const }
     ],
     lung_duoi: [
-      { name: "Deadlift", target: "Đùi sau & Lưng", tier: "S" as const },
-      { name: "Hyperextension (Ghế dốc lưng dưới)", target: "Lưng dưới & Mông", tier: "B" as const }
+      { name: "Deadlift", target: "Đùi sau & Toàn bộ chuỗi cơ sau", tier: "S" as const, priority: "high" as const },
+      { name: "Hyperextension (Ghế dốc lưng dưới)", target: "Lưng dưới & Mông", tier: "A" as const, priority: "low" as const }
     ],
     vai_truoc: [
-      { name: "Overhead Press", target: "Vai trước", tier: "S" as const },
-      { name: "Dumbbell Shoulder Press", target: "Vai trước", tier: "A" as const },
-      { name: "Front Raise (Cáp hoặc Tạ đơn)", target: "Vai trước", tier: "B" as const }
+      { name: "Overhead Press", target: "Vai trước & Core", tier: "S" as const, priority: "high" as const },
+      { name: "Dumbbell Shoulder Press", target: "Vai trước", tier: "A" as const, priority: "high" as const },
+      { name: "Front Raise (Cáp hoặc Tạ đơn)", target: "Vai trước", tier: "C" as const, priority: "medium" as const }
     ],
     vai_giua: [
-      { name: "Cable Lateral Raise", target: "Vai giữa", tier: "S" as const },
-      { name: "Lateral Raise", target: "Vai giữa", tier: "A" as const },
-      { name: "Dumbbell Upright Row", target: "Vai giữa & Cầu vai", tier: "B" as const }
+      { name: "Cable Lateral Raise", target: "Vai giữa (Áp lực đều)", tier: "S" as const, priority: "medium" as const },
+      { name: "Lateral Raise (Dumbbell)", target: "Vai giữa", tier: "A" as const, priority: "medium" as const },
+      { name: "Dumbbell Upright Row", target: "Vai giữa & Cầu vai", tier: "B" as const, priority: "high" as const }
     ],
     vai_sau: [
-      { name: "Face Pull", target: "Vai sau", tier: "B" as const },
-      { name: "Reverse Pec Deck Fly (Máy bay vai sau)", target: "Vai sau (Cô lập)", tier: "B" as const }
+      { name: "Reverse Pec Deck Fly", target: "Vai sau (Cô lập)", tier: "S" as const, priority: "medium" as const },
+      { name: "Face Pull", target: "Vai sau & Lưng trên", tier: "A" as const, priority: "medium" as const }
     ],
     tay_truoc: [
-      { name: "Incline Dumbbell Curl", target: "Tay trước (Đầu dài)", tier: "A" as const },
-      { name: "Preacher Curl (Ghế dốc cô lập)", target: "Tay trước (Đầu ngắn)", tier: "A" as const },
-      { name: "Dumbbell Curl", target: "Tay trước", tier: "B" as const },
-      { name: "Hammer Curl", target: "Tay trước", tier: "B" as const }
+      { name: "Incline Dumbbell Curl", target: "Tay trước (Đầu dài - Kéo giãn)", tier: "S" as const, priority: "medium" as const },
+      { name: "Preacher Curl", target: "Tay trước (Đầu ngắn - Co thắt)", tier: "A" as const, priority: "medium" as const },
+      { name: "Hammer Curl", target: "Tay trước (Cơ cánh tay quay)", tier: "A" as const, priority: "medium" as const },
+      { name: "Dumbbell Curl", target: "Tay trước", tier: "B" as const, priority: "medium" as const }
     ],
     tay_sau: [
-      { name: "Overhead Cable Tricep Extension", target: "Tay sau (Đầu dài)", tier: "A" as const },
-      { name: "Close-Grip Bench Press", target: "Tay sau & Ngực", tier: "A" as const },
-      { name: "Tricep Pushdown", target: "Tay sau", tier: "B" as const },
-      { name: "Tricep Rope Pushdown", target: "Tay sau", tier: "B" as const },
-      { name: "Tricep Kickback", target: "Tay sau", tier: "B" as const }
+      { name: "Tricep Rope Pushdown", target: "Tay sau (Đầu bên & đầu trong)", tier: "S" as const, priority: "medium" as const },
+      { name: "Overhead Cable Tricep Extension", target: "Tay sau (Đầu dài)", tier: "S" as const, priority: "medium" as const },
+      { name: "Close-Grip Bench Press", target: "Tay sau & Ngực", tier: "A" as const, priority: "high" as const },
+      { name: "JM Press", target: "Tay sau (Khối lượng nặng)", tier: "A" as const, priority: "high" as const },
+      { name: "Tricep Pushdown (Thanh thẳng)", target: "Tay sau", tier: "A" as const, priority: "medium" as const },
+      { name: "Tricep Kickback", target: "Tay sau", tier: "C" as const, priority: "medium" as const }
     ],
     dui_truoc: [
-      { name: "Barbell Squat", target: "Đùi trước", tier: "S" as const },
-      { name: "Leg Press", target: "Đùi mông", tier: "A" as const },
-      { name: "Bulgarian Split Squat", target: "Mông đùi trước", tier: "A" as const },
-      { name: "Leg Extension (Máy đá đùi trước)", target: "Đùi trước (Cô lập)", tier: "B" as const },
-      { name: "Dumbbell Goblet Squat", target: "Đùi trước", tier: "B" as const }
+      { name: "Barbell Squat", target: "Đùi trước & Mông", tier: "S" as const, priority: "high" as const },
+      { name: "Bulgarian Split Squat", target: "Đùi trước & Mông (Đơn phương)", tier: "S" as const, priority: "high" as const },
+      { name: "Leg Press", target: "Đùi trước & Mông", tier: "A" as const, priority: "high" as const },
+      { name: "Leg Extension (Máy đá đùi trước)", target: "Đùi trước (Cô lập)", tier: "A" as const, priority: "medium" as const },
+      { name: "Dumbbell Goblet Squat", target: "Đùi trước", tier: "B" as const, priority: "high" as const }
     ],
     dui_sau_mong: [
-      { name: "Barbell Hip Thrust", target: "Cơ mông lớn", tier: "S" as const },
-      { name: "Romanian Deadlift", target: "Mông đùi sau", tier: "A" as const },
-      { name: "Seated Leg Curl", target: "Đùi sau", tier: "A" as const },
-      { name: "Lying Leg Curl", target: "Đùi sau", tier: "B" as const },
-      { name: "Abductor Machine", target: "Mông đùi ngoài", tier: "B" as const },
-      { name: "Glute Bridge (Cầu mông)", target: "Mông", tier: "B" as const }
+      { name: "Romanian Deadlift", target: "Đùi sau & Mông (Kéo giãn)", tier: "S" as const, priority: "high" as const },
+      { name: "Barbell Hip Thrust", target: "Cơ mông lớn (Co thắt cực đại)", tier: "S" as const, priority: "high" as const },
+      { name: "Seated Leg Curl", target: "Đùi sau (Vị trí ngồi tối ưu hơn nằm)", tier: "S" as const, priority: "medium" as const },
+      { name: "Lying Leg Curl", target: "Đùi sau", tier: "A" as const, priority: "medium" as const },
+      { name: "Abductor Machine", target: "Mông nhỡ / Đùi ngoài", tier: "B" as const, priority: "low" as const },
+      { name: "Glute Bridge (Cầu mông)", target: "Mông", tier: "B" as const, priority: "low" as const }
     ],
     bap_chan: [
-      { name: "Calf Raise", target: "Bắp chân", tier: "B" as const },
-      { name: "Seated Calf Raise (Máy nhón bắp chân ngồi)", target: "Bắp chân dưới", tier: "B" as const }
+      { name: "Calf Raise (Đứng máy/Leg Press)", target: "Bắp chân lớn (Gastrocnemius)", tier: "A" as const, priority: "low" as const },
+      { name: "Seated Calf Raise", target: "Bắp chân sâu (Soleus)", tier: "A" as const, priority: "low" as const }
     ],
     bung: [
-      { name: "Hanging Leg Raise", target: "Bụng", tier: "A" as const },
-      { name: "Cable Crunch (Quỳ kéo cáp)", target: "Bụng trên", tier: "A" as const },
-      { name: "Plank", target: "Cơ bụng", tier: "B" as const }
+      { name: "Hanging Leg Raise", target: "Bụng dưới & Toàn bộ cơ bụng", tier: "S" as const, priority: "low" as const },
+      { name: "Cable Crunch (Quỳ kéo cáp)", target: "Bụng trên (Quá tải lũy tiến)", tier: "S" as const, priority: "low" as const },
+      { name: "Plank", target: "Cơ lõi (Core/Tĩnh)", tier: "B" as const, priority: "low" as const }
     ],
     cardio: [
-      { name: "Treadmill Running (Chạy bộ máy)", target: "Cardio", tier: "S" as const },
-      { name: "Stationary Cycling (Đạp xe máy)", target: "Cardio", tier: "A" as const },
-      { name: "Elliptical Machine (Máy trượt tuyết)", target: "Cardio", tier: "A" as const },
-      { name: "Rowing Machine (Máy chèo thuyền)", target: "Cardio", tier: "A" as const }
+      { name: "Rowing Machine (Máy chèo thuyền)", target: "Toàn thân & Tim mạch", tier: "S" as const, priority: "medium" as const },
+      { name: "Treadmill Running (Chạy bộ máy)", target: "Tim mạch", tier: "A" as const, priority: "medium" as const },
+      { name: "Stationary Cycling (Đạp xe máy)", target: "Tim mạch", tier: "A" as const, priority: "medium" as const },
+      { name: "Elliptical Machine", target: "Tim mạch (Bảo vệ khớp gối)", tier: "A" as const, priority: "medium" as const }
     ]
   },
   home: {
@@ -224,11 +232,12 @@ const MASTER_EXERCISES = {
   }
 };
 
-function renderTierBadge(tier: 'S' | 'A' | 'B') {
+function renderTierBadge(tier: 'S' | 'A' | 'B' | 'C') {
   const styles = {
     S: { bg: 'rgba(255, 0, 60, 0.2)', border: '#ff003c', color: '#ff525c' },
     A: { bg: 'rgba(254, 107, 0, 0.2)', border: '#fe6b00', color: '#ffb693' },
     B: { bg: 'rgba(108, 215, 216, 0.2)', border: '#6cd7d8', color: '#6cd7d8' },
+    C: { bg: 'rgba(150, 150, 150, 0.2)', border: '#9e9e9e', color: '#cccccc' },
   }[tier];
 
   return (
@@ -269,7 +278,8 @@ function generateWorkoutSchedule(
   daysPerWeek: number,
   location: 'gym' | 'home',
   gender: 'male' | 'female',
-  focusMuscles: string[] = []
+  focusMuscles: string[] = [],
+  customLibrary?: any
 ): DaySchedule[] {
   const currentDayIndex = new Date().getDay();
   const orderedDays = ['THỨ 2', 'THỨ 3', 'THỨ 4', 'THỨ 5', 'THỨ 6', 'THỨ 7', 'CHỦ NHẬT'];
@@ -381,8 +391,25 @@ function generateWorkoutSchedule(
   ];
 
   const getSortedExercises = (list: Exercise[]) => {
-    const order = { S: 1, A: 2, B: 3 };
-    return [...list].sort((x, y) => order[x.tier] - order[y.tier]);
+    const order = { S: 1, A: 2, B: 3, C: 4 };
+    const priorityMap = { high: 3, medium: 2, low: 1 };
+    
+    const getPriorityVal = (p: any) => {
+      if (typeof p === 'number') return p;
+      if (p && typeof p === 'string' && p in priorityMap) {
+        return priorityMap[p as keyof typeof priorityMap];
+      }
+      return 0;
+    };
+
+    return [...list].sort((x, y) => {
+      const tierDiff = order[x.tier] - order[y.tier];
+      if (tierDiff !== 0) return tierDiff;
+      
+      const priorityX = getPriorityVal(x.priority);
+      const priorityY = getPriorityVal(y.priority);
+      return priorityY - priorityX; // Higher priority first
+    });
   };
 
   const isTodayName = (vietnameseDayName: string) => {
@@ -508,7 +535,8 @@ function generateWorkoutSchedule(
         const hasCardio = dayObj.exercises.some(ex => ex.target.includes('Cardio'));
         const cardioExercises: any[] = [];
         if (!hasCardio) {
-          const cardioPool = MASTER_EXERCISES[location].cardio || [];
+          const libraryToUse = (customLibrary && customLibrary[location]) ? customLibrary : MASTER_EXERCISES;
+          const cardioPool = libraryToUse[location]?.cardio || [];
           if (cardioPool.length > 0) {
             const cEx = cardioPool[0];
             cardioExercises.push({
@@ -667,11 +695,13 @@ function ExerciseDetailModal({
 }) {
   const { profile, updateProfile } = useUserStore();
   const t = useTranslations('dashboard');
+  const { library: exerciseLibraryRaw } = useExerciseStore() || {};
+  const exerciseLibrary = exerciseLibraryRaw || MASTER_EXERCISES;
 
   if (!exercise) return null;
 
   const location = profile?.trainingLocation || 'gym';
-  const currentLibrary = MASTER_EXERCISES[location];
+  const currentLibrary = exerciseLibrary?.[location] || MASTER_EXERCISES[location];
 
   let sameGroupExercises: { name: string; target: string; tier: 'S' | 'A' | 'B' }[] = [];
   for (const [_, list] of Object.entries(currentLibrary)) {
@@ -890,7 +920,10 @@ export default function DashboardPage() {
   const router = useRouter();
   const { profile, updateProfile, resetStore } = useUserStore();
   const t = useTranslations('dashboard');
-  
+  const locale = useLocale();
+  const { library: exerciseLibraryRaw } = useExerciseStore() || {};
+  const exerciseLibrary = exerciseLibraryRaw || MASTER_EXERCISES;
+
   const [opened, { open, close }] = useDisclosure(false);
   const [addModalOpened, setAddModalOpened] = useState(false);
   const [exerciseToDelete, setExerciseToDelete] = useState<{ dayName: string; index: number } | null>(null);
@@ -900,6 +933,9 @@ export default function DashboardPage() {
   useEffect(() => {
     setIsHydrated(true);
   }, []);
+
+  const localePath = (path: string) =>
+    locale === routing.defaultLocale ? path : `/${locale}${path}`;
   
   // Local state for dashboard adjustments
   const [weightInput, setWeightInput] = useState<number>(70);
@@ -929,7 +965,8 @@ export default function DashboardPage() {
           profile.workoutDaysPerWeek || 4,
           profile.trainingLocation || 'gym',
           profile.gender || 'male',
-          profile.focusMuscleGroups || []
+          profile.focusMuscleGroups || [],
+          exerciseLibrary
         );
         updateProfile({ customSchedule: initialSchedule });
       }
@@ -937,8 +974,8 @@ export default function DashboardPage() {
   }, [profile]);
 
   // Dropdown list filters matching selected muscle group
-  const activeLocation = profile.trainingLocation || 'gym';
-  const availableExercisesList = MASTER_EXERCISES[activeLocation][selectedMuscle as keyof typeof MASTER_EXERCISES['gym']] || [];
+  const activeLocation = profile?.trainingLocation || 'gym';
+  const availableExercisesList = exerciseLibrary?.[activeLocation]?.[selectedMuscle] || [];
 
   // Reset exercise selection whenever muscle category changes
   useEffect(() => {
@@ -1008,7 +1045,8 @@ export default function DashboardPage() {
       workoutDaysInput,
       locationInput,
       gender || 'male',
-      focusMuscleGroups || []
+      focusMuscleGroups || [],
+      exerciseLibrary
     );
 
     updateProfile({
@@ -1159,37 +1197,7 @@ export default function DashboardPage() {
       style={{ backgroundColor: '#140707', color: '#ffdad8', fontFamily: 'var(--font-hanken)' }}
     >
       {/* ── TopNav ────────────────────────────────────────────────────────── */}
-      <nav
-        className="fixed top-0 w-full z-50 border-b"
-        style={{ backgroundColor: 'rgba(20, 7, 7, 0.85)', backdropFilter: 'blur(16px)', borderColor: '#4e2a2a' }}
-      >
-        <div className="flex justify-between items-center w-full px-6 md:px-12 max-w-[1200px] mx-auto h-16">
-          <span
-            style={{ fontFamily: 'var(--font-anybody)', fontWeight: 800, fontSize: '20px', letterSpacing: '-0.02em', textTransform: 'uppercase' }}
-            className="gradient-text"
-          >
-            GYM SLAVE
-          </span>
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
-            <button
-              onClick={handleRecreateWorkout}
-              className="flex items-center gap-2 px-5 py-2 rounded-lg uppercase transition-all active:scale-95 font-bold"
-              style={{
-                background: 'linear-gradient(135deg, #bf002a, #fe6b00)',
-                color: '#fff',
-                fontFamily: 'var(--font-jetbrains)',
-                fontSize: '11px',
-                letterSpacing: '0.08em',
-                border: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              {t('recreateBtn')}
-            </button>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       {/* ── Main ──────────────────────────────────────────────────────────── */}
       <main className="pt-24 pb-12 px-5 md:px-12 max-w-[1200px] mx-auto">

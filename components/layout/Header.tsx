@@ -1,99 +1,187 @@
 'use client';
 
-import { ActionIcon, Avatar, Badge, Text, Indicator } from '@mantine/core';
-import { IconMenu2, IconBell } from '@tabler/icons-react';
-import { usePathname } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { useAppStore } from '@/store/useAppStore';
-import { useUserStore } from '@/store/useUserStore';
+import { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useTranslations, useLocale } from 'next-intl';
+import Link from 'next/link';
+import { IconMenu2, IconX } from '@tabler/icons-react';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
+import { useUserStore } from '@/store/useUserStore';
+import { useAppStore } from '@/store/useAppStore';
+import { routing } from '@/i18n/routing';
 
 export function Header() {
+  const router = useRouter();
   const pathname = usePathname();
+  const locale = useLocale();
+  const { resetStore } = useUserStore();
   const { toggleSidebar } = useAppStore();
-  const { profile } = useUserStore();
-  const t = useTranslations('header');
+  const t = useTranslations('dashboard');
 
-  // Map pathname segment to translation key
-  const getPageTitle = () => {
-    if (pathname.includes('/dashboard')) return t('pages.dashboard');
-    if (pathname.includes('/workout')) return t('pages.workout');
-    if (pathname.includes('/nutrition')) return t('pages.nutrition');
-    if (pathname.includes('/progress')) return t('pages.progress');
-    if (pathname.includes('/settings')) return t('pages.settings');
-    return 'Gym Slave';
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const localePath = (path: string) =>
+    locale === routing.defaultLocale ? path : `/${locale}${path}`;
+
+  const localeLabels = {
+    vi: { home: 'Trang chủ', exercise: 'Bài tập' },
+    en: { home: 'Home', exercise: 'Exercise' },
+    fr: { home: 'Accueil', exercise: 'Exercices' },
+    ko: { home: '홈', exercise: '운동' },
+    zh: { home: '首页', exercise: '运动' },
+    ja: { home: 'ホーム', exercise: 'エクササイズ' },
+    pt: { home: 'Início', exercise: 'Exercícios' }
+  };
+  const labels = localeLabels[locale as keyof typeof localeLabels] || localeLabels.en;
+
+  const handleRecreateWorkout = () => {
+    resetStore();
+    router.push(localePath('/onboarding'));
   };
 
+  // Determine if the current page has a sidebar
+  const isDashboard = pathname.includes('/dashboard');
+  const isExercise = pathname.includes('/exercise');
+  const hasSidebar = !isDashboard && !isExercise;
+
+  // We make it absolute/fixed on dashboard and exercise (since they have no sidebar), and sticky on other pages
+  const headerClass = !hasSidebar
+    ? 'fixed top-0 w-full z-50 border-b'
+    : 'sticky top-0 w-full z-20 border-b';
+
   return (
-    <header
-      className="sticky top-0 z-20 flex items-center justify-between px-6 py-3 border-b border-white/[0.06]"
-      style={{ backgroundColor: 'rgba(13,13,13,0.85)', backdropFilter: 'blur(20px)' }}
+    <nav
+      className={headerClass}
+      style={{
+        backgroundColor: 'rgba(20, 7, 7, 0.85)',
+        backdropFilter: 'blur(16px)',
+        borderColor: '#4e2a2a',
+      }}
     >
-      <div className="flex items-center gap-4">
-        <ActionIcon
-          variant="subtle"
-          color="gray"
-          size="lg"
-          onClick={toggleSidebar}
-          className="lg:hidden"
-        >
-          <IconMenu2 size={20} />
-        </ActionIcon>
-        <div>
-          <p className="label-caps" style={{ color: '#5f3e3e' }}>
-            {t('brand')}
-          </p>
-          <Text
+      <div className="flex justify-between items-center w-full px-6 md:px-12 max-w-[1200px] mx-auto h-16 relative">
+        <div className="flex items-center gap-3 md:gap-8">
+          {/* Burger button */}
+          <button
+            onClick={() => {
+              if (hasSidebar) {
+                toggleSidebar();
+              } else {
+                setMobileMenuOpen(!mobileMenuOpen);
+              }
+            }}
+            className="md:hidden p-1 text-[#ffdad8] hover:text-white active:scale-95 transition-all"
+            style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+          >
+            {hasSidebar ? (
+              <IconMenu2 size={22} />
+            ) : mobileMenuOpen ? (
+              <IconX size={22} />
+            ) : (
+              <IconMenu2 size={22} />
+            )}
+          </button>
+
+          {/* Logo - only hide on desktop if sidebar is present to avoid double logos */}
+          <Link
+            href={localePath('/dashboard')}
             style={{
               fontFamily: 'var(--font-anybody)',
-              fontWeight: 700,
+              fontWeight: 800,
               fontSize: '20px',
-              letterSpacing: '-0.01em',
-              lineHeight: 1.2,
+              letterSpacing: '-0.02em',
+              textTransform: 'uppercase',
+              textDecoration: 'none',
             }}
+            className={`gradient-text ${hasSidebar ? 'lg:hidden' : ''}`}
           >
-            {getPageTitle()}
-          </Text>
+            GYM SLAVE
+          </Link>
         </div>
-      </div>
 
-      <div className="flex items-center gap-3">
-        {/* Language Switcher */}
-        <LanguageSwitcher />
-
-        <Indicator color="red" size={8} offset={4}>
-          <ActionIcon variant="subtle" color="gray" size="lg" radius="lg">
-            <IconBell size={18} />
-          </ActionIcon>
-        </Indicator>
-
-        <div className="flex items-center gap-2 pl-3 border-l border-white/[0.08]">
-          <div className="text-right hidden sm:block">
-            <Text size="sm" fw={600} lh={1.2}>
-              {profile.name}
-            </Text>
-            <Badge
-              size="xs"
-              variant="light"
-              color="fireRed"
-              style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '9px' }}
+        <div className="flex items-center gap-3">
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center gap-6 mr-4">
+            <Link
+              href={localePath('/dashboard')}
+              className="text-xs uppercase font-bold tracking-wider hover:text-[#ff003c] transition-colors"
+              style={{
+                fontFamily: 'var(--font-jetbrains)',
+                color: '#ffb3b2',
+                textDecoration: 'none',
+              }}
             >
-              {profile.goal.replace('_', ' ').toUpperCase()}
-            </Badge>
+              {labels.home}
+            </Link>
+            <Link
+              href={localePath('/exercise')}
+              className="text-xs uppercase font-bold tracking-wider hover:text-[#ff003c] transition-colors"
+              style={{
+                fontFamily: 'var(--font-jetbrains)',
+                color: '#ffb3b2',
+                textDecoration: 'none',
+              }}
+            >
+              {labels.exercise}
+            </Link>
           </div>
-          <Avatar
-            size={36}
-            radius="xl"
+          <LanguageSwitcher />
+          {/* Hide recreate button on /exercise page */}
+          {!isExercise && (
+            <button
+              onClick={handleRecreateWorkout}
+              className="flex items-center gap-2 px-5 py-2 rounded-lg uppercase transition-all active:scale-95 font-bold"
+              style={{
+                background: 'linear-gradient(135deg, #bf002a, #fe6b00)',
+                color: '#fff',
+                fontFamily: 'var(--font-jetbrains)',
+                fontSize: '11px',
+                letterSpacing: '0.08em',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              {t('recreateBtn')}
+            </button>
+          )}
+        </div>
+
+        {/* Mobile Menu Dropdown (only for dashboard where there is no sidebar) */}
+        {!hasSidebar && mobileMenuOpen && (
+          <div
+            className="absolute top-16 left-0 w-full z-50 border-b flex flex-col p-4 gap-2 md:hidden"
             style={{
-              background: 'linear-gradient(135deg, #ff003c, #fe6b00)',
-              fontFamily: 'var(--font-anybody)',
-              fontWeight: 700,
+              backgroundColor: 'rgba(20, 7, 7, 0.95)',
+              backdropFilter: 'blur(16px)',
+              borderColor: '#4e2a2a',
             }}
           >
-            {profile.name.charAt(0)}
-          </Avatar>
-        </div>
+            <Link
+              href={localePath('/dashboard')}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-sm uppercase font-bold tracking-wider py-2.5 px-3 rounded-lg hover:bg-white/5 transition-colors"
+              style={{
+                fontFamily: 'var(--font-jetbrains)',
+                color: '#ffdad8',
+                textDecoration: 'none',
+              }}
+            >
+              {labels.home}
+            </Link>
+            <Link
+              href={localePath('/exercise')}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-sm uppercase font-bold tracking-wider py-2.5 px-3 rounded-lg hover:bg-white/5 transition-colors"
+              style={{
+                fontFamily: 'var(--font-jetbrains)',
+                color: '#ffdad8',
+                textDecoration: 'none',
+              }}
+            >
+              {labels.exercise}
+            </Link>
+          </div>
+        )}
       </div>
-    </header>
+    </nav>
   );
 }

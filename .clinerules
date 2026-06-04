@@ -1,0 +1,22 @@
+# Gym Slave - Project Rules
+
+This file documents the coding rules and constraints for the Gym Slave codebase.
+
+## 🌐 Multi-language Support (i18n) Requirement
+
+All generated, modified, or introduced code MUST fully support and maintain internationalization (i18n) across all target locales of this application.
+
+### Supported Locales
+* `vi` (Vietnamese - default)
+* `en` (English)
+* `fr` (French)
+* `ko` (Korean)
+* `zh` (Chinese)
+* `ja` (Japanese)
+* `pt` (Portuguese)
+
+### Implementation Guidelines
+1. **Translations Source**: Translation files are located in [messages/](file:///Users/minhducnguyen/gym-slave/messages/) (e.g., `vi.json`, `en.json`, etc.).
+2. **Text / Labels**: Never hardcode user-facing strings directly in components or pages. Always use `next-intl` hooks (`useTranslations`) or structure local localization mappings inside components that support all 7 locales.
+3. **Adding New Keys**: When introducing new user-facing labels or UI copy, define the key in `messages/vi.json` and ensure it is accurately translated and added across the other 6 JSON translation files in [messages/](file:///Users/minhducnguyen/gym-slave/messages/).
+4. **URL Navigation**: Always preserve locale routing prefixes by wrapper helpers (e.g., `localePath('/route')`) instead of hardcoding raw `/route` paths in `Link` components or navigation routers.

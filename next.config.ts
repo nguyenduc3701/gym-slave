@@ -3,7 +3,7 @@ import path from "path";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  allowedDevOrigins: ['172.17.106.110'],
+  allowedDevOrigins: ['172.17.106.110', '*.ngrok-free.app', '*.ngrok.io'],
   typescript: {
     // WASM bindings crash during type checking on ARM64 Mac — skip for dev
     ignoreBuildErrors: true,
