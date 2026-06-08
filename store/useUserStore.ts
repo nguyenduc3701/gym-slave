@@ -1,6 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+export interface WeightRecord {
+  date: string;
+  weight: number;
+}
+
+export type WeightLogs = Record<string, WeightRecord[]>;
+
 interface UserProfile {
   name: string;
   avatar?: string;
@@ -28,6 +35,10 @@ interface UserProfile {
   // Custom schedule state
   customSchedule: any[] | null;
   
+  // Weight lifting log state
+  weightLogs?: WeightLogs;
+  weightUnit?: 'kg' | 'lbs';
+  
   // Optional onboarding fields
   bodyFat?: number;
   avgDailyCalories?: number;
@@ -40,6 +51,8 @@ interface UserState {
   profile: UserProfile;
   updateProfile: (profile: Partial<UserProfile>) => void;
   resetStore: () => void;
+  addWeightLog: (exerciseName: string, weight: number, date: string) => void;
+  clearWeightLogs: () => void;
 }
 
 const defaultProfile: UserProfile = {
@@ -61,6 +74,7 @@ const defaultProfile: UserProfile = {
   bmr: 1600,
   tdee: 2200,
   customSchedule: null,
+  weightUnit: 'kg',
 };
 
 
@@ -73,6 +87,38 @@ export const useUserStore = create<UserState>()(
           profile: { ...state.profile, ...updates },
         })),
       resetStore: () => set({ profile: defaultProfile }),
+      addWeightLog: (exerciseName, weight, date) =>
+        set((state) => {
+          const currentLogs = state.profile.weightLogs || {};
+          const exerciseLogs = currentLogs[exerciseName] || [];
+          
+          // Check if date already exists to overwrite, else append
+          const existingIndex = exerciseLogs.findIndex(log => log.date === date);
+          let newExerciseLogs = [...exerciseLogs];
+          
+          if (existingIndex >= 0) {
+            newExerciseLogs[existingIndex] = { date, weight };
+          } else {
+            newExerciseLogs.push({ date, weight });
+          }
+          
+          // Sort by date ascending
+          newExerciseLogs.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+          
+          return {
+            profile: {
+              ...state.profile,
+              weightLogs: {
+                ...currentLogs,
+                [exerciseName]: newExerciseLogs,
+              },
+            },
+          };
+        }),
+      clearWeightLogs: () =>
+        set((state) => ({
+          profile: { ...state.profile, weightLogs: {} },
+        })),
     }),
     {
       name: 'ignite-user-store',

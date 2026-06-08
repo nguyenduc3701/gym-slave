@@ -24,13 +24,13 @@ export function Header() {
     locale === routing.defaultLocale ? path : `/${locale}${path}`;
 
   const localeLabels = {
-    vi: { home: 'Trang chủ', exercise: 'Bài tập' },
-    en: { home: 'Home', exercise: 'Exercise' },
-    fr: { home: 'Accueil', exercise: 'Exercices' },
-    ko: { home: '홈', exercise: '운동' },
-    zh: { home: '首页', exercise: '运动' },
-    ja: { home: 'ホーム', exercise: 'エクササイズ' },
-    pt: { home: 'Início', exercise: 'Exercícios' }
+    vi: { home: 'Trang chủ', exercise: 'Bài tập', records: 'Nhật Ký' },
+    en: { home: 'Home', exercise: 'Exercise', records: 'Records' },
+    fr: { home: 'Accueil', exercise: 'Exercices', records: 'Historique' },
+    ko: { home: '홈', exercise: '운동', records: '기록' },
+    zh: { home: '首页', exercise: '运动', records: '记录' },
+    ja: { home: 'ホーム', exercise: 'エクササイズ', records: '記録' },
+    pt: { home: 'Início', exercise: 'Exercícios', records: 'Registros' }
   };
   const labels = localeLabels[locale as keyof typeof localeLabels] || localeLabels.en;
 
@@ -42,7 +42,8 @@ export function Header() {
   // Determine if the current page has a sidebar
   const isDashboard = pathname.includes('/dashboard');
   const isExercise = pathname.includes('/exercise');
-  const hasSidebar = !isDashboard && !isExercise;
+  const isRecords = pathname.includes('/records');
+  const hasSidebar = !isDashboard && !isExercise && !isRecords;
 
   // We make it absolute/fixed on dashboard and exercise (since they have no sidebar), and sticky on other pages
   const headerClass = !hasSidebar
@@ -123,6 +124,17 @@ export function Header() {
             >
               {labels.exercise}
             </Link>
+            <Link
+              href={localePath('/records')}
+              className="text-xs uppercase font-bold tracking-wider hover:text-[#ff003c] transition-colors"
+              style={{
+                fontFamily: 'var(--font-jetbrains)',
+                color: '#ffb3b2',
+                textDecoration: 'none',
+              }}
+            >
+              {labels.records}
+            </Link>
           </div>
           <LanguageSwitcher />
           {/* Hide recreate button on /exercise page */}
@@ -178,6 +190,18 @@ export function Header() {
               }}
             >
               {labels.exercise}
+            </Link>
+            <Link
+              href={localePath('/records')}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-sm uppercase font-bold tracking-wider py-2.5 px-3 rounded-lg hover:bg-white/5 transition-colors"
+              style={{
+                fontFamily: 'var(--font-jetbrains)',
+                color: '#ffdad8',
+                textDecoration: 'none',
+              }}
+            >
+              {labels.records}
             </Link>
           </div>
         )}

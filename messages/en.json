@@ -27,6 +27,10 @@
     "settings": {
       "title": "Settings",
       "description": "Manage your account settings and personal profile on Gym Slave."
+    },
+    "records": {
+      "title": "Weight Tracking Log",
+      "description": "Track the weight progression of your workouts."
     }
   },
   "common": {
@@ -47,6 +51,7 @@
     "workout": "Workout",
     "nutrition": "Nutrition",
     "progress": "Progress",
+    "records": "Records",
     "settings": "Settings"
   },
   "header": {
@@ -56,6 +61,7 @@
       "workout": "Workout",
       "nutrition": "Nutrition",
       "progress": "Progress",
+      "records": "Records",
       "settings": "Settings"
     }
   },
@@ -168,6 +174,7 @@
     "fat": "Fat",
     "customSchedule": "CUSTOM SCHEDULE",
     "resetSchedule": "Reset Schedule",
+    "swapDayBtn": "⇄ Swap Day",
     "greeting": "Good Morning, Warrior",
     "profileGender": "Gender",
     "genderMale": "Male",
@@ -276,7 +283,8 @@
     "sessionLegs": "Legs & Core Day",
     "sessionUpper": "Upper Body",
     "sessionLower": "Lower Body",
-    "sessionAbsCardio": "Abs & Light Cardio"
+    "sessionAbsCardio": "Abs & Light Cardio",
+    "sessionCustom": "Custom"
   },
   "workout": {
     "title": "Log Your Workout",
@@ -343,5 +351,24 @@
     "language": "Language",
     "languageDesc": "Select display language",
     "saveChanges": "Save Changes"
+  },
+  "records": {
+    "title": "Weight Tracking Log",
+    "subtitle": "Track your personal records",
+    "clearHistory": "Clear History",
+    "clearHistoryConfirmTitle": "Confirm Clear",
+    "clearHistoryConfirmDesc": "Are you sure you want to clear all weight history? This action cannot be undone.",
+    "cancel": "Cancel",
+    "confirmDelete": "Clear",
+    "currentWeight": "Current Weight",
+    "noData": "No data",
+    "update": "Update",
+    "weightHistory": "Weight History: {exercise}",
+    "date": "Date",
+    "weight": "Weight (kg)",
+    "chartView": "Chart",
+    "listView": "List",
+    "emptyList": "You have no records for this exercise yet. Lift and update your weight!",
+    "searchPlaceholder": "Search exercises..."
   }
 }

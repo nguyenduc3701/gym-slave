@@ -613,7 +613,11 @@ export default function OnboardingPage() {
       dailyCalorieTarget = tdee - 500;
       goal = 'weight_loss';
     } else if (targetWeight > weight + 2) {
-      dailyCalorieTarget = tdee + 300;
+      if (workoutDays >= 4) {
+        dailyCalorieTarget = tdee + 500;
+      } else {
+        dailyCalorieTarget = tdee + 300;
+      }
       goal = 'muscle_gain';
     }
 
@@ -650,6 +654,7 @@ export default function OnboardingPage() {
       supplements: supplements.length > 0 ? supplements : undefined,
       sleepHours: sleepHours,
       goal,
+      customSchedule: null,
     });
 
     router.push('/dashboard');

@@ -11,6 +11,7 @@ import {
   IconSettings,
   IconFlame,
   IconX,
+  IconClipboardList,
 } from '@tabler/icons-react';
 import { Text, ActionIcon, Divider } from '@mantine/core';
 import { useAppStore } from '@/store/useAppStore';
@@ -31,6 +32,7 @@ export function Sidebar() {
     { labelKey: 'workout', href: '/workout', icon: IconBarbell },
     { labelKey: 'nutrition', href: '/nutrition', icon: IconSalad },
     { labelKey: 'progress', href: '/progress', icon: IconChartBar },
+    { labelKey: 'records', href: '/records', icon: IconClipboardList },
     { labelKey: 'settings', href: '/settings', icon: IconSettings },
   ];
 

@@ -27,6 +27,10 @@
     "settings": {
       "title": "설정",
       "description": "Gym Slave에서 계정 설정 및 개인 프로필을 관리하세요."
+    },
+    "records": {
+      "title": "체중 추적 로그",
+      "description": "운동의 무게 진행 상황을 추적하세요."
     }
   },
   "common": {
@@ -47,6 +51,7 @@
     "workout": "운동",
     "nutrition": "영양",
     "progress": "진행 상황",
+    "records": "기록",
     "settings": "설정"
   },
   "header": {
@@ -56,6 +61,7 @@
       "workout": "운동",
       "nutrition": "영양",
       "progress": "진행 상황",
+      "records": "기록",
       "settings": "설정"
     }
   },
@@ -168,6 +174,7 @@
     "fat": "지방",
     "customSchedule": "맞춤 스케줄",
     "resetSchedule": "스케줄 초기화",
+    "swapDayBtn": "⇄ 요일 변경",
     "greeting": "좋은 아침이에요, 전사여",
     "profileGender": "성별",
     "genderMale": "남성",
@@ -276,7 +283,8 @@
     "sessionLegs": "하체 및 복근 운동",
     "sessionUpper": "상체 운동",
     "sessionLower": "하체 운동",
-    "sessionAbsCardio": "복근 및 가벼운 유산소"
+    "sessionAbsCardio": "복근 및 가벼운 유산소",
+    "sessionCustom": "커스텀"
   },
   "workout": {
     "title": "운동 기록하기",
@@ -343,5 +351,24 @@
     "language": "언어",
     "languageDesc": "표시 언어 선택",
     "saveChanges": "변경 사항 저장"
+  },
+  "records": {
+    "title": "체중 추적 로그",
+    "subtitle": "개인 기록을 추적하세요",
+    "clearHistory": "기록 지우기",
+    "clearHistoryConfirmTitle": "삭제 확인",
+    "clearHistoryConfirmDesc": "모든 체중 기록을 지우시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+    "cancel": "취소",
+    "confirmDelete": "지우기",
+    "currentWeight": "현재 체중",
+    "noData": "데이터 없음",
+    "update": "업데이트",
+    "weightHistory": "체중 기록: {exercise}",
+    "date": "날짜",
+    "weight": "체중 (kg)",
+    "chartView": "차트",
+    "listView": "목록",
+    "emptyList": "이 운동에 대한 기록이 아직 없습니다. 리프팅하고 체중을 업데이트하세요!",
+    "searchPlaceholder": "운동 검색..."
   }
 }

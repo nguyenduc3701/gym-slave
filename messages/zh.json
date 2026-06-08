@@ -27,6 +27,10 @@
     "settings": {
       "title": "设置",
       "description": "在 Gym Slave 管理您的账户设置和个人资料。"
+    },
+    "records": {
+      "title": "体重追踪日志",
+      "description": "追踪您训练的重量进展。"
     }
   },
   "common": {
@@ -47,6 +51,7 @@
     "workout": "训练",
     "nutrition": "营养",
     "progress": "进度",
+    "records": "记录",
     "settings": "设置"
   },
   "header": {
@@ -56,6 +61,7 @@
       "workout": "训练",
       "nutrition": "营养",
       "progress": "进度",
+      "records": "记录",
       "settings": "设置"
     }
   },
@@ -168,6 +174,7 @@
     "fat": "脂肪",
     "customSchedule": "自定义计划",
     "resetSchedule": "重置计划",
+    "swapDayBtn": "⇄ 调换日程",
     "greeting": "早上好，战士",
     "profileGender": "性别",
     "genderMale": "男",
@@ -276,7 +283,8 @@
     "sessionLegs": "腿部与腹肌训练",
     "sessionUpper": "上肢训练",
     "sessionLower": "下肢训练",
-    "sessionAbsCardio": "腹肌与轻度有氧"
+    "sessionAbsCardio": "腹肌与轻度有氧",
+    "sessionCustom": "自定义"
   },
   "workout": {
     "title": "记录训练",
@@ -343,5 +351,24 @@
     "language": "语言",
     "languageDesc": "选择显示语言",
     "saveChanges": "保存更改"
+  },
+  "records": {
+    "title": "体重追踪日志",
+    "subtitle": "追踪您的个人记录",
+    "clearHistory": "清除历史记录",
+    "clearHistoryConfirmTitle": "确认清除",
+    "clearHistoryConfirmDesc": "您确定要清除所有体重历史记录吗？此操作无法撤销。",
+    "cancel": "取消",
+    "confirmDelete": "清除",
+    "currentWeight": "当前体重",
+    "noData": "暂无数据",
+    "update": "更新",
+    "weightHistory": "体重历史：{exercise}",
+    "date": "日期",
+    "weight": "体重 (kg)",
+    "chartView": "图表",
+    "listView": "列表",
+    "emptyList": "您还没有此项运动的记录。开始举重并更新您的体重吧！",
+    "searchPlaceholder": "搜索动作..."
   }
 }

@@ -259,11 +259,11 @@ const MUSCLE_MAP: { [key: string]: string[] } = {
   nguc_tren: ['Ngực trên'],
   nguc_giua_duoi: ['Ngực giữa', 'Ngực dưới', 'Ngực vai', 'Ngực'],
   lung_xo: ['Lưng xô', 'Lưng rộng', 'Lats'],
-  lung_tren: ['Lưng giữa', 'Lưng trên', 'Lưng'],
-  lung_duoi: ['Lưng dưới', 'Đùi sau & Lưng', 'Lưng dưới & Đùi sau'],
-  vai_truoc: ['Vai trước', 'Vai'],
-  vai_giua: ['Vai giữa', 'Vai', 'Cơ core & Vai giữa'],
-  vai_sau: ['Vai sau', 'Vai'],
+  lung_tren: ['Lưng giữa', 'Lưng trên'],
+  lung_duoi: ['Lưng dưới'],
+  vai_truoc: ['Vai trước'],
+  vai_giua: ['Vai giữa', 'Cơ core & Vai giữa'],
+  vai_sau: ['Vai sau'],
   tay_truoc: ['Tay trước'],
   tay_sau: ['Tay sau'],
   dui_truoc: ['Đùi trước', 'Đùi mông', 'Mông đùi trước', 'Toàn thân dưới'],
@@ -284,113 +284,10 @@ function generateWorkoutSchedule(
   const currentDayIndex = new Date().getDay();
   const orderedDays = ['THỨ 2', 'THỨ 3', 'THỨ 4', 'THỨ 5', 'THỨ 6', 'THỨ 7', 'CHỦ NHẬT'];
 
-  // Base exercises library
-  const exercisesPool = {
-    gym: {
-      male: {
-        upper: [
-          { name: 'Bench Press', target: 'Ngực giữa', sets: 4, reps: '10', tier: 'S' as const },
-          { name: 'Overhead Press', target: 'Vai trước', sets: 4, reps: '8', tier: 'S' as const },
-          { name: 'Barbell Row', target: 'Lưng xô', sets: 4, reps: '10', tier: 'A' as const },
-          { name: 'Incline Dumbbell Fly', target: 'Ngực trên', sets: 3, reps: '12', tier: 'A' as const },
-          { name: 'Dumbbell Curl', target: 'Tay trước', sets: 3, reps: '12', tier: 'B' as const },
-          { name: 'Tricep Pushdown', target: 'Tay sau', sets: 3, reps: '12', tier: 'B' as const },
-        ],
-        lower: [
-          { name: 'Barbell Squat', target: 'Đùi trước', sets: 4, reps: '8', tier: 'S' as const },
-          { name: 'Deadlift', target: 'Đùi sau & Lưng', sets: 4, reps: '6', tier: 'S' as const },
-          { name: 'Leg Press', target: 'Đùi mông', sets: 3, reps: '12', tier: 'A' as const },
-          { name: 'Romanian Deadlift', target: 'Mông đùi sau', sets: 4, reps: '10', tier: 'A' as const },
-          { name: 'Lying Leg Curl', target: 'Đùi sau', sets: 3, reps: '12', tier: 'B' as const },
-          { name: 'Calf Raise', target: 'Bắp chân', sets: 3, reps: '15', tier: 'B' as const },
-        ],
-        full: [
-          { name: 'Barbell Squat', target: 'Đùi trước', sets: 4, reps: '8', tier: 'S' as const },
-          { name: 'Bench Press', target: 'Ngực giữa', sets: 4, reps: '10', tier: 'S' as const },
-          { name: 'Lat Pulldown', target: 'Lưng rộng', sets: 3, reps: '12', tier: 'A' as const },
-          { name: 'Lateral Raise', target: 'Vai giữa', sets: 3, reps: '15', tier: 'A' as const },
-          { name: 'Plank', target: 'Cơ bụng', sets: 3, reps: '60s', tier: 'B' as const },
-        ],
-      },
-      female: {
-        upper: [
-          { name: 'Lat Pulldown', target: 'Lưng rộng', sets: 4, reps: '10', tier: 'A' as const },
-          { name: 'Bench Press', target: 'Ngực giữa', sets: 3, reps: '12', tier: 'S' as const },
-          { name: 'Seated Cable Row', target: 'Lưng giữa', sets: 3, reps: '12', tier: 'A' as const },
-          { name: 'Dumbbell Shoulder Press', target: 'Vai trước', sets: 3, reps: '12', tier: 'A' as const },
-          { name: 'Tricep Kickback', target: 'Tay sau', sets: 3, reps: '15', tier: 'B' as const },
-        ],
-        lower: [
-          { name: 'Barbell Squat', target: 'Đùi trước', sets: 4, reps: '10', tier: 'S' as const },
-          { name: 'Barbell Hip Thrust', target: 'Cơ mông lớn', sets: 4, reps: '12', tier: 'S' as const },
-          { name: 'Bulgarian Split Squat', target: 'Mông đùi trước', sets: 3, reps: '10', tier: 'A' as const },
-          { name: 'Romanian Deadlift', target: 'Mông đùi sau', sets: 4, reps: '12', tier: 'A' as const },
-          { name: 'Abductor Machine', target: 'Mông đùi ngoài', sets: 3, reps: '15', tier: 'B' as const },
-        ],
-        full: [
-          { name: 'Bulgarian Split Squat', target: 'Mông đùi trước', sets: 4, reps: '12', tier: 'A' as const },
-          { name: 'Barbell Hip Thrust', target: 'Cơ mông lớn', sets: 4, reps: '12', tier: 'S' as const },
-          { name: 'Lat Pulldown', target: 'Lưng rộng', sets: 3, reps: '12', tier: 'A' as const },
-          { name: 'Plank', target: 'Cơ bụng', sets: 3, reps: '60s', tier: 'B' as const },
-        ],
-      },
-    },
-    home: {
-      male: {
-        upper: [
-          { name: 'Dumbbell Floor Press', target: 'Ngực giữa', sets: 4, reps: '10', tier: 'S' as const },
-          { name: 'Pull-Up (Xà đơn)', target: 'Lưng xô', sets: 4, reps: '8', tier: 'S' as const },
-          { name: 'Dumbbell Shoulder Press', target: 'Vai trước', sets: 4, reps: '10', tier: 'A' as const },
-          { name: 'Dumbbell Row', target: 'Lưng giữa', sets: 3, reps: '12', tier: 'A' as const },
-          { name: 'Dumbbell Bicep Curl', target: 'Tay trước', sets: 3, reps: '12', tier: 'B' as const },
-          { name: 'Bench Dips (Xà kép ghế)', target: 'Tay sau', sets: 3, reps: '15', tier: 'B' as const },
-        ],
-        lower: [
-          { name: 'Dumbbell Goblet Squat', target: 'Đùi trước', sets: 4, reps: '12', tier: 'S' as const },
-          { name: 'Dumbbell Romanian Deadlift', target: 'Đùi sau', sets: 4, reps: '10', tier: 'S' as const },
-          { name: 'Bulgarian Split Squat', target: 'Đùi mông', sets: 3, reps: '12', tier: 'A' as const },
-          { name: 'Dumbbell Lunges', target: 'Mông đùi', sets: 3, reps: '12', tier: 'A' as const },
-          { name: 'Calf Raise (Xách tạ đơn)', target: 'Bắp chân', sets: 3, reps: '20', tier: 'B' as const },
-        ],
-        full: [
-          { name: 'Push-Up (Chống đẩy)', target: 'Ngực vai', sets: 4, reps: '15', tier: 'S' as const },
-          { name: 'Dumbbell Goblet Squat', target: 'Đùi trước', sets: 4, reps: '12', tier: 'S' as const },
-          { name: 'Pull-Up (Xà đơn)', target: 'Lưng xô', sets: 3, reps: '8', tier: 'A' as const },
-          { name: 'Plank', target: 'Cơ bụng', sets: 3, reps: '60s', tier: 'B' as const },
-        ],
-      },
-      female: {
-        upper: [
-          { name: 'Incline Push-Up (Chống đẩy quỳ)', target: 'Ngực trên', sets: 4, reps: '12', tier: 'S' as const },
-          { name: 'Dumbbell Shoulder Press', target: 'Vai trước', sets: 3, reps: '12', tier: 'A' as const },
-          { name: 'Dumbbell Row', target: 'Lưng giữa', sets: 3, reps: '15', tier: 'A' as const },
-          { name: 'Plank Shoulder Taps', target: 'Cơ core & Vai giữa', sets: 3, reps: '20', tier: 'B' as const },
-        ],
-        lower: [
-          { name: 'Dumbbell Goblet Squat', target: 'Đùi trước', sets: 4, reps: '15', tier: 'S' as const },
-          { name: 'Glute Bridge (Cầu mông)', target: 'Mông', sets: 4, reps: '20', tier: 'B' as const },
-          { name: 'Bulgarian Split Squat', target: 'Đùi mông', sets: 3, reps: '10', tier: 'A' as const },
-          { name: 'Dumbbell Donkey Kicks', target: 'Cơ mông', sets: 3, reps: '15', tier: 'B' as const },
-        ],
-        full: [
-          { name: 'Knee Push-Up', target: 'Ngực', sets: 4, reps: '10', tier: 'S' as const },
-          { name: 'Dumbbell Goblet Squat', target: 'Đùi trước', sets: 4, reps: '12', tier: 'S' as const },
-          { name: 'Mountain Climber', target: 'Tim mạch', sets: 3, reps: '30s', tier: 'A' as const },
-          { name: 'Plank', target: 'Cơ bụng', sets: 3, reps: '60s', tier: 'B' as const },
-        ],
-      },
-    },
-  };
+  const lib = customLibrary || MASTER_EXERCISES;
+  const libLocation = lib[location] || MASTER_EXERCISES[location];
 
-  const currentPool = exercisesPool[location][gender];
-
-  const allAvailableExercises = [
-    ...currentPool.upper,
-    ...currentPool.lower,
-    ...currentPool.full,
-  ];
-
-  const getSortedExercises = (list: Exercise[]) => {
+  const getSortedExercises = (list: any[]) => {
     const order = { S: 1, A: 2, B: 3, C: 4 };
     const priorityMap = { high: 3, medium: 2, low: 1 };
     
@@ -403,7 +300,7 @@ function generateWorkoutSchedule(
     };
 
     return [...list].sort((x, y) => {
-      const tierDiff = order[x.tier] - order[y.tier];
+      const tierDiff = (order[x.tier as keyof typeof order] || 4) - (order[y.tier as keyof typeof order] || 4);
       if (tierDiff !== 0) return tierDiff;
       
       const priorityX = getPriorityVal(x.priority);
@@ -411,6 +308,138 @@ function generateWorkoutSchedule(
       return priorityY - priorityX; // Higher priority first
     });
   };
+
+  const getBestExercise = (
+    category: string,
+    excludeList: string[],
+    defaultVal: any
+  ) => {
+    const list = libLocation[category] || [];
+    if (list.length === 0) return { ...defaultVal };
+
+    const sorted = getSortedExercises(list);
+    const found = sorted.find(ex => !excludeList.includes(ex.name));
+    if (found) {
+      return {
+        name: found.name,
+        target: found.target,
+        sets: defaultVal.sets,
+        reps: defaultVal.reps,
+        tier: found.tier
+      };
+    }
+    return { ...defaultVal };
+  };
+
+  const selectedUpper: string[] = [];
+  const selectedLower: string[] = [];
+  const selectedFull: string[] = [];
+
+  const dynamicUpper = location === 'gym' 
+    ? (gender === 'male'
+      ? [
+          getBestExercise('nguc_giua_duoi', selectedUpper, { name: 'Bench Press', target: 'Ngực giữa', sets: 4, reps: '10', tier: 'S' }),
+          getBestExercise('vai_truoc', selectedUpper, { name: 'Overhead Press', target: 'Vai trước', sets: 4, reps: '8', tier: 'S' }),
+          getBestExercise('lung_xo', selectedUpper, { name: 'Barbell Row', target: 'Lưng xô', sets: 4, reps: '10', tier: 'A' }),
+          getBestExercise('nguc_tren', selectedUpper, { name: 'Incline Dumbbell Fly', target: 'Ngực trên', sets: 3, reps: '12', tier: 'A' }),
+          getBestExercise('tay_truoc', selectedUpper, { name: 'Dumbbell Curl', target: 'Tay trước', sets: 3, reps: '12', tier: 'B' }),
+          getBestExercise('tay_sau', selectedUpper, { name: 'Tricep Pushdown', target: 'Tay sau', sets: 3, reps: '12', tier: 'B' }),
+        ]
+      : [
+          getBestExercise('lung_xo', selectedUpper, { name: 'Lat Pulldown', target: 'Lưng rộng', sets: 4, reps: '10', tier: 'A' }),
+          getBestExercise('nguc_giua_duoi', selectedUpper, { name: 'Bench Press', target: 'Ngực giữa', sets: 3, reps: '12', tier: 'S' }),
+          getBestExercise('lung_tren', selectedUpper, { name: 'Seated Cable Row', target: 'Lưng giữa', sets: 3, reps: '12', tier: 'A' }),
+          getBestExercise('vai_truoc', selectedUpper, { name: 'Dumbbell Shoulder Press', target: 'Vai trước', sets: 3, reps: '12', tier: 'A' }),
+          getBestExercise('tay_sau', selectedUpper, { name: 'Tricep Kickback', target: 'Tay sau', sets: 3, reps: '15', tier: 'B' }),
+        ])
+    : (gender === 'male'
+      ? [
+          getBestExercise('nguc_giua_duoi', selectedUpper, { name: 'Dumbbell Floor Press', target: 'Ngực giữa', sets: 4, reps: '10', tier: 'S' }),
+          getBestExercise('lung_xo', selectedUpper, { name: 'Pull-Up (Xà đơn)', target: 'Lưng xô', sets: 4, reps: '8', tier: 'S' }),
+          getBestExercise('vai_truoc', selectedUpper, { name: 'Dumbbell Shoulder Press', target: 'Vai trước', sets: 4, reps: '10', tier: 'A' }),
+          getBestExercise('lung_tren', selectedUpper, { name: 'Dumbbell Row', target: 'Lưng giữa', sets: 3, reps: '12', tier: 'A' }),
+          getBestExercise('tay_truoc', selectedUpper, { name: 'Dumbbell Bicep Curl', target: 'Tay trước', sets: 3, reps: '12', tier: 'B' }),
+          getBestExercise('tay_sau', selectedUpper, { name: 'Bench Dips (Xà kép ghế)', target: 'Tay sau', sets: 3, reps: '15', tier: 'B' }),
+        ]
+      : [
+          getBestExercise('nguc_tren', selectedUpper, { name: 'Incline Push-Up (Chống đẩy quỳ)', target: 'Ngực trên', sets: 4, reps: '12', tier: 'S' }),
+          getBestExercise('vai_truoc', selectedUpper, { name: 'Dumbbell Shoulder Press', target: 'Vai trước', sets: 3, reps: '12', tier: 'A' }),
+          getBestExercise('lung_tren', selectedUpper, { name: 'Dumbbell Row', target: 'Lưng giữa', sets: 3, reps: '15', tier: 'A' }),
+          getBestExercise('vai_giua', selectedUpper, { name: 'Plank Shoulder Taps', target: 'Cơ core & Vai giữa', sets: 3, reps: '20', tier: 'B' }),
+        ]);
+
+  const dynamicLower = location === 'gym'
+    ? (gender === 'male'
+      ? [
+          getBestExercise('dui_truoc', selectedLower, { name: 'Barbell Squat', target: 'Đùi trước', sets: 4, reps: '8', tier: 'S' }),
+          getBestExercise('lung_duoi', selectedLower, { name: 'Deadlift', target: 'Đùi sau & Lưng', sets: 4, reps: '6', tier: 'S' }),
+          getBestExercise('dui_truoc', selectedLower, { name: 'Leg Press', target: 'Đùi mông', sets: 3, reps: '12', tier: 'A' }),
+          getBestExercise('dui_sau_mong', selectedLower, { name: 'Romanian Deadlift', target: 'Mông đùi sau', sets: 4, reps: '10', tier: 'A' }),
+          getBestExercise('dui_sau_mong', selectedLower, { name: 'Lying Leg Curl', target: 'Đùi sau', sets: 3, reps: '12', tier: 'B' }),
+          getBestExercise('bap_chan', selectedLower, { name: 'Calf Raise', target: 'Bắp chân', sets: 3, reps: '15', tier: 'B' }),
+        ]
+      : [
+          getBestExercise('dui_truoc', selectedLower, { name: 'Barbell Squat', target: 'Đùi trước', sets: 4, reps: '10', tier: 'S' }),
+          getBestExercise('dui_sau_mong', selectedLower, { name: 'Barbell Hip Thrust', target: 'Cơ mông lớn', sets: 4, reps: '12', tier: 'S' }),
+          getBestExercise('dui_truoc', selectedLower, { name: 'Bulgarian Split Squat', target: 'Mông đùi trước', sets: 3, reps: '10', tier: 'A' }),
+          getBestExercise('dui_sau_mong', selectedLower, { name: 'Romanian Deadlift', target: 'Mông đùi sau', sets: 4, reps: '12', tier: 'A' }),
+          getBestExercise('dui_sau_mong', selectedLower, { name: 'Abductor Machine', target: 'Mông đùi ngoài', sets: 3, reps: '15', tier: 'B' }),
+        ])
+    : (gender === 'male'
+      ? [
+          getBestExercise('dui_truoc', selectedLower, { name: 'Dumbbell Goblet Squat', target: 'Đùi trước', sets: 4, reps: '12', tier: 'S' }),
+          getBestExercise('lung_duoi', selectedLower, { name: 'Dumbbell Romanian Deadlift', target: 'Đùi sau', sets: 4, reps: '10', tier: 'S' }),
+          getBestExercise('dui_truoc', selectedLower, { name: 'Bulgarian Split Squat', target: 'Đùi mông', sets: 3, reps: '12', tier: 'A' }),
+          getBestExercise('dui_sau_mong', selectedLower, { name: 'Dumbbell Lunges', target: 'Mông đùi', sets: 3, reps: '12', tier: 'A' }),
+          getBestExercise('bap_chan', selectedLower, { name: 'Calf Raise (Xách tạ đơn)', target: 'Bắp chân', sets: 3, reps: '20', tier: 'B' }),
+        ]
+      : [
+          getBestExercise('dui_truoc', selectedLower, { name: 'Dumbbell Goblet Squat', target: 'Đùi trước', sets: 4, reps: '15', tier: 'S' }),
+          getBestExercise('dui_sau_mong', selectedLower, { name: 'Glute Bridge (Cầu mông)', target: 'Mông', sets: 4, reps: '20', tier: 'B' }),
+          getBestExercise('dui_truoc', selectedLower, { name: 'Bulgarian Split Squat', target: 'Đùi mông', sets: 3, reps: '10', tier: 'A' }),
+          getBestExercise('dui_sau_mong', selectedLower, { name: 'Dumbbell Donkey Kicks', target: 'Cơ mông', sets: 3, reps: '15', tier: 'B' }),
+        ]);
+
+  const dynamicFull = location === 'gym'
+    ? (gender === 'male'
+      ? [
+          getBestExercise('dui_truoc', selectedFull, { name: 'Barbell Squat', target: 'Đùi trước', sets: 4, reps: '8', tier: 'S' }),
+          getBestExercise('nguc_giua_duoi', selectedFull, { name: 'Bench Press', target: 'Ngực giữa', sets: 4, reps: '10', tier: 'S' }),
+          getBestExercise('lung_xo', selectedFull, { name: 'Lat Pulldown', target: 'Lưng rộng', sets: 3, reps: '12', tier: 'A' }),
+          getBestExercise('vai_giua', selectedFull, { name: 'Lateral Raise', target: 'Vai giữa', sets: 3, reps: '15', tier: 'A' }),
+          getBestExercise('bung', selectedFull, { name: 'Plank', target: 'Cơ bụng', sets: 3, reps: '60s', tier: 'B' }),
+        ]
+      : [
+          getBestExercise('dui_truoc', selectedFull, { name: 'Bulgarian Split Squat', target: 'Mông đùi trước', sets: 4, reps: '12', tier: 'A' }),
+          getBestExercise('dui_sau_mong', selectedFull, { name: 'Barbell Hip Thrust', target: 'Cơ mông lớn', sets: 4, reps: '12', tier: 'S' }),
+          getBestExercise('lung_xo', selectedFull, { name: 'Lat Pulldown', target: 'Lưng rộng', sets: 3, reps: '12', tier: 'A' }),
+          getBestExercise('bung', selectedFull, { name: 'Plank', target: 'Cơ bụng', sets: 3, reps: '60s', tier: 'B' }),
+        ])
+    : (gender === 'male'
+      ? [
+          getBestExercise('nguc_giua_duoi', selectedFull, { name: 'Push-Up (Chống đẩy)', target: 'Ngực vai', sets: 4, reps: '15', tier: 'S' }),
+          getBestExercise('dui_truoc', selectedFull, { name: 'Dumbbell Goblet Squat', target: 'Đùi trước', sets: 4, reps: '12', tier: 'S' }),
+          getBestExercise('lung_xo', selectedFull, { name: 'Pull-Up (Xà đơn)', target: 'Lưng xô', sets: 3, reps: '8', tier: 'A' }),
+          getBestExercise('bung', selectedFull, { name: 'Plank', target: 'Cơ bụng', sets: 3, reps: '60s', tier: 'B' }),
+        ]
+      : [
+          getBestExercise('nguc_giua_duoi', selectedFull, { name: 'Knee Push-Up', target: 'Ngực', sets: 4, reps: '10', tier: 'S' }),
+          getBestExercise('dui_truoc', selectedFull, { name: 'Dumbbell Goblet Squat', target: 'Đùi trước', sets: 4, reps: '12', tier: 'S' }),
+          getBestExercise('cardio', selectedFull, { name: 'Mountain Climber', target: 'Tim mạch', sets: 3, reps: '30s', tier: 'A' }),
+          getBestExercise('bung', selectedFull, { name: 'Plank', target: 'Cơ bụng', sets: 3, reps: '60s', tier: 'B' }),
+        ]);
+
+  const currentPool = {
+    upper: dynamicUpper,
+    lower: dynamicLower,
+    full: dynamicFull
+  };
+
+  const allAvailableExercises = [
+    ...currentPool.upper,
+    ...currentPool.lower,
+    ...currentPool.full,
+  ];
 
   const isTodayName = (vietnameseDayName: string) => {
     const dayMap: { [key: number]: string } = {
@@ -619,9 +648,40 @@ function generateWorkoutSchedule(
     });
   }
 
+  const focusKeywords = focusMuscles.flatMap(focusM => {
+    const keywords = MUSCLE_MAP[focusM] || [];
+    return keywords.map(k => k.toLowerCase());
+  });
+
   schedule.forEach((dayObj) => {
     if (!dayObj.isRest) {
-      dayObj.exercises = getSortedExercises(dayObj.exercises);
+      dayObj.exercises.sort((x, y) => {
+        // Check if exercise target matches focus keywords
+        const xFocus = focusKeywords.some(keyword => x.target.toLowerCase().includes(keyword));
+        const yFocus = focusKeywords.some(keyword => y.target.toLowerCase().includes(keyword));
+
+        if (xFocus && !yFocus) return -1;
+        if (!xFocus && yFocus) return 1;
+
+        // Fallback to sorting by tier and priority
+        const order = { S: 1, A: 2, B: 3, C: 4 };
+        const priorityMap = { high: 3, medium: 2, low: 1 };
+        
+        const getPriorityVal = (p: any) => {
+          if (typeof p === 'number') return p;
+          if (p && typeof p === 'string' && p in priorityMap) {
+            return priorityMap[p as keyof typeof priorityMap];
+          }
+          return 0;
+        };
+
+        const tierDiff = (order[x.tier as keyof typeof order] || 4) - (order[y.tier as keyof typeof order] || 4);
+        if (tierDiff !== 0) return tierDiff;
+        
+        const priorityX = getPriorityVal(x.priority);
+        const priorityY = getPriorityVal(y.priority);
+        return priorityY - priorityX; // Higher priority first
+      });
     }
   });
 
@@ -655,6 +715,7 @@ function getLocalizedLabel(label: string, t: any): string {
   if (l.includes('thân trên') || l.includes('upper')) return t('sessionUpper');
   if (l.includes('thân dưới') || l.includes('lower')) return t('sessionLower');
   if (l.includes('bụng & cardio') || l.includes('cardio')) return t('sessionAbsCardio');
+  if (l.includes('tùy chỉnh') || l.includes('custom')) return t('sessionCustom');
   return label;
 }
 
@@ -944,6 +1005,12 @@ export default function DashboardPage() {
   const [locationInput, setLocationInput] = useState<'gym' | 'home'>('gym');
   const progressPct = 65;
 
+  const isModified = 
+    weightInput !== (profile?.weight || 70) ||
+    targetWeightInput !== (profile?.targetWeight || 70) ||
+    workoutDaysInput !== (profile?.workoutDaysPerWeek || 4) ||
+    locationInput !== (profile?.trainingLocation || 'gym');
+
   // Add Custom Exercise State
   const [targetDayName, setTargetDayName] = useState<string>('');
   const [selectedMuscle, setSelectedMuscle] = useState<string>('nguc_tren');
@@ -951,9 +1018,12 @@ export default function DashboardPage() {
   const [customSets, setCustomSets] = useState<number>(4);
   const [customReps, setCustomReps] = useState<string>('12');
 
+  // Swap Day State
+  const [swapSelectDay, setSwapSelectDay] = useState<string>('');
+
   // Hydrate local inputs from Zustand Store
   useEffect(() => {
-    if (profile) {
+    if (isHydrated && profile) {
       setWeightInput(profile.weight || 70);
       setTargetWeightInput(profile.targetWeight || 70);
       setWorkoutDaysInput(profile.workoutDaysPerWeek || 4);
@@ -971,7 +1041,7 @@ export default function DashboardPage() {
         updateProfile({ customSchedule: initialSchedule });
       }
     }
-  }, [profile]);
+  }, [isHydrated, profile, exerciseLibrary]);
 
   // Dropdown list filters matching selected muscle group
   const activeLocation = profile?.trainingLocation || 'gym';
@@ -1029,7 +1099,11 @@ export default function DashboardPage() {
       dailyCalorieTarget = tdee - 500;
       goal = 'weight_loss';
     } else if (targetWeightInput > weightInput + 2) {
-      dailyCalorieTarget = tdee + 300;
+      if (workoutDaysInput >= 4) {
+        dailyCalorieTarget = tdee + 500;
+      } else {
+        dailyCalorieTarget = tdee + 300;
+      }
       goal = 'muscle_gain';
     }
 
@@ -1062,6 +1136,22 @@ export default function DashboardPage() {
       goal,
       customSchedule: freshSchedule,
     });
+  };
+
+  // Swap two days' schedules (exercises, label, isRest)
+  const handleSwapDays = (day1: string, day2: string) => {
+    if (!profile.customSchedule || day1 === day2) return;
+    const schedule = profile.customSchedule;
+    const d1 = schedule.find((d: any) => d.day === day1);
+    const d2 = schedule.find((d: any) => d.day === day2);
+    if (!d1 || !d2) return;
+
+    const newSchedule = schedule.map((d: any) => {
+      if (d.day === day1) return { ...d, label: d2.label, isRest: d2.isRest, exercises: d2.exercises };
+      if (d.day === day2) return { ...d, label: d1.label, isRest: d1.isRest, exercises: d1.exercises };
+      return d;
+    });
+    updateProfile({ customSchedule: newSchedule });
   };
 
   // Delete exercise handler
@@ -1110,9 +1200,12 @@ export default function DashboardPage() {
         // Sort with S-Tier first
         const order = { S: 1, A: 2, B: 3 };
         const sorted = list.sort((x, y) => order[x.tier] - order[y.tier]);
-        
+
         return {
           ...day,
+          // If this was a rest day, convert it to a training day
+          isRest: false,
+          label: day.isRest ? 'Tùy chỉnh' : day.label,
           exercises: sorted,
         };
       }
@@ -1301,8 +1394,48 @@ export default function DashboardPage() {
                         )}
                       </div>
 
-                      {/* Custom add exercise button */}
-                      {!day.isRest && (
+                      {/* Actions: swap + add exercise */}
+                      <div className="flex items-center gap-2">
+                        {/* Swap Day — icon-only compact select */}
+                        <div className="relative" title={t('swapDayBtn')}>
+                          {/* Visible icon button */}
+                          <div
+                            className="w-7 h-7 flex items-center justify-center rounded border pointer-events-none select-none"
+                            style={{
+                              background: 'rgba(30,10,10,0.8)',
+                              borderColor: 'rgba(255,255,255,0.12)',
+                              color: '#e9bcba',
+                              fontSize: '13px',
+                            }}
+                          >
+                            ⇄
+                          </div>
+                          {/* Invisible native select layered on top */}
+                          <select
+                            value=""
+                            onChange={(e) => {
+                              if (e.target.value) handleSwapDays(day.day, e.target.value);
+                              setSwapSelectDay('');
+                            }}
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            style={{ fontSize: '13px' }}
+                          >
+                            <option value="" disabled>{t('swapDayBtn')}</option>
+                            {currentSchedule
+                              .filter((d) => d.day !== day.day)
+                              .map((d) => (
+                                <option
+                                  key={d.day}
+                                  value={d.day}
+                                  style={{ background: '#1b0909', color: '#ffdad8' }}
+                                >
+                                  {getLocalizedDay(d.day, t)} {d.isRest ? `(${t('rest')})` : ''}
+                                </option>
+                              ))}
+                          </select>
+                        </div>
+
+                        {/* Add exercise button — always visible */}
                         <button
                           onClick={() => handleOpenAddModal(day.day)}
                           className="text-[10px] px-3 py-1 rounded border border-[#fe6b00]/30 hover:border-[#fe6b00] text-[#fe6b00] font-bold uppercase transition-all font-mono"
@@ -1310,10 +1443,10 @@ export default function DashboardPage() {
                         >
                           {t('addExerciseBtn')}
                         </button>
-                      )}
+                      </div>
                     </div>
 
-                    {day.isRest ? (
+                    {day.isRest && day.exercises.length === 0 ? (
                       <p style={{ color: '#af8786', fontStyle: 'italic', fontSize: '13px' }}>{t('restDayDesc')}</p>
                     ) : day.exercises.length === 0 ? (
                       <p style={{ color: '#af8786', fontStyle: 'italic', fontSize: '12px' }}>{t('noExercisesDay')}</p>
@@ -1647,17 +1780,18 @@ export default function DashboardPage() {
 
               {/* Recalculate CTA */}
               <button
+                disabled={!isModified}
                 onClick={handleRecalculate}
-                className="w-full py-3 rounded-xl uppercase font-bold transition-all active:scale-[0.98] mt-2"
+                className="w-full py-3 rounded-xl uppercase font-bold transition-all active:scale-[0.98] mt-2 disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100"
                 style={{
-                  background: 'linear-gradient(135deg, #ff003c, #fe6b00)',
-                  color: '#fff',
+                  background: isModified ? 'linear-gradient(135deg, #ff003c, #fe6b00)' : 'rgba(255, 0, 60, 0.15)',
+                  color: isModified ? '#fff' : '#888',
                   fontFamily: 'var(--font-jetbrains)',
                   fontSize: '11px',
                   letterSpacing: '0.08em',
-                  border: 'none',
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 15px rgba(255,0,60,0.2)',
+                  border: isModified ? 'none' : '1px solid #4e2a2a',
+                  cursor: isModified ? 'pointer' : 'not-allowed',
+                  boxShadow: isModified ? '0 4px 15px rgba(255,0,60,0.2)' : 'none',
                 }}
               >
                 {t('recalculateBtn')}

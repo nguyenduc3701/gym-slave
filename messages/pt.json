@@ -27,6 +27,10 @@
     "settings": {
       "title": "Configurações",
       "description": "Gerencie as configurações da sua conta e perfil pessoal no Gym Slave."
+    },
+    "records": {
+      "title": "Registro de Acompanhamento de Peso",
+      "description": "Acompanhe a progressão de peso dos seus treinos."
     }
   },
   "common": {
@@ -47,6 +51,7 @@
     "workout": "Treino",
     "nutrition": "Nutrição",
     "progress": "Progresso",
+    "records": "Recordes",
     "settings": "Configurações"
   },
   "header": {
@@ -56,6 +61,7 @@
       "workout": "Treino",
       "nutrition": "Nutrição",
       "progress": "Progresso",
+      "records": "Recordes",
       "settings": "Configurações"
     }
   },
@@ -168,6 +174,7 @@
     "fat": "Gordura",
     "customSchedule": "CRONOGRAMA PERSONALIZADO",
     "resetSchedule": "Redefinir Cronograma",
+    "swapDayBtn": "⇄ Alterar dia",
     "greeting": "Bom Dia, Guerreiro",
     "profileGender": "Sexo",
     "genderMale": "Masculino",
@@ -276,7 +283,8 @@
     "sessionLegs": "Treino de Pernas e Abdômen",
     "sessionUpper": "Membros Superiores",
     "sessionLower": "Membros Inferiores",
-    "sessionAbsCardio": "Abdômen & Cardio Leve"
+    "sessionAbsCardio": "Abdômen & Cardio Leve",
+    "sessionCustom": "Personalizado"
   },
   "workout": {
     "title": "Registrar Treino",
@@ -343,5 +351,24 @@
     "language": "Idioma",
     "languageDesc": "Selecionar idioma de exibição",
     "saveChanges": "Salvar Alterações"
+  },
+  "records": {
+    "title": "Registro de Acompanhamento de Peso",
+    "subtitle": "Acompanhe seus recordes pessoais",
+    "clearHistory": "Limpar Histórico",
+    "clearHistoryConfirmTitle": "Confirmar Limpeza",
+    "clearHistoryConfirmDesc": "Tem certeza de que deseja limpar todo o histórico de peso? Esta ação não pode ser desfeita.",
+    "cancel": "Cancelar",
+    "confirmDelete": "Limpar",
+    "currentWeight": "Peso Atual",
+    "noData": "Sem dados",
+    "update": "Atualizar",
+    "weightHistory": "Histórico de Peso: {exercise}",
+    "date": "Data",
+    "weight": "Peso (kg)",
+    "chartView": "Gráfico",
+    "listView": "Lista",
+    "emptyList": "Você ainda não tem recordes para este exercício. Levante peso e atualize seu peso!",
+    "searchPlaceholder": "Buscar exercícios..."
   }
 }

@@ -27,6 +27,10 @@
     "settings": {
       "title": "Paramètres",
       "description": "Gérez vos paramètres de compte et votre profil personnel sur Gym Slave."
+    },
+    "records": {
+      "title": "Journal de suivi du poids",
+      "description": "Suivez la progression du poids de vos entraînements."
     }
   },
   "common": {
@@ -47,6 +51,7 @@
     "workout": "Entraînement",
     "nutrition": "Nutrition",
     "progress": "Progrès",
+    "records": "Records",
     "settings": "Paramètres"
   },
   "header": {
@@ -56,6 +61,7 @@
       "workout": "Entraînement",
       "nutrition": "Nutrition",
       "progress": "Progrès",
+      "records": "Records",
       "settings": "Paramètres"
     }
   },
@@ -168,6 +174,7 @@
     "fat": "Lipides",
     "customSchedule": "PLANNING PERSONNALISÉ",
     "resetSchedule": "Réinitialiser",
+    "swapDayBtn": "⇄ Changer de jour",
     "greeting": "Bonjour, Guerrier",
     "profileGender": "Sexe",
     "genderMale": "Homme",
@@ -276,7 +283,8 @@
     "sessionLegs": "Jour jambes & abdos",
     "sessionUpper": "Haut du corps",
     "sessionLower": "Bas du corps",
-    "sessionAbsCardio": "Abdos & cardio léger"
+    "sessionAbsCardio": "Abdos & cardio léger",
+    "sessionCustom": "Personnalisé"
   },
   "workout": {
     "title": "Journal d'entraînement",
@@ -343,5 +351,24 @@
     "language": "Langue",
     "languageDesc": "Sélectionner la langue d'affichage",
     "saveChanges": "Enregistrer les modifications"
+  },
+  "records": {
+    "title": "Journal de suivi du poids",
+    "subtitle": "Suivez vos records personnels",
+    "clearHistory": "Effacer l'historique",
+    "clearHistoryConfirmTitle": "Confirmer la suppression",
+    "clearHistoryConfirmDesc": "Êtes-vous sûr de vouloir effacer tout l'historique de poids ? Cette action est irréversible.",
+    "cancel": "Annuler",
+    "confirmDelete": "Effacer",
+    "currentWeight": "Poids actuel",
+    "noData": "Aucune donnée",
+    "update": "Mettre à jour",
+    "weightHistory": "Historique de poids : {exercise}",
+    "date": "Date",
+    "weight": "Poids (kg)",
+    "chartView": "Graphique",
+    "listView": "Liste",
+    "emptyList": "Vous n'avez pas encore de records pour cet exercice. Soulevez et mettez à jour votre poids !",
+    "searchPlaceholder": "Rechercher..."
   }
 }

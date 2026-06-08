@@ -27,6 +27,10 @@
     "settings": {
       "title": "設定",
       "description": "Gym Slaveでアカウント設定と個人プロフィールを管理しましょう。"
+    },
+    "records": {
+      "title": "体重追跡ログ",
+      "description": "ワークアウトの重量の推移を追跡します。"
     }
   },
   "common": {
@@ -47,6 +51,7 @@
     "workout": "トレーニング",
     "nutrition": "栄養",
     "progress": "進捗",
+    "records": "記録",
     "settings": "設定"
   },
   "header": {
@@ -56,6 +61,7 @@
       "workout": "トレーニング",
       "nutrition": "栄養",
       "progress": "進捗",
+      "records": "記録",
       "settings": "設定"
     }
   },
@@ -168,6 +174,7 @@
     "fat": "脂質",
     "customSchedule": "カスタムスケジュール",
     "resetSchedule": "スケジュールをリセット",
+    "swapDayBtn": "⇄ 曜日変更",
     "greeting": "おはようございます、戦士よ",
     "profileGender": "性別",
     "genderMale": "男性",
@@ -276,7 +283,8 @@
     "sessionLegs": "脚＆腹筋の日",
     "sessionUpper": "上半身",
     "sessionLower": "下半身",
-    "sessionAbsCardio": "腹筋＆軽めの有氧"
+    "sessionAbsCardio": "腹筋＆軽めの有氧",
+    "sessionCustom": "カスタム"
   },
   "workout": {
     "title": "トレーニングを記録",
@@ -343,5 +351,24 @@
     "language": "言語",
     "languageDesc": "表示言語を選択",
     "saveChanges": "変更を保存"
+  },
+  "records": {
+    "title": "体重追跡ログ",
+    "subtitle": "個人記録を追跡する",
+    "clearHistory": "履歴を消去",
+    "clearHistoryConfirmTitle": "消去の確認",
+    "clearHistoryConfirmDesc": "すべての体重履歴を消去してもよろしいですか？この操作は元に戻せません。",
+    "cancel": "キャンセル",
+    "confirmDelete": "消去",
+    "currentWeight": "現在の体重",
+    "noData": "データなし",
+    "update": "更新",
+    "weightHistory": "体重履歴：{exercise}",
+    "date": "日付",
+    "weight": "体重 (kg)",
+    "chartView": "チャート",
+    "listView": "リスト",
+    "emptyList": "この種目の記録はまだありません。リフティングして体重を更新しましょう！",
+    "searchPlaceholder": "エクササイズを検索..."
   }
 }
