@@ -629,24 +629,54 @@ function generateWorkoutSchedule(
     }
   }
 
-  // For gym workouts, ensure all training days have at least 4 exercises
-  if (location === 'gym') {
-    schedule.forEach((dayObj) => {
-      if (!dayObj.isRest && dayObj.exercises.length < 4) {
-        const remainingPool = allAvailableExercises.filter((ex) =>
-          !dayObj.exercises.some((existing) => existing.name === ex.name)
-        );
-        for (const filler of remainingPool) {
-          if (dayObj.exercises.length >= 4) break;
-          dayObj.exercises.push({
-            ...filler,
-            sets: 3,
-            reps: '12',
-          });
-        }
-      }
-    });
+  // Ensure all training days have an appropriate number of exercises based on workout frequency
+  let targetExercises = 4;
+  if (daysPerWeek <= 2) {
+    targetExercises = 7;
+  } else if (daysPerWeek === 3) {
+    targetExercises = 6;
+  } else if (daysPerWeek === 4) {
+    targetExercises = 5;
+  } else {
+    targetExercises = 4;
   }
+
+  schedule.forEach((dayObj) => {
+    if (!dayObj.isRest && dayObj.exercises.length < targetExercises) {
+      let fillerPool = allAvailableExercises.filter((ex) =>
+        !dayObj.exercises.some((existing) => existing.name === ex.name)
+      );
+
+      // Try to match fillers to the day's focus
+      const isUpperDay = dayObj.label.includes('Thân Trên') || dayObj.label.includes('Đẩy') || dayObj.label.includes('Kéo');
+      const isLowerDay = dayObj.label.includes('Thân Dưới') || dayObj.label.includes('Chân');
+
+      if (isUpperDay) {
+        const specific = fillerPool.filter(ex => {
+          const t = ex.target.toLowerCase();
+          return !t.includes('đùi') && !t.includes('mông') && !t.includes('bắp chân');
+        });
+        const generic = fillerPool.filter(ex => !specific.includes(ex));
+        fillerPool = [...specific, ...generic];
+      } else if (isLowerDay) {
+        const specific = fillerPool.filter(ex => {
+          const t = ex.target.toLowerCase();
+          return t.includes('đùi') || t.includes('mông') || t.includes('bắp chân');
+        });
+        const generic = fillerPool.filter(ex => !specific.includes(ex));
+        fillerPool = [...specific, ...generic];
+      }
+
+      for (const filler of fillerPool) {
+        if (dayObj.exercises.length >= targetExercises) break;
+        dayObj.exercises.push({
+          ...filler,
+          sets: 3,
+          reps: '12',
+        });
+      }
+    }
+  });
 
   const focusKeywords = focusMuscles.flatMap(focusM => {
     const keywords = MUSCLE_MAP[focusM] || [];
