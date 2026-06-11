@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -101,7 +101,7 @@ export default function Home() {
       />
       <div
         className="min-h-screen flex flex-col items-center justify-center"
-        style={{ backgroundColor: '#0d0d0d', color: '#ffdad8' }}
+        style={{ backgroundColor: '#0d0d0d', color: 'var(--color-on-bg)' }}
       >
         <div className="flex flex-col items-center gap-4">
           <div

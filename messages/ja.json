@@ -31,6 +31,10 @@
     "records": {
       "title": "体重追跡ログ",
       "description": "ワークアウトの重量の推移を追跡します。"
+    },
+    "measurements": {
+      "title": "身体測定",
+      "description": "時間の経過とともに身体測定値を追跡および管理します。"
     }
   },
   "common": {
@@ -52,6 +56,7 @@
     "nutrition": "栄養",
     "progress": "進捗",
     "records": "記録",
+    "measurements": "測定",
     "settings": "設定"
   },
   "header": {
@@ -62,6 +67,7 @@
       "nutrition": "栄養",
       "progress": "進捗",
       "records": "記録",
+      "measurements": "測定",
       "settings": "設定"
     }
   },
@@ -370,5 +376,38 @@
     "listView": "リスト",
     "emptyList": "この種目の記録はまだありません。リフティングして体重を更新しましょう！",
     "searchPlaceholder": "エクササイズを検索..."
+  },
+  "measurements": {
+    "title": "身体測定",
+    "subtitle": "体の変化を追跡する",
+    "addMeasurement": "測定を追加",
+    "export": "エクスポート",
+    "name": "測定名",
+    "value": "値",
+    "unit": "単位",
+    "date": "日付",
+    "actions": "アクション",
+    "edit": "編集",
+    "delete": "削除",
+    "deleteConfirmTitle": "削除の確認",
+    "deleteConfirmDesc": "この測定記録を削除してもよろしいですか？",
+    "cancel": "キャンセル",
+    "confirmDelete": "削除",
+    "save": "保存",
+    "noData": "測定データはありません。",
+    "selectMeasurement": "チャートを表示する測定を選択してください",
+    "allMeasurements": "すべて",
+    "chartTitle": "変動チャート",
+    "suggestions": {
+      "chest": "胸囲",
+      "waist": "ウエスト",
+      "hips": "ヒップ",
+      "biceps": "上腕二頭筋",
+      "thighs": "太もも",
+      "calves": "ふくらはぎ",
+      "weight": "体重",
+      "shoulders": "肩",
+      "neck": "首"
+    }
   }
 }

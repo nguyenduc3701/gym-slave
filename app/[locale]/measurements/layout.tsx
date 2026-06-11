@@ -9,13 +9,13 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata.records' });
+  const t = await getTranslations({ locale, namespace: 'metadata.measurements' });
 
   return {
     title: t('title'),
     description: t('description'),
     alternates: {
-      canonical: `https://gym-slave.vercel.app${locale === routing.defaultLocale ? '' : `/${locale}`}/records`,
+      canonical: `https://gym-slave.vercel.app${locale === routing.defaultLocale ? '' : `/${locale}`}/measurements`,
     },
     openGraph: {
       title: `${t('title')} | Gym Slave`,
@@ -24,7 +24,7 @@ export async function generateMetadata({
   };
 }
 
-export default function RecordsLayout({ children }: { children: React.ReactNode }) {
+export default function MeasurementsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
       className="min-h-screen"

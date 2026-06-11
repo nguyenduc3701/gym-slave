@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { Header } from '@/components/layout/Header';
 import { routing } from '@/i18n/routing';
@@ -35,10 +35,10 @@ export default function ExerciseLayout({ children }: { children: React.ReactNode
   return (
     <div
       className="min-h-screen"
-      style={{ backgroundColor: '#140707', color: '#ffdad8', fontFamily: 'var(--font-hanken)' }}
+      style={{ backgroundColor: '#140707', color: 'var(--color-on-bg)', fontFamily: 'var(--font-hanken)' }}
     >
       <Header />
-      <div className="pt-24">
+      <div className="pt-24 px-4 md:px-12 pb-12">
         {children}
       </div>
     </div>

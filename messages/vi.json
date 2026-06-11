@@ -31,6 +31,10 @@
     "records": {
       "title": "Nhật Ký Tăng Tạ",
       "description": "Theo dõi lịch sử tăng tạ của các bài tập trong lịch tập của bạn."
+    },
+    "measurements": {
+      "title": "Số Đo Cơ Thể",
+      "description": "Theo dõi và quản lý các số đo cơ thể của bạn theo thời gian."
     }
   },
   "common": {
@@ -52,6 +56,7 @@
     "nutrition": "Dinh Dưỡng",
     "progress": "Tiến Độ",
     "records": "Nhật Ký",
+    "measurements": "Số Đo",
     "settings": "Cài Đặt"
   },
   "header": {
@@ -62,6 +67,7 @@
       "nutrition": "Dinh Dưỡng",
       "progress": "Tiến Độ",
       "records": "Nhật Ký",
+      "measurements": "Số Đo",
       "settings": "Cài Đặt"
     }
   },
@@ -370,5 +376,38 @@
     "listView": "Danh sách",
     "emptyList": "Bạn chưa có ghi nhận nào cho bài tập này. Hãy tập và cập nhật mức tạ nhé!",
     "searchPlaceholder": "Tìm kiếm bài tập..."
+  },
+  "measurements": {
+    "title": "Số Đo Cơ Thể",
+    "subtitle": "Theo dõi sự thay đổi của cơ thể",
+    "addMeasurement": "Thêm Số Đo",
+    "export": "Export",
+    "name": "Tên Số Đo",
+    "value": "Giá trị",
+    "unit": "Đơn vị",
+    "date": "Ngày",
+    "actions": "Hành động",
+    "edit": "Sửa",
+    "delete": "Xoá",
+    "deleteConfirmTitle": "Xác nhận xoá",
+    "deleteConfirmDesc": "Bạn có chắc chắn muốn xoá số đo này không?",
+    "cancel": "Huỷ",
+    "confirmDelete": "Xoá",
+    "save": "Lưu",
+    "noData": "Chưa có dữ liệu số đo nào.",
+    "selectMeasurement": "Chọn số đo để xem biểu đồ",
+    "allMeasurements": "Tất cả",
+    "chartTitle": "Biểu đồ biến thiên",
+    "suggestions": {
+      "chest": "Vòng ngực",
+      "waist": "Vòng eo",
+      "hips": "Vòng mông",
+      "biceps": "Bắp tay",
+      "thighs": "Vòng đùi",
+      "calves": "Bắp chân",
+      "weight": "Cân nặng",
+      "shoulders": "Vòng vai",
+      "neck": "Vòng cổ"
+    }
   }
 }

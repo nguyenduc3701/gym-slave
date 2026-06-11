@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import {
@@ -51,7 +51,7 @@ export default function NutritionPage() {
     <div className="space-y-6 max-w-[1200px] mx-auto">
       {/* Header */}
       <div>
-        <p className="label-caps" style={{ color: '#ff003c' }}>Nutrition Tracker</p>
+        <p className="label-caps" style={{ color: 'var(--color-primary)' }}>Nutrition Tracker</p>
         <Text
           style={{
             fontFamily: 'var(--font-anybody)',
@@ -75,9 +75,9 @@ export default function NutritionPage() {
         </div>
         <Grid gutter="xl">
           {[
-            { label: 'Calories', val: totals.calories, target: totals.target.calories, unit: 'kcal', color: '#ff003c' },
-            { label: 'Protein', val: totals.protein, target: totals.target.protein, unit: 'g', color: '#ff003c' },
-            { label: 'Carbs', val: totals.carbs, target: totals.target.carbs, unit: 'g', color: '#fe6b00' },
+            { label: 'Calories', val: totals.calories, target: totals.target.calories, unit: 'kcal', color: 'var(--color-primary)' },
+            { label: 'Protein', val: totals.protein, target: totals.target.protein, unit: 'g', color: 'var(--color-primary)' },
+            { label: 'Carbs', val: totals.carbs, target: totals.target.carbs, unit: 'g', color: 'var(--color-secondary)' },
             { label: 'Fat', val: totals.fat, target: totals.target.fat, unit: 'g', color: '#6cd7d8' },
           ].map((m) => (
             <Grid.Col key={m.label} span={{ base: 6, md: 3 }}>
@@ -114,7 +114,7 @@ export default function NutritionPage() {
                 input: {
                   backgroundColor: '#111',
                   borderColor: 'rgba(255,255,255,0.08)',
-                  color: '#ffdad8',
+                  color: 'var(--color-on-bg)',
                 },
               }}
             />
@@ -130,7 +130,7 @@ export default function NutritionPage() {
                   letterSpacing: '0.06em',
                   textTransform: 'uppercase',
                   color: '#af8786',
-                  '&[data-active]': { color: '#ff003c', borderColor: '#ff003c' },
+                  '&[data-active]': { color: 'var(--color-primary)', borderColor: 'var(--color-primary)' },
                 },
               }}
             >
@@ -153,9 +153,9 @@ export default function NutritionPage() {
                     style={{ background: 'rgba(255,0,60,0.08)' }}
                   >
                     {food.category === 'protein' ? (
-                      <IconMeat size={15} color="#ff003c" />
+                      <IconMeat size={15} color="var(--color-primary)" />
                     ) : food.category === 'carbs' ? (
-                      <IconBread size={15} color="#fe6b00" />
+                      <IconBread size={15} color="var(--color-secondary)" />
                     ) : (
                       <IconDroplet size={15} color="#6cd7d8" />
                     )}
@@ -167,7 +167,7 @@ export default function NutritionPage() {
                     </Text>
                   </div>
                   <div className="text-right flex-shrink-0">
-                    <Text size="xs" fw={600} style={{ fontFamily: 'var(--font-jetbrains)', color: '#ffb3b2' }}>
+                    <Text size="xs" fw={600} style={{ fontFamily: 'var(--font-jetbrains)', color: 'var(--color-on-surface-variant)' }}>
                       {food.calories}
                     </Text>
                     <Text size="xs" c="dimmed">kcal</Text>
@@ -195,18 +195,18 @@ export default function NutritionPage() {
                       <div className="flex items-center gap-2">
                         <div
                           className="w-2 h-2 rounded-full"
-                          style={{ background: 'linear-gradient(135deg,#ff003c,#fe6b00)' }}
+                          style={{ background: 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))' }}
                         />
                         <Text size="sm" fw={600} style={{ fontFamily: 'var(--font-anybody)' }}>
                           {meal}
                         </Text>
                       </div>
-                      <Text size="xs" style={{ fontFamily: 'var(--font-jetbrains)', color: '#ffb3b2' }}>
+                      <Text size="xs" style={{ fontFamily: 'var(--font-jetbrains)', color: 'var(--color-on-surface-variant)' }}>
                         {mockCal} kcal
                       </Text>
                     </div>
                     <div className="flex gap-4 mb-2">
-                      <Text size="xs" c="dimmed">Protein: <span style={{ color: '#ff003c', fontFamily: 'var(--font-jetbrains)' }}>{mockProtein}g</span></Text>
+                      <Text size="xs" c="dimmed">Protein: <span style={{ color: 'var(--color-primary)', fontFamily: 'var(--font-jetbrains)' }}>{mockProtein}g</span></Text>
                     </div>
                     <Progress
                       value={(mockCal / 750) * 100}
@@ -224,12 +224,12 @@ export default function NutritionPage() {
 
             <div className="mt-6 p-4 rounded-xl" style={{ background: '#111', border: '1px solid rgba(255,0,60,0.15)' }}>
               <div className="flex items-center gap-2 mb-2">
-                <IconApple size={16} color="#ff003c" />
-                <p className="label-caps" style={{ color: '#ff003c' }}>Daily Tip</p>
+                <IconApple size={16} color="var(--color-primary)" />
+                <p className="label-caps" style={{ color: 'var(--color-primary)' }}>Daily Tip</p>
               </div>
               <Text size="xs" c="dimmed" lh={1.6}>
                 You&apos;re hitting{' '}
-                <span style={{ color: '#ffb3b2', fontWeight: 600 }}>73%</span> of your protein
+                <span style={{ color: 'var(--color-on-surface-variant)', fontWeight: 600 }}>73%</span> of your protein
                 goal. Add a protein shake post-workout to hit your target.
               </Text>
             </div>

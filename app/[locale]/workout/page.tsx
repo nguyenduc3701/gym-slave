@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import {
@@ -146,7 +146,7 @@ export default function WorkoutPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="label-caps" style={{ color: '#ff003c' }}>Phase 1</p>
+          <p className="label-caps" style={{ color: 'var(--color-primary)' }}>Phase 1</p>
           <Text
             style={{
               fontFamily: 'var(--font-anybody)',
@@ -165,7 +165,7 @@ export default function WorkoutPage() {
               color="gray"
               leftSection={<IconDownload size={16} />}
               onClick={handleExport}
-              style={{ borderColor: 'rgba(255,255,255,0.1)', color: '#ffdad8' }}
+              style={{ borderColor: 'rgba(255,255,255,0.1)', color: 'var(--color-on-bg)' }}
             >
               Export (.txt)
             </Button>
@@ -206,7 +206,7 @@ export default function WorkoutPage() {
                   input: {
                     backgroundColor: '#111',
                     borderColor: 'rgba(255,255,255,0.08)',
-                    color: '#ffdad8',
+                    color: 'var(--color-on-bg)',
                     fontFamily: 'var(--font-hanken)',
                   },
                   label: { fontFamily: 'var(--font-jetbrains)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#af8786' },
@@ -220,11 +220,11 @@ export default function WorkoutPage() {
                   input: {
                     backgroundColor: '#111',
                     borderColor: 'rgba(255,255,255,0.08)',
-                    color: '#ffdad8',
+                    color: 'var(--color-on-bg)',
                   },
                   label: { fontFamily: 'var(--font-jetbrains)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#af8786' },
                   dropdown: { backgroundColor: '#1a1a1a', borderColor: 'rgba(255,255,255,0.08)' },
-                  option: { color: '#ffdad8', '&[data-selected]': { background: 'linear-gradient(135deg,#ff003c,#fe6b00)' } },
+                  option: { color: 'var(--color-on-bg)', '&[data-selected]': { background: 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))' } },
                 }}
               />
             </Stack>
@@ -269,7 +269,7 @@ export default function WorkoutPage() {
                 input: {
                   backgroundColor: '#111',
                   borderColor: 'rgba(255,255,255,0.08)',
-                  color: '#ffdad8',
+                  color: 'var(--color-on-bg)',
                 },
               }}
             />
@@ -284,14 +284,14 @@ export default function WorkoutPage() {
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center"
                       style={{ background: 'rgba(255,0,60,0.1)' }}>
-                      <IconBarbell size={16} color="#ff003c" />
+                      <IconBarbell size={16} color="var(--color-primary)" />
                     </div>
                     <div>
                       <Text size="sm" fw={500}>{ex.name}</Text>
                       <p className="label-caps" style={{ fontSize: '9px', marginTop: '1px' }}>{ex.group}</p>
                     </div>
                   </div>
-                  <IconPlus size={14} color="#fe6b00" />
+                  <IconPlus size={14} color="var(--color-secondary)" />
                 </button>
               ))}
             </div>
@@ -307,7 +307,7 @@ export default function WorkoutPage() {
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <Text fw={700} style={{ fontFamily: 'var(--font-anybody)' }}>{ex.name}</Text>
-                        <p className="label-caps" style={{ fontSize: '9px', color: '#fe6b00' }}>{ex.group}</p>
+                        <p className="label-caps" style={{ fontSize: '9px', color: 'var(--color-secondary)' }}>{ex.group}</p>
                       </div>
                       <ActionIcon variant="subtle" color="red" size="sm" onClick={() => setExerciseToDelete(ex.id)}>
                         <IconTrash size={14} />
@@ -317,7 +317,7 @@ export default function WorkoutPage() {
                     <div className="space-y-2">
                       {ex.sets.map((set, i) => (
                         <div key={i} className="flex items-center gap-3">
-                          <Text size="xs" className="label-caps w-8" style={{ color: '#5f3e3e' }}>
+                          <Text size="xs" className="label-caps w-8" style={{ color: 'var(--color-outline-variant)' }}>
                             S{i + 1}
                           </Text>
                           <NumberInput
@@ -326,7 +326,7 @@ export default function WorkoutPage() {
                             min={0}
                             suffix=" kg"
                             style={{ width: '90px' }}
-                            styles={{ input: { backgroundColor: '#1a1a1a', borderColor: 'rgba(255,255,255,0.08)', color: '#ffdad8', fontFamily: 'var(--font-jetbrains)', fontSize: '12px' } }}
+                            styles={{ input: { backgroundColor: '#1a1a1a', borderColor: 'rgba(255,255,255,0.08)', color: 'var(--color-on-bg)', fontFamily: 'var(--font-jetbrains)', fontSize: '12px' } }}
                           />
                           <Text size="xs" c="dimmed">×</Text>
                           <NumberInput
@@ -335,7 +335,7 @@ export default function WorkoutPage() {
                             min={0}
                             suffix=" reps"
                             style={{ width: '90px' }}
-                            styles={{ input: { backgroundColor: '#1a1a1a', borderColor: 'rgba(255,255,255,0.08)', color: '#ffdad8', fontFamily: 'var(--font-jetbrains)', fontSize: '12px' } }}
+                            styles={{ input: { backgroundColor: '#1a1a1a', borderColor: 'rgba(255,255,255,0.08)', color: 'var(--color-on-bg)', fontFamily: 'var(--font-jetbrains)', fontSize: '12px' } }}
                           />
                           <ActionIcon
                             size="sm"
@@ -353,7 +353,7 @@ export default function WorkoutPage() {
                     <button
                       onClick={() => addSet(ex.id)}
                       className="flex items-center gap-1 mt-3 text-xs cursor-pointer"
-                      style={{ color: '#fe6b00', background: 'none', border: 'none', padding: 0, fontFamily: 'var(--font-jetbrains)', letterSpacing: '0.06em', textTransform: 'uppercase' }}
+                      style={{ color: 'var(--color-secondary)', background: 'none', border: 'none', padding: 0, fontFamily: 'var(--font-jetbrains)', letterSpacing: '0.06em', textTransform: 'uppercase' }}
                     >
                       <IconPlus size={12} />
                       Add Set
@@ -374,14 +374,14 @@ export default function WorkoutPage() {
         centered
         overlayProps={{ blur: 3, backgroundOpacity: 0.5 }}
         styles={{
-          content: { backgroundColor: '#1a1a1a', color: '#ffdad8', border: '1px solid #4e2a2a' },
+          content: { backgroundColor: '#1a1a1a', color: 'var(--color-on-bg)', border: '1px solid var(--color-outline-variant)' },
           header: { backgroundColor: '#1a1a1a' },
           title: { fontWeight: 'bold' }
         }}
       >
         <Text size="sm" mb="lg">Bạn có chắc chắn muốn xoá bài tập này khỏi danh sách không?</Text>
         <Group justify="flex-end">
-          <Button variant="default" onClick={() => setExerciseToDelete(null)} style={{ backgroundColor: 'transparent', borderColor: '#4e2a2a', color: '#ffdad8' }}>Hủy</Button>
+          <Button variant="default" onClick={() => setExerciseToDelete(null)} style={{ backgroundColor: 'transparent', borderColor: 'var(--color-outline-variant)', color: 'var(--color-on-bg)' }}>Hủy</Button>
           <Button color="red" onClick={() => {
             if (exerciseToDelete !== null) {
               removeExercise(exerciseToDelete);

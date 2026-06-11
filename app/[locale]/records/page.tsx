@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
@@ -85,7 +85,7 @@ export default function RecordsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <p className="label-caps" style={{ color: '#ff003c' }}>{t('subtitle')}</p>
+          <p className="label-caps" style={{ color: 'var(--color-primary)' }}>{t('subtitle')}</p>
           <Text
             style={{
               fontFamily: 'var(--font-anybody)',
@@ -109,7 +109,7 @@ export default function RecordsPage() {
             color="red"
             styles={{
               root: { backgroundColor: '#111', border: '1px solid rgba(255,255,255,0.04)', borderRadius: '12px', padding: '3px' },
-              label: { color: '#ffdad8', fontSize: '11px', fontFamily: 'var(--font-jetbrains)', fontWeight: 'bold' }
+              label: { color: 'var(--color-on-bg)', fontSize: '11px', fontFamily: 'var(--font-jetbrains)', fontWeight: 'bold' }
             }}
           />
 
@@ -122,7 +122,7 @@ export default function RecordsPage() {
               styles={{
                 root: {
                   borderColor: 'rgba(255,0,60,0.25)',
-                  color: '#ffdad8',
+                  color: 'var(--color-on-bg)',
                   backgroundColor: 'transparent',
                   fontFamily: 'var(--font-jetbrains)',
                   fontSize: '11px',
@@ -130,7 +130,7 @@ export default function RecordsPage() {
                   textTransform: 'uppercase',
                   transition: 'all 0.2s ease',
                   '&:hover': {
-                    borderColor: '#ff003c',
+                    borderColor: 'var(--color-primary)',
                     backgroundColor: 'rgba(255,0,60,0.05)',
                     boxShadow: '0 0 15px rgba(255,0,60,0.2)'
                   }
@@ -145,7 +145,7 @@ export default function RecordsPage() {
 
       {currentExercises.length === 0 ? (
         <DashboardCard>
-          <div className="py-16 text-center text-[#5f3e3e]">
+          <div className="py-16 text-center text-[var(--color-outline-variant)]">
             <IconBarbell size={48} stroke={1} className="mx-auto mb-4 opacity-50" />
             <Text c="dimmed">{t('noData')}</Text>
           </div>
@@ -162,13 +162,13 @@ export default function RecordsPage() {
               input: {
                 backgroundColor: '#1a1a1a',
                 borderColor: 'rgba(255,255,255,0.06)',
-                color: '#ffdad8',
+                color: 'var(--color-on-bg)',
                 height: '46px',
                 borderRadius: '12px',
                 fontFamily: 'var(--font-hanken)',
                 fontSize: '14px',
                 '&:focus': {
-                  borderColor: '#fe6b00',
+                  borderColor: 'var(--color-secondary)',
                 }
               }
             }}
@@ -177,7 +177,7 @@ export default function RecordsPage() {
 
           {filteredExercises.length === 0 ? (
             <DashboardCard>
-              <div className="py-12 text-center text-[#5f3e3e]">
+              <div className="py-12 text-center text-[var(--color-outline-variant)]">
                 <IconBarbell size={40} stroke={1} className="mx-auto mb-3 opacity-40" />
                 <Text size="sm" c="dimmed">Không tìm thấy bài tập nào</Text>
               </div>
@@ -194,15 +194,15 @@ export default function RecordsPage() {
                       <div className="flex justify-between items-start mb-4 flex-1">
                         <div>
                           <div className="flex items-center gap-2 cursor-pointer group" onClick={() => setSelectedExercise(exercise)}>
-                            <Text fw={750} style={{ fontFamily: 'var(--font-anybody)', fontSize: '18px' }} className="group-hover:text-[#ff003c] transition-colors">
+                            <Text fw={750} style={{ fontFamily: 'var(--font-anybody)', fontSize: '18px' }} className="group-hover:text-[var(--color-primary)] transition-colors">
                               {exercise}
                             </Text>
-                            <IconChartLine size={16} className="text-[#5f3e3e] group-hover:text-[#ff003c] transition-colors" />
+                            <IconChartLine size={16} className="text-[var(--color-outline-variant)] group-hover:text-[var(--color-primary)] transition-colors" />
                           </div>
                           <Text size="xs" c="dimmed" mt={4} className="label-caps">
                             {currentWeight > 0 ? (
                               <>
-                                {t('currentWeight')}: <span style={{ color: '#fe6b00', fontWeight: 800, fontFamily: 'var(--font-jetbrains)' }}>{currentWeight} {unit}</span>
+                                {t('currentWeight')}: <span style={{ color: 'var(--color-secondary)', fontWeight: 800, fontFamily: 'var(--font-jetbrains)' }}>{currentWeight} {unit}</span>
                               </>
                             ) : (
                               t('noData')
@@ -213,7 +213,7 @@ export default function RecordsPage() {
                           className="w-10 h-10 rounded-lg flex items-center justify-center bg-white/[0.03] border border-white/[0.04] cursor-pointer hover:bg-white/10 hover:border-white/10 transition-colors" 
                           onClick={() => setSelectedExercise(exercise)}
                         >
-                          <IconBarbell size={20} color={currentWeight > 0 ? "#fe6b00" : "#5f3e3e"} />
+                          <IconBarbell size={20} color={currentWeight > 0 ? "var(--color-secondary)" : "var(--color-outline-variant)"} />
                         </div>
                       </div>
 
@@ -230,7 +230,7 @@ export default function RecordsPage() {
                             input: {
                               backgroundColor: '#111',
                               borderColor: 'rgba(255,255,255,0.08)',
-                              color: '#ffdad8',
+                              color: 'var(--color-on-bg)',
                               fontFamily: 'var(--font-jetbrains)'
                             }
                           }}
@@ -242,7 +242,7 @@ export default function RecordsPage() {
                           disabled={!weightInputs[exercise]}
                           style={{ 
                             background: weightInputs[exercise] 
-                              ? 'linear-gradient(135deg, #ff003c, #fe6b00)' 
+                              ? 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))' 
                               : '#222',
                             border: 'none',
                             transition: 'all 0.2s ease'
@@ -277,7 +277,7 @@ export default function RecordsPage() {
         centered
         overlayProps={{ blur: 10, backgroundOpacity: 0.8 }}
         styles={{
-          content: { backgroundColor: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', color: '#ffdad8', borderRadius: '16px' },
+          content: { backgroundColor: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', color: 'var(--color-on-bg)', borderRadius: '16px' },
           header: { backgroundColor: '#1a1a1a', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '16px 20px' },
           title: { color: '#fff' }
         }}
@@ -293,15 +293,15 @@ export default function RecordsPage() {
             color="fireRed"
             styles={{
               root: { backgroundColor: '#111', border: '1px solid rgba(255,255,255,0.04)', borderRadius: '12px', padding: '4px' },
-              label: { color: '#ffdad8', fontSize: '11px', fontFamily: 'var(--font-jetbrains)', textTransform: 'uppercase', letterSpacing: '0.05em' }
+              label: { color: 'var(--color-on-bg)', fontSize: '11px', fontFamily: 'var(--font-jetbrains)', textTransform: 'uppercase', letterSpacing: '0.05em' }
             }}
           />
         </div>
 
         {exerciseLogs.length === 0 ? (
-          <div className="py-16 text-center text-[#5f3e3e]">
+          <div className="py-16 text-center text-[var(--color-outline-variant)]">
             <IconBarbell size={48} stroke={1} className="mx-auto mb-4 opacity-50" />
-            <Text className="label-caps" style={{ color: '#5f3e3e' }}>{t('emptyList')}</Text>
+            <Text className="label-caps" style={{ color: 'var(--color-outline-variant)' }}>{t('emptyList')}</Text>
           </div>
         ) : (
           <div className="min-h-[300px]">
@@ -316,7 +316,7 @@ export default function RecordsPage() {
                   withDots
                   dotProps={{ r: 4, strokeWidth: 2 }}
                   gridAxis="xy"
-                  textColor="#ffdad8"
+                  textColor="var(--color-on-bg)"
                   tooltipAnimationDuration={200}
                   gridColor="rgba(255, 255, 255, 0.06)"
                 />
@@ -326,7 +326,7 @@ export default function RecordsPage() {
                 {exerciseLogs.slice().reverse().map((log, idx) => (
                   <div key={idx} className="flex justify-between items-center p-4 rounded-xl bg-[#111] border border-white/[0.04]">
                     <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-[#fe6b00]" />
+                      <div className="w-2 h-2 rounded-full bg-[var(--color-secondary)]" />
                       <Text style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '13px' }} c="dimmed">{log.date}</Text>
                     </div>
                     <StatDisplay value={log.weight} unit={unit} size="sm" gradient />
@@ -346,11 +346,11 @@ export default function RecordsPage() {
         centered
         overlayProps={{ blur: 10, backgroundOpacity: 0.8 }}
         styles={{
-          content: { backgroundColor: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', color: '#ffdad8', borderRadius: '16px' },
+          content: { backgroundColor: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', color: 'var(--color-on-bg)', borderRadius: '16px' },
           header: { backgroundColor: '#1a1a1a', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '16px 20px' }
         }}
       >
-        <Text size="sm" mb="xl" color="#ffb3b2">{t('clearHistoryConfirmDesc')}</Text>
+        <Text size="sm" mb="xl" color="var(--color-on-surface-variant)">{t('clearHistoryConfirmDesc')}</Text>
         <Group justify="flex-end">
           <Button 
             variant="default" 
@@ -358,7 +358,7 @@ export default function RecordsPage() {
             style={{ 
               backgroundColor: 'transparent', 
               borderColor: 'rgba(255,255,255,0.1)', 
-              color: '#ffdad8',
+              color: 'var(--color-on-bg)',
               fontFamily: 'var(--font-jetbrains)',
               fontSize: '11px',
               letterSpacing: '0.08em',

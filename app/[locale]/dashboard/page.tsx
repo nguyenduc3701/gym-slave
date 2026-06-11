@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -234,8 +234,8 @@ const MASTER_EXERCISES = {
 
 function renderTierBadge(tier: 'S' | 'A' | 'B' | 'C') {
   const styles = {
-    S: { bg: 'rgba(255, 0, 60, 0.2)', border: '#ff003c', color: '#ff525c' },
-    A: { bg: 'rgba(254, 107, 0, 0.2)', border: '#fe6b00', color: '#ffb693' },
+    S: { bg: 'rgba(255, 0, 60, 0.2)', border: 'var(--color-primary)', color: '#ff525c' },
+    A: { bg: 'rgba(254, 107, 0, 0.2)', border: 'var(--color-secondary)', color: '#ffb693' },
     B: { bg: 'rgba(108, 215, 216, 0.2)', border: '#6cd7d8', color: '#6cd7d8' },
     C: { bg: 'rgba(150, 150, 150, 0.2)', border: '#9e9e9e', color: '#cccccc' },
   }[tier];
@@ -853,7 +853,7 @@ function ExerciseDetailModal({
       centered
       overlayProps={{ blur: 20, backgroundOpacity: 0.85, color: '#0d0d0d' }}
       styles={{
-        content: { backgroundColor: '#1b0909', border: '1px solid #5f3e3e', overflow: 'hidden' },
+        content: { backgroundColor: '#1b0909', border: '1px solid var(--color-outline-variant)', overflow: 'hidden' },
         header: { display: 'none' },
         body: { padding: 0 },
       }}
@@ -872,9 +872,9 @@ function ExerciseDetailModal({
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, #210e0e 0%, transparent 50%)', opacity: 0.7 }} />
           <div className="absolute inset-0 flex flex-col justify-end p-5">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-1 h-10 rounded-full" style={{ background: 'linear-gradient(180deg,#ff525c,#fe6b00)' }} />
+              <div className="w-1 h-10 rounded-full" style={{ background: 'linear-gradient(180deg,#ff525c,var(--color-secondary))' }} />
               <div>
-                <div style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.1em', color: '#ffb3b2', textTransform: 'uppercase' }}>{t('focusArea')}</div>
+                <div style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.1em', color: 'var(--color-on-surface-variant)', textTransform: 'uppercase' }}>{t('focusArea')}</div>
                 <div style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fff' }}>{t('techniqueTitle')}</div>
               </div>
             </div>
@@ -886,7 +886,7 @@ function ExerciseDetailModal({
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full transition-colors"
-            style={{ backgroundColor: '#462f2e', color: '#ffdad8', border: 'none', cursor: 'pointer', zIndex: 10 }}
+            style={{ backgroundColor: '#462f2e', color: 'var(--color-on-bg)', border: 'none', cursor: 'pointer', zIndex: 10 }}
           >
             ✕
           </button>
@@ -909,7 +909,7 @@ function ExerciseDetailModal({
                 fontFamily: 'var(--font-anybody)',
                 fontWeight: 800,
                 fontSize: 'clamp(24px,4vw,32px)',
-                color: '#ffdad8',
+                color: 'var(--color-on-bg)',
                 textTransform: 'uppercase',
                 lineHeight: 1.1,
               }}
@@ -930,7 +930,7 @@ function ExerciseDetailModal({
                 style={{ background: 'rgba(46,26,26,0.4)', border: '1px solid rgba(175,135,134,0.1)' }}
               >
                 <span style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '9px', letterSpacing: '0.08em', color: '#e9bcba' }}>{s.label}</span>
-                <span style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '24px', lineHeight: 1, color: '#ffb3b2' }}>{s.value}</span>
+                <span style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '24px', lineHeight: 1, color: 'var(--color-on-surface-variant)' }}>{s.value}</span>
               </div>
             ))}
           </div>
@@ -938,7 +938,7 @@ function ExerciseDetailModal({
           <div className="flex flex-col gap-2">
             <h3
               className="pl-3 border-l-2"
-              style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '11px', letterSpacing: '0.08em', color: '#ffb3b2', textTransform: 'uppercase', borderColor: '#ff003c' }}
+              style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '11px', letterSpacing: '0.08em', color: 'var(--color-on-surface-variant)', textTransform: 'uppercase', borderColor: 'var(--color-primary)' }}
             >
               {t('techniqueSectionTitle')}
             </h3>
@@ -947,7 +947,7 @@ function ExerciseDetailModal({
             </p>
           </div>
 
-          <div className="flex flex-col gap-4 pt-4 border-t" style={{ borderColor: '#5f3e3e' }}>
+          <div className="flex flex-col gap-4 pt-4 border-t" style={{ borderColor: 'var(--color-outline-variant)' }}>
             <div className="flex justify-between items-center">
               <h3 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '16px', textTransform: 'uppercase' }}>{t('sameGroupLabel')}</h3>
               <span style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', color: '#e9bcba', letterSpacing: '0.06em' }}>{t('exerciseCount', { count: listToRender.length })}</span>
@@ -961,16 +961,16 @@ function ExerciseDetailModal({
                     className="flex items-center justify-between p-3 rounded-xl border transition-all"
                     style={{
                       backgroundColor: isCurrent ? 'rgba(255, 0, 60, 0.05)' : '#2e1a1a',
-                      borderColor: isCurrent ? '#ff003c' : '#5f3e3e',
+                      borderColor: isCurrent ? 'var(--color-primary)' : 'var(--color-outline-variant)',
                     }}
                   >
                     <div className="flex items-center gap-3">
                       <div
                         className="w-2.5 h-2.5 rounded-full"
-                        style={{ backgroundColor: isCurrent ? '#ff003c' : '#5f3e3e' }}
+                        style={{ backgroundColor: isCurrent ? 'var(--color-primary)' : 'var(--color-outline-variant)' }}
                       />
                       <div>
-                        <div style={{ fontWeight: 600, fontSize: '14px', color: isCurrent ? '#ffdad8' : '#e9bcba' }}>
+                        <div style={{ fontWeight: 600, fontSize: '14px', color: isCurrent ? 'var(--color-on-bg)' : '#e9bcba' }}>
                           {item.name} {isCurrent && <span className="text-[10px] text-[#ff525c] ml-2">{t('currentlyViewing')}</span>}
                         </div>
                         <div style={{ fontSize: '11px', color: '#a78584' }}>{getLocalizedTarget(item.target, t)}</div>
@@ -982,11 +982,11 @@ function ExerciseDetailModal({
                         <Tooltip label={t('swapTooltip')} position="top" withArrow color="dark">
                           <button
                             onClick={() => handleSwap(item)}
-                            className="w-8 h-8 rounded-lg text-sm font-bold transition-all duration-200 hover:bg-[#ff003c] hover:border-transparent hover:text-white hover:scale-[1.05] hover:shadow-[0_0_12px_rgba(255,0,60,0.35)] flex items-center justify-center"
+                            className="w-8 h-8 rounded-lg text-sm font-bold transition-all duration-200 hover:bg-[var(--color-primary)] hover:border-transparent hover:text-white hover:scale-[1.05] hover:shadow-[0_0_12px_rgba(255,0,60,0.35)] flex items-center justify-center"
                             style={{
                               backgroundColor: 'rgba(255, 82, 92, 0.06)',
                               border: '1px solid rgba(255, 82, 92, 0.25)',
-                              color: '#ffb3b2',
+                              color: 'var(--color-on-surface-variant)',
                               cursor: 'pointer',
                             }}
                           >
@@ -1284,7 +1284,7 @@ export default function DashboardPage() {
     return (
       <div 
         className="min-h-screen flex flex-col justify-center items-center"
-        style={{ backgroundColor: '#140707', color: '#ffdad8', fontFamily: 'var(--font-hanken)' }}
+        style={{ backgroundColor: '#140707', color: 'var(--color-on-bg)', fontFamily: 'var(--font-hanken)' }}
       >
         <div className="flex flex-col items-center gap-4">
           <div className="relative w-16 h-16">
@@ -1305,8 +1305,8 @@ export default function DashboardPage() {
   const getBmiCategory = (val: number) => {
     if (val < 18.5) return { text: t('bmiUnderweight'), color: '#6cd7d8' };
     if (val < 24.9) return { text: t('bmiNormal'), color: '#4caf50' };
-    if (val < 29.9) return { text: t('bmiOverweight'), color: '#fe6b00' };
-    return { text: t('bmiObese'), color: '#ff003c' };
+    if (val < 29.9) return { text: t('bmiOverweight'), color: 'var(--color-secondary)' };
+    return { text: t('bmiObese'), color: 'var(--color-primary)' };
   };
 
   const bmiDetails = getBmiCategory(profile.bmi || 22.0);
@@ -1317,7 +1317,7 @@ export default function DashboardPage() {
   return (
     <div
       className="min-h-screen"
-      style={{ backgroundColor: '#140707', color: '#ffdad8', fontFamily: 'var(--font-hanken)' }}
+      style={{ backgroundColor: '#140707', color: 'var(--color-on-bg)', fontFamily: 'var(--font-hanken)' }}
     >
       {/* ── TopNav ────────────────────────────────────────────────────────── */}
       <Header />
@@ -1335,7 +1335,7 @@ export default function DashboardPage() {
               {t('profileGender')}: <span className="font-bold text-white uppercase">{profile.gender === 'male' ? t('genderMale') : t('genderFemale')}</span> • {t('profileLocation')}: <span className="font-bold text-white uppercase">{profile.trainingLocation === 'gym' ? t('locationGym') : t('locationHome')}</span> • {t('profileCommitment')}: <span className="font-bold text-white">{t('commitmentWeeks', { weeks: profile.targetWeeks || 12 })}</span>
             </p>
             {profile.focusMuscleGroups && profile.focusMuscleGroups.length > 0 && (
-              <p style={{ fontSize: '13px', color: '#fe6b00', marginTop: '4px' }}>
+              <p style={{ fontSize: '13px', color: 'var(--color-secondary)', marginTop: '4px' }}>
                 {t('focusMuscleLabel')}: <span className="font-bold text-white uppercase">{profile.focusMuscleGroups.join(', ')} {t('focusMuscleBoost')}</span>
               </p>
             )}
@@ -1366,10 +1366,10 @@ export default function DashboardPage() {
           <div className="lg:col-span-8 space-y-6">
             <section
               className="rounded-xl overflow-hidden border"
-              style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a' }}
+              style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)' }}
             >
               {/* Section header */}
-              <div className="p-4 sm:p-6 flex items-center justify-between border-b" style={{ borderColor: '#4e2a2a' }}>
+              <div className="p-4 sm:p-6 flex items-center justify-between border-b" style={{ borderColor: 'var(--color-outline-variant)' }}>
                 <div>
                   <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '20px', color: '#fff' }}>{t('weeklyScheduleTitle')}</h2>
                   <p style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.08em', color: '#e9bcba', textTransform: 'uppercase', marginTop: '2px' }}>
@@ -1393,9 +1393,9 @@ export default function DashboardPage() {
                         <span
                           className="px-2.5 py-0.5 rounded text-[10px] font-bold"
                           style={{
-                            backgroundColor: day.isToday ? '#ff003c' : 'rgba(46, 20, 20, 0.8)',
+                            backgroundColor: day.isToday ? 'var(--color-primary)' : 'rgba(46, 20, 20, 0.8)',
                             color: '#fff',
-                            border: day.isToday ? 'none' : '1px solid #4e2a2a',
+                            border: day.isToday ? 'none' : '1px solid var(--color-outline-variant)',
                             fontFamily: 'var(--font-jetbrains)',
                             letterSpacing: '0.06em',
                           }}
@@ -1457,7 +1457,7 @@ export default function DashboardPage() {
                                 <option
                                   key={d.day}
                                   value={d.day}
-                                  style={{ background: '#1b0909', color: '#ffdad8' }}
+                                  style={{ background: '#1b0909', color: 'var(--color-on-bg)' }}
                                 >
                                   {getLocalizedDay(d.day, t)} {d.isRest ? `(${t('rest')})` : ''}
                                 </option>
@@ -1468,7 +1468,7 @@ export default function DashboardPage() {
                         {/* Add exercise button — always visible */}
                         <button
                           onClick={() => handleOpenAddModal(day.day)}
-                          className="text-[10px] px-3 py-1 rounded border border-[#fe6b00]/30 hover:border-[#fe6b00] text-[#fe6b00] font-bold uppercase transition-all font-mono"
+                          className="text-[10px] px-3 py-1 rounded border border-[var(--color-secondary)]/30 hover:border-[var(--color-secondary)] text-[var(--color-secondary)] font-bold uppercase transition-all font-mono"
                           style={{ background: 'none', cursor: 'pointer' }}
                         >
                           {t('addExerciseBtn')}
@@ -1514,7 +1514,7 @@ export default function DashboardPage() {
                                 </button>
                               </div>
                               
-                              <div className="flex justify-between text-xs text-[#e9bcba] pt-2 border-t border-dashed border-[#4e2a2a]/40">
+                              <div className="flex justify-between text-xs text-[#e9bcba] pt-2 border-t border-dashed border-[var(--color-outline-variant)]/40">
                                 <div>
                                   <span className="opacity-60">{t('tableMuscle')}:</span>{' '}
                                   <span className="font-medium text-white">{getLocalizedTarget(ex.target, t)}</span>
@@ -1602,7 +1602,7 @@ export default function DashboardPage() {
                   {t('nutritionCurated')}
                 </span>
               </div>
-              <div className="rounded-xl border overflow-hidden" style={{ backgroundColor: 'rgba(46,20,20,0.3)', borderColor: '#4e2a2a' }}>
+              <div className="rounded-xl border overflow-hidden" style={{ backgroundColor: 'rgba(46,20,20,0.3)', borderColor: 'var(--color-outline-variant)' }}>
                 {activeFoods.map((food, i) => (
                   <div
                     key={food.name}
@@ -1612,7 +1612,7 @@ export default function DashboardPage() {
                     onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent'; }}
                   >
                     <div className="flex items-center gap-4">
-                      <span style={{ fontSize: '20px', color: '#fe6b00' }}>🍽</span>
+                      <span style={{ fontSize: '20px', color: 'var(--color-secondary)' }}>🍽</span>
                       <div>
                         <span className="fontWeight-600 text-white" style={{ fontSize: '15px' }}>{food.name}</span>
                         <span className="block text-[11px] text-[#e9bcba] mt-0.5">
@@ -1621,7 +1621,7 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <span style={{ fontWeight: 700, fontSize: '14px', color: '#ffb3b2' }}>{food.cal} kcal</span>
+                      <span style={{ fontWeight: 700, fontSize: '14px', color: 'var(--color-on-surface-variant)' }}>{food.cal} kcal</span>
                       <div className="flex gap-2 text-[9px] font-mono justify-end text-[#e9bcba] mt-0.5 uppercase">
                         <span>P: {food.protein}g</span>
                         <span>•</span>
@@ -1642,7 +1642,7 @@ export default function DashboardPage() {
             {/* Calorie Goal Summary from Store */}
             <section
               className="rounded-xl p-6 border text-center"
-              style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a' }}
+              style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)' }}
             >
               <div className="flex flex-col items-center justify-center py-6">
                 <span
@@ -1653,13 +1653,13 @@ export default function DashboardPage() {
                 </span>
                 <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 800, fontSize: '42px', lineHeight: 1, letterSpacing: '-0.02em', color: '#fff' }}>
                   {profile.dailyCalorieTarget || 2200}{' '}
-                  <span style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fe6b00' }}>{t('kcalPerDay')}</span>
+                  <span style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: 'var(--color-secondary)' }}>{t('kcalPerDay')}</span>
                 </h2>
                 {profile.tdee && (
                   <span className="text-[11px] opacity-60 mt-1 font-mono">{t('bmrLabel', { bmr: profile.bmr })}</span>
                 )}
               </div>
-              <div className="flex justify-between px-2 pt-4 border-t border-[#4e2a2a]/40" style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '11px' }}>
+              <div className="flex justify-between px-2 pt-4 border-t border-[var(--color-outline-variant)]/40" style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '11px' }}>
                 <div className="text-left">
                   <p style={{ color: '#6cd7d8', fontWeight: 700, fontSize: '15px' }}>{profile.dailyProteinTarget || 140}g</p>
                   <p style={{ color: '#e9bcba', textTransform: 'uppercase', fontSize: '9px' }}>{t('proteinLabel')}</p>
@@ -1678,7 +1678,7 @@ export default function DashboardPage() {
             {/* NEW PANEL: Adjust Weight, Target Weight, Frequency, and Location */}
             <section
               className="rounded-xl p-6 border space-y-4"
-              style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a' }}
+              style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)' }}
             >
               <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fff' }}>
                 ⚙️ {t('quickAdjustTitle')}
@@ -1699,7 +1699,7 @@ export default function DashboardPage() {
                   className="w-full cursor-pointer h-1.5 rounded-lg appearance-none"
                   style={{
                     background: '#2e1414',
-                    accentColor: '#ff003c',
+                    accentColor: 'var(--color-primary)',
                   }}
                 />
               </div>
@@ -1719,7 +1719,7 @@ export default function DashboardPage() {
                   className="w-full cursor-pointer h-1.5 rounded-lg appearance-none"
                   style={{
                     background: '#2e1414',
-                    accentColor: '#fe6b00',
+                    accentColor: 'var(--color-secondary)',
                   }}
                 />
               </div>
@@ -1735,7 +1735,7 @@ export default function DashboardPage() {
                     className="py-2.5 rounded-lg text-xs font-bold transition-all border"
                     style={{
                       backgroundColor: locationInput === 'gym' ? 'rgba(254,107,0,0.15)' : 'rgba(46, 20, 20, 0.3)',
-                      borderColor: locationInput === 'gym' ? '#fe6b00' : '#4e2a2a',
+                      borderColor: locationInput === 'gym' ? 'var(--color-secondary)' : 'var(--color-outline-variant)',
                       color: '#fff',
                       cursor: 'pointer',
                     }}
@@ -1747,7 +1747,7 @@ export default function DashboardPage() {
                     className="py-2.5 rounded-lg text-xs font-bold transition-all border"
                     style={{
                       backgroundColor: locationInput === 'home' ? 'rgba(254,107,0,0.15)' : 'rgba(46, 20, 20, 0.3)',
-                      borderColor: locationInput === 'home' ? '#fe6b00' : '#4e2a2a',
+                      borderColor: locationInput === 'home' ? 'var(--color-secondary)' : 'var(--color-outline-variant)',
                       color: '#fff',
                       cursor: 'pointer',
                     }}
@@ -1763,7 +1763,7 @@ export default function DashboardPage() {
                   <label className="text-xs font-mono" style={{ color: '#e9bcba' }}>
                     {t('frequencyLabel')}
                   </label>
-                  <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-[#ff003c]/20 border border-[#ff003c]/40 text-[#ff525c]">
+                  <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-full bg-[var(--color-primary)]/20 border border-[var(--color-primary)]/40 text-[#ff525c]">
                     {t('frequencyDays', { days: workoutDaysInput })}
                   </span>
                 </div>
@@ -1779,11 +1779,11 @@ export default function DashboardPage() {
                         className="py-2.5 rounded-lg text-xs font-bold transition-all relative border active:scale-95"
                         style={{
                           background: isSelected 
-                            ? 'linear-gradient(135deg, #ff003c, #fe6b00)' 
+                            ? 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))' 
                             : 'rgba(46, 20, 20, 0.3)',
                           borderColor: isSelected 
                             ? '#ff525c' 
-                            : isRecommended ? '#8b4a4a' : '#4e2a2a',
+                            : isRecommended ? '#8b4a4a' : 'var(--color-outline-variant)',
                           color: '#fff',
                           cursor: 'pointer',
                           boxShadow: isSelected ? '0 0 12px rgba(255, 0, 60, 0.4)' : 'none',
@@ -1814,12 +1814,12 @@ export default function DashboardPage() {
                 onClick={handleRecalculate}
                 className="w-full py-3 rounded-xl uppercase font-bold transition-all active:scale-[0.98] mt-2 disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100"
                 style={{
-                  background: isModified ? 'linear-gradient(135deg, #ff003c, #fe6b00)' : 'rgba(255, 0, 60, 0.15)',
+                  background: isModified ? 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))' : 'rgba(255, 0, 60, 0.15)',
                   color: isModified ? '#fff' : '#888',
                   fontFamily: 'var(--font-jetbrains)',
                   fontSize: '11px',
                   letterSpacing: '0.08em',
-                  border: isModified ? 'none' : '1px solid #4e2a2a',
+                  border: isModified ? 'none' : '1px solid var(--color-outline-variant)',
                   cursor: isModified ? 'pointer' : 'not-allowed',
                   boxShadow: isModified ? '0 4px 15px rgba(255,0,60,0.2)' : 'none',
                 }}
@@ -1829,7 +1829,7 @@ export default function DashboardPage() {
             </section>
 
             {/* Target Settings with BMI display */}
-            <section className="rounded-xl p-6 border space-y-6" style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a' }}>
+            <section className="rounded-xl p-6 border space-y-6" style={{ backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)' }}>
               <h2 style={{ fontFamily: 'var(--font-anybody)', fontWeight: 700, fontSize: '18px', color: '#fff' }}>{t('bodyStatsTitle')}</h2>
 
               {/* BMI Output */}
@@ -1842,7 +1842,7 @@ export default function DashboardPage() {
                 </label>
                 <div
                   className="p-4 rounded-xl border flex justify-between items-center"
-                  style={{ backgroundColor: 'rgba(46, 20, 20, 0.2)', borderColor: '#4e2a2a' }}
+                  style={{ backgroundColor: 'rgba(46, 20, 20, 0.2)', borderColor: 'var(--color-outline-variant)' }}
                 >
                   <div>
                     <span className="font-mono text-2xl font-bold text-white">{profile.bmi || 22.0}</span>
@@ -1864,10 +1864,10 @@ export default function DashboardPage() {
                 </label>
                 <div
                   className="flex items-center justify-between p-3 rounded-lg border"
-                  style={{ backgroundColor: 'rgba(46, 20, 20, 0.2)', borderColor: '#4e2a2a' }}
+                  style={{ backgroundColor: 'rgba(46, 20, 20, 0.2)', borderColor: 'var(--color-outline-variant)' }}
                 >
                   <span style={{ fontWeight: 700, fontSize: '16px', color: '#fff' }}>{profile.targetWeight || 70} kg</span>
-                  <span className="text-xs px-2 py-0.5 rounded bg-orange-950/20 border border-[#fe6b00] text-[#fe6b00]" style={{ fontFamily: 'var(--font-jetbrains)' }}>
+                  <span className="text-xs px-2 py-0.5 rounded bg-orange-950/20 border border-[var(--color-secondary)] text-[var(--color-secondary)]" style={{ fontFamily: 'var(--font-jetbrains)' }}>
                     {profile.goal === 'weight_loss' ? t('goalWeightLoss') : profile.goal === 'muscle_gain' ? t('goalMuscleGain') : t('goalMaintain')}
                   </span>
                 </div>
@@ -1880,7 +1880,7 @@ export default function DashboardPage() {
                     className="h-full rounded-full"
                     style={{
                       width: `${progressPct}%`,
-                      backgroundColor: '#ff003c',
+                      backgroundColor: 'var(--color-primary)',
                       boxShadow: '0 0 10px rgba(255, 0, 60, 0.5)',
                     }}
                   />
@@ -1909,8 +1909,8 @@ export default function DashboardPage() {
         centered
         overlayProps={{ blur: 15, backgroundOpacity: 0.8, color: '#0d0d0d' }}
         styles={{
-          content: { backgroundColor: '#1b0909', border: '1px solid #5f3e3e', color: '#ffdad8' },
-          header: { backgroundColor: '#1b0909', borderBottom: '1px solid #4e2a2a', color: '#fff', fontWeight: 'bold' },
+          content: { backgroundColor: '#1b0909', border: '1px solid var(--color-outline-variant)', color: 'var(--color-on-bg)' },
+          header: { backgroundColor: '#1b0909', borderBottom: '1px solid var(--color-outline-variant)', color: '#fff', fontWeight: 'bold' },
         }}
       >
         <div className="space-y-4 pt-2">
@@ -1922,7 +1922,7 @@ export default function DashboardPage() {
               value={selectedMuscle}
               onChange={(e) => setSelectedMuscle(e.target.value)}
               className="px-3 py-2.5 rounded-lg border cursor-pointer focus:outline-none"
-              style={{ backgroundColor: '#2e1414', borderColor: '#4e2a2a', color: '#fff' }}
+              style={{ backgroundColor: '#2e1414', borderColor: 'var(--color-outline-variant)', color: '#fff' }}
             >
               <option value="nguc_tren">{t('muscleUpperChest')}</option>
               <option value="nguc_giua_duoi">{t('muscleMidLowerChest')}</option>
@@ -1949,7 +1949,7 @@ export default function DashboardPage() {
               value={selectedExerciseName}
               onChange={(e) => setSelectedExerciseName(e.target.value)}
               className="px-3 py-2.5 rounded-lg border cursor-pointer focus:outline-none"
-              style={{ backgroundColor: '#2e1414', borderColor: '#4e2a2a', color: '#fff' }}
+              style={{ backgroundColor: '#2e1414', borderColor: 'var(--color-outline-variant)', color: '#fff' }}
             >
               {availableExercisesList.length === 0 ? (
                 <option value="">{t('noExerciseOption')}</option>
@@ -1974,7 +1974,7 @@ export default function DashboardPage() {
                 value={customSets}
                 onChange={(e) => setCustomSets(Math.max(1, Number(e.target.value)))}
                 className="px-3 py-2.5 rounded-lg border focus:outline-none"
-                style={{ backgroundColor: '#2e1414', borderColor: '#4e2a2a', color: '#fff' }}
+                style={{ backgroundColor: '#2e1414', borderColor: 'var(--color-outline-variant)', color: '#fff' }}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -1984,17 +1984,17 @@ export default function DashboardPage() {
                 value={customReps}
                 onChange={(e) => setCustomReps(e.target.value)}
                 className="px-3 py-2.5 rounded-lg border focus:outline-none"
-                style={{ backgroundColor: '#2e1414', borderColor: '#4e2a2a', color: '#fff' }}
+                style={{ backgroundColor: '#2e1414', borderColor: 'var(--color-outline-variant)', color: '#fff' }}
               />
             </div>
           </div>
 
           {/* Submit Actions */}
-          <div className="flex gap-3 pt-4 border-t border-[#4e2a2a] justify-end">
+          <div className="flex gap-3 pt-4 border-t border-[var(--color-outline-variant)] justify-end">
             <button
               onClick={() => setAddModalOpened(false)}
               className="px-4 py-2.5 rounded-lg border transition-all text-xs font-bold uppercase font-mono"
-              style={{ backgroundColor: 'transparent', borderColor: '#4e2a2a', color: '#e9bcba', cursor: 'pointer' }}
+              style={{ backgroundColor: 'transparent', borderColor: 'var(--color-outline-variant)', color: '#e9bcba', cursor: 'pointer' }}
             >
               {t('cancelBtn')}
             </button>
@@ -2003,7 +2003,7 @@ export default function DashboardPage() {
               disabled={!selectedExerciseName}
               className="px-6 py-2.5 rounded-lg transition-all text-xs font-bold uppercase font-mono text-white"
               style={{
-                background: 'linear-gradient(90deg, #ff003c, #fe6b00)',
+                background: 'linear-gradient(90deg, var(--preset-gradient-from), var(--preset-gradient-to))',
                 border: 'none',
                 cursor: 'pointer',
               }}
@@ -2023,7 +2023,7 @@ export default function DashboardPage() {
         centered
         overlayProps={{ blur: 3, backgroundOpacity: 0.5 }}
         styles={{
-          content: { backgroundColor: '#1a1a1a', color: '#ffdad8', border: '1px solid #4e2a2a' },
+          content: { backgroundColor: '#1a1a1a', color: 'var(--color-on-bg)', border: '1px solid var(--color-outline-variant)' },
           header: { backgroundColor: '#1a1a1a' },
           title: { fontWeight: 'bold' }
         }}
@@ -2034,7 +2034,7 @@ export default function DashboardPage() {
         <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
           <button 
             className="px-4 py-2 rounded-lg font-bold transition-all"
-            style={{ backgroundColor: 'transparent', border: '1px solid #4e2a2a', color: '#ffdad8', cursor: 'pointer' }}
+            style={{ backgroundColor: 'transparent', border: '1px solid var(--color-outline-variant)', color: 'var(--color-on-bg)', cursor: 'pointer' }}
             onClick={() => setExerciseToDelete(null)}
           >
             Hủy

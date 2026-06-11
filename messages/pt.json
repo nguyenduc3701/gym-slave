@@ -31,6 +31,10 @@
     "records": {
       "title": "Registro de Acompanhamento de Peso",
       "description": "Acompanhe a progressão de peso dos seus treinos."
+    },
+    "measurements": {
+      "title": "Medidas Corporais",
+      "description": "Acompanhe e gerencie as medidas do seu corpo ao longo do tempo."
     }
   },
   "common": {
@@ -52,6 +56,7 @@
     "nutrition": "Nutrição",
     "progress": "Progresso",
     "records": "Recordes",
+    "measurements": "Medidas",
     "settings": "Configurações"
   },
   "header": {
@@ -62,6 +67,7 @@
       "nutrition": "Nutrição",
       "progress": "Progresso",
       "records": "Recordes",
+      "measurements": "Medidas",
       "settings": "Configurações"
     }
   },
@@ -370,5 +376,38 @@
     "listView": "Lista",
     "emptyList": "Você ainda não tem recordes para este exercício. Levante peso e atualize seu peso!",
     "searchPlaceholder": "Buscar exercícios..."
+  },
+  "measurements": {
+    "title": "Medidas Corporais",
+    "subtitle": "Acompanhe as mudanças do seu corpo",
+    "addMeasurement": "Adicionar Medida",
+    "export": "Exportar",
+    "name": "Nome da Medida",
+    "value": "Valor",
+    "unit": "Unidade",
+    "date": "Data",
+    "actions": "Ações",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "deleteConfirmTitle": "Confirmar Exclusão",
+    "deleteConfirmDesc": "Tem certeza de que deseja excluir esta medida?",
+    "cancel": "Cancelar",
+    "confirmDelete": "Excluir",
+    "save": "Salvar",
+    "noData": "Nenhum dado de medida disponível.",
+    "selectMeasurement": "Selecione a medida para ver o gráfico",
+    "allMeasurements": "Todos",
+    "chartTitle": "Gráfico de Variação",
+    "suggestions": {
+      "chest": "Peito",
+      "waist": "Cintura",
+      "hips": "Quadris",
+      "biceps": "Bíceps",
+      "thighs": "Coxas",
+      "calves": "Panturrilhas",
+      "weight": "Peso",
+      "shoulders": "Ombros",
+      "neck": "Pescoço"
+    }
   }
 }

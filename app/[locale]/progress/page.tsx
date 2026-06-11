@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Grid, Text, Badge, RingProgress, Timeline } from '@mantine/core';
 import { IconTrendingUp, IconBarbell, IconFlame, IconStar, IconCheck } from '@tabler/icons-react';
@@ -35,7 +35,7 @@ export default function ProgressPage() {
     <div className="space-y-6 max-w-[1200px] mx-auto">
       {/* Header */}
       <div>
-        <p className="label-caps" style={{ color: '#ff003c' }}>Performance Tracker</p>
+        <p className="label-caps" style={{ color: 'var(--color-primary)' }}>Performance Tracker</p>
         <Text
           style={{
             fontFamily: 'var(--font-anybody)',
@@ -51,10 +51,10 @@ export default function ProgressPage() {
       {/* Top Stats */}
       <Grid gutter="md">
         {[
-          { label: 'Total Workouts', value: '47', unit: 'sessions', icon: <IconBarbell size={20} color="#ff003c" /> },
-          { label: 'Avg Calories/Day', value: '2,280', unit: 'kcal', icon: <IconFlame size={20} color="#fe6b00" /> },
+          { label: 'Total Workouts', value: '47', unit: 'sessions', icon: <IconBarbell size={20} color="var(--color-primary)" /> },
+          { label: 'Avg Calories/Day', value: '2,280', unit: 'kcal', icon: <IconFlame size={20} color="var(--color-secondary)" /> },
           { label: 'Consistency', value: '82', unit: '%', icon: <IconTrendingUp size={20} color="#6cd7d8" /> },
-          { label: 'Personal Bests', value: '12', unit: 'records', icon: <IconStar size={20} color="#ffb3b2" /> },
+          { label: 'Personal Bests', value: '12', unit: 'records', icon: <IconStar size={20} color="var(--color-on-surface-variant)" /> },
         ].map((stat) => (
           <Grid.Col key={stat.label} span={{ base: 6, lg: 3 }}>
             <DashboardCard>
@@ -103,14 +103,14 @@ export default function ProgressPage() {
                         style={{
                           height: `${height}%`,
                           background: isLatest
-                            ? 'linear-gradient(180deg, #ff003c, #fe6b00)'
+                            ? 'linear-gradient(180deg, var(--preset-gradient-from), var(--preset-gradient-to))'
                             : 'linear-gradient(180deg, rgba(255,0,60,0.5), rgba(254,107,0,0.3))',
                           boxShadow: isLatest ? '0 0 16px rgba(255,0,60,0.4)' : 'none',
                           transition: 'all 0.3s ease',
                         }}
                       />
                     </div>
-                    <p className="label-caps" style={{ fontSize: '9px', color: isLatest ? '#ff003c' : '#5f3e3e' }}>
+                    <p className="label-caps" style={{ fontSize: '9px', color: isLatest ? 'var(--color-primary)' : 'var(--color-outline-variant)' }}>
                       {w.week}
                     </p>
                   </div>
@@ -121,7 +121,7 @@ export default function ProgressPage() {
             <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/[0.06]">
               <Text size="xs" c="dimmed">
                 Latest week:{' '}
-                <span style={{ color: '#ffb3b2', fontFamily: 'var(--font-jetbrains)' }}>
+                <span style={{ color: 'var(--color-on-surface-variant)', fontFamily: 'var(--font-jetbrains)' }}>
                   12,400 kg — ↑ 26% vs last week
                 </span>
               </Text>
@@ -173,7 +173,7 @@ export default function ProgressPage() {
           <DashboardCard>
             <div className="flex items-center justify-between mb-4">
               <p className="label-caps">Personal Records</p>
-              <IconStar size={16} color="#ffb3b2" />
+              <IconStar size={16} color="var(--color-on-surface-variant)" />
             </div>
             <div className="space-y-3">
               {personalBests.map((pb) => (
@@ -185,7 +185,7 @@ export default function ProgressPage() {
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center"
                       style={{ background: 'rgba(255,0,60,0.1)' }}>
-                      <IconBarbell size={16} color="#ff003c" />
+                      <IconBarbell size={16} color="var(--color-primary)" />
                     </div>
                     <div>
                       <Text size="sm" fw={600} style={{ fontFamily: 'var(--font-anybody)' }}>
@@ -228,14 +228,14 @@ export default function ProgressPage() {
                     className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                     style={{
                       background: ach.earned
-                        ? 'linear-gradient(135deg,#ff003c,#fe6b00)'
+                        ? 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))'
                         : 'rgba(255,255,255,0.05)',
                     }}
                   >
                     {ach.earned ? (
                       <IconCheck size={16} color="white" />
                     ) : (
-                      <IconStar size={16} color="#5f3e3e" />
+                      <IconStar size={16} color="var(--color-outline-variant)" />
                     )}
                   </div>
                   <div>

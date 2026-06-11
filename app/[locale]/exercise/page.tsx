@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useMemo, useEffect } from 'react';
 import { useLocale } from 'next-intl';
@@ -508,8 +508,8 @@ export default function ExercisePage() {
 
   const renderTierBadge = (tier: 'S' | 'A' | 'B' | 'C') => {
     const styles = {
-      S: { bg: 'rgba(255, 0, 60, 0.15)', border: '#ff003c', color: '#ff525c' },
-      A: { bg: 'rgba(254, 107, 0, 0.15)', border: '#fe6b00', color: '#ffb693' },
+      S: { bg: 'rgba(255, 0, 60, 0.15)', border: 'var(--color-primary)', color: '#ff525c' },
+      A: { bg: 'rgba(254, 107, 0, 0.15)', border: 'var(--color-secondary)', color: '#ffb693' },
       B: { bg: 'rgba(108, 215, 216, 0.15)', border: '#6cd7d8', color: '#6cd7d8' },
       C: { bg: 'rgba(150, 150, 150, 0.15)', border: '#9e9e9e', color: '#cccccc' },
     }[tier];
@@ -536,7 +536,7 @@ export default function ExercisePage() {
     const styles = {
       low: { bg: 'rgba(255, 255, 255, 0.06)', border: 'rgba(255, 255, 255, 0.15)', color: '#af8786', label: strings.priorityLow },
       medium: { bg: 'rgba(108, 215, 216, 0.1)', border: '#6cd7d8', color: '#6cd7d8', label: strings.priorityMedium },
-      high: { bg: 'rgba(254, 107, 0, 0.1)', border: '#fe6b00', color: '#ffb693', label: strings.priorityHigh },
+      high: { bg: 'rgba(254, 107, 0, 0.1)', border: 'var(--color-secondary)', color: '#ffb693', label: strings.priorityHigh },
     }[p];
 
     return (
@@ -566,7 +566,7 @@ export default function ExercisePage() {
           <Text
             className="label-caps"
             style={{
-              color: '#ff003c',
+              color: 'var(--color-primary)',
               fontSize: '11px',
               fontFamily: 'var(--font-jetbrains)',
               letterSpacing: '0.12em',
@@ -587,7 +587,7 @@ export default function ExercisePage() {
           >
             {strings.title}
           </h1>
-          <p className="text-xs opacity-75 mt-1" style={{ color: '#ffdad8' }}>
+          <p className="text-xs opacity-75 mt-1" style={{ color: 'var(--color-on-bg)' }}>
             {strings.subtitle}
           </p>
         </div>
@@ -604,7 +604,7 @@ export default function ExercisePage() {
             }}
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-95 text-white"
             style={{
-              background: 'linear-gradient(135deg, #bf002a, #fe6b00)',
+              background: 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))',
               border: 'none',
               cursor: 'pointer',
             }}
@@ -662,7 +662,7 @@ export default function ExercisePage() {
           <span className="font-bold text-[#6cd7d8] uppercase tracking-wider block mb-0.5" style={{ fontFamily: 'var(--font-jetbrains)', fontSize: '10px' }}>
             {strings.tierTitle}
           </span>
-          <span style={{ color: '#ffdad8', opacity: 0.8 }}>
+          <span style={{ color: 'var(--color-on-bg)', opacity: 0.8 }}>
             {strings.tierDesc}
           </span>
         </div>
@@ -680,8 +680,8 @@ export default function ExercisePage() {
             styles={{
               input: {
                 backgroundColor: 'rgba(46, 20, 20, 0.2)',
-                borderColor: '#4e2a2a',
-                color: '#ffdad8',
+                borderColor: 'var(--color-outline-variant)',
+                color: 'var(--color-on-bg)',
                 height: '42px',
                 borderRadius: '10px',
               },
@@ -698,19 +698,19 @@ export default function ExercisePage() {
             styles={{
               input: {
                 backgroundColor: 'rgba(46, 20, 20, 0.2)',
-                borderColor: '#4e2a2a',
-                color: '#ffdad8',
+                borderColor: 'var(--color-outline-variant)',
+                color: 'var(--color-on-bg)',
                 height: '42px',
                 borderRadius: '10px',
               },
               dropdown: {
                 backgroundColor: '#140707',
-                borderColor: '#4e2a2a',
+                borderColor: 'var(--color-outline-variant)',
               },
               option: {
-                color: '#ffdad8',
+                color: 'var(--color-on-bg)',
                 '&[data-selected]': {
-                  backgroundColor: '#ff003c',
+                  backgroundColor: 'var(--color-primary)',
                   color: '#fff',
                 },
                 '&:hover': {
@@ -730,19 +730,19 @@ export default function ExercisePage() {
             styles={{
               input: {
                 backgroundColor: 'rgba(46, 20, 20, 0.2)',
-                borderColor: '#4e2a2a',
-                color: '#ffdad8',
+                borderColor: 'var(--color-outline-variant)',
+                color: 'var(--color-on-bg)',
                 height: '42px',
                 borderRadius: '10px',
               },
               dropdown: {
                 backgroundColor: '#140707',
-                borderColor: '#4e2a2a',
+                borderColor: 'var(--color-outline-variant)',
               },
               option: {
-                color: '#ffdad8',
+                color: 'var(--color-on-bg)',
                 '&[data-selected]': {
-                  backgroundColor: '#ff003c',
+                  backgroundColor: 'var(--color-primary)',
                   color: '#fff',
                 },
                 '&:hover': {
@@ -756,8 +756,8 @@ export default function ExercisePage() {
 
       {/* Grid List of Exercises */}
       {filteredExercises.length === 0 ? (
-        <div className="text-center py-16 rounded-xl border border-dashed border-[#4e2a2a]/60">
-          <p className="text-sm opacity-60" style={{ color: '#ffdad8' }}>{strings.noExercises}</p>
+        <div className="text-center py-16 rounded-xl border border-dashed border-[var(--color-outline-variant)]/60">
+          <p className="text-sm opacity-60" style={{ color: 'var(--color-on-bg)' }}>{strings.noExercises}</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -768,7 +768,7 @@ export default function ExercisePage() {
               className="group p-5 rounded-2xl border transition-all duration-300 hover:scale-[1.01] hover:bg-[#220d0d] cursor-pointer flex flex-col justify-between"
               style={{
                 backgroundColor: 'rgba(46, 20, 20, 0.15)',
-                borderColor: '#4e2a2a',
+                borderColor: 'var(--color-outline-variant)',
               }}
             >
               <div>
@@ -798,7 +798,7 @@ export default function ExercisePage() {
                     fontFamily: 'var(--font-hanken)',
                     fontWeight: 700,
                     fontSize: '17px',
-                    color: '#ffdad8',
+                    color: 'var(--color-on-bg)',
                     lineHeight: 1.25,
                   }}
                 >
@@ -807,13 +807,13 @@ export default function ExercisePage() {
 
                 <p className="text-[12px] opacity-70 mt-2">
                   <span className="opacity-60">{strings.targetLabel}:</span>{' '}
-                  <span className="font-semibold" style={{ color: '#ffb3b2' }}>{ex.target}</span>
+                  <span className="font-semibold" style={{ color: 'var(--color-on-surface-variant)' }}>{ex.target}</span>
                 </p>
               </div>
 
               <div className="flex items-center justify-between mt-5 pt-3 border-t border-white/[0.04] text-[11px] font-mono text-[#a78584]">
                 <span>{strings.recommendedSets}: 4 Sets</span>
-                <span className="group-hover:text-[#ff003c] transition-colors flex items-center gap-1 font-bold uppercase">
+                <span className="group-hover:text-[var(--color-primary)] transition-colors flex items-center gap-1 font-bold uppercase">
                   {strings.detailsEditBtn}
                 </span>
               </div>
@@ -835,8 +835,8 @@ export default function ExercisePage() {
         styles={{
           content: {
             backgroundColor: '#140707',
-            color: '#ffdad8',
-            border: '1px solid #4e2a2a',
+            color: 'var(--color-on-bg)',
+            border: '1px solid var(--color-outline-variant)',
             borderRadius: '20px',
             padding: '8px',
           },
@@ -862,8 +862,8 @@ export default function ExercisePage() {
             required
             withAsterisk
             styles={{
-              input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a', color: '#fff' },
-              label: { color: '#ffdad8', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }
+              input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)', color: '#fff' },
+              label: { color: 'var(--color-on-bg)', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }
             }}
           />
 
@@ -875,10 +875,10 @@ export default function ExercisePage() {
             required
             withAsterisk
             styles={{
-              input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a', color: '#fff' },
-              label: { color: '#ffdad8', fontSize: '12px', fontWeight: 600, marginBottom: '4px' },
-              dropdown: { backgroundColor: '#140707', borderColor: '#4e2a2a' },
-              option: { color: '#ffdad8', '&[data-selected]': { backgroundColor: '#ff003c' } }
+              input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)', color: '#fff' },
+              label: { color: 'var(--color-on-bg)', fontSize: '12px', fontWeight: 600, marginBottom: '4px' },
+              dropdown: { backgroundColor: '#140707', borderColor: 'var(--color-outline-variant)' },
+              option: { color: 'var(--color-on-bg)', '&[data-selected]': { backgroundColor: 'var(--color-primary)' } }
             }}
           />
 
@@ -888,8 +888,8 @@ export default function ExercisePage() {
             value={newDescription}
             onChange={(e) => setNewDescription(e.target.value)}
             styles={{
-              input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a', color: '#fff' },
-              label: { color: '#ffdad8', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }
+              input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)', color: '#fff' },
+              label: { color: 'var(--color-on-bg)', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }
             }}
           />
 
@@ -906,10 +906,10 @@ export default function ExercisePage() {
             required
             withAsterisk
             styles={{
-              input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a', color: '#fff' },
-              label: { color: '#ffdad8', fontSize: '12px', fontWeight: 600, marginBottom: '4px' },
-              dropdown: { backgroundColor: '#140707', borderColor: '#4e2a2a' },
-              option: { color: '#ffdad8', '&[data-selected]': { backgroundColor: '#ff003c' } }
+              input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)', color: '#fff' },
+              label: { color: 'var(--color-on-bg)', fontSize: '12px', fontWeight: 600, marginBottom: '4px' },
+              dropdown: { backgroundColor: '#140707', borderColor: 'var(--color-outline-variant)' },
+              option: { color: 'var(--color-on-bg)', '&[data-selected]': { backgroundColor: 'var(--color-primary)' } }
             }}
           />
 
@@ -925,10 +925,10 @@ export default function ExercisePage() {
             required
             withAsterisk
             styles={{
-              input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a', color: '#fff' },
-              label: { color: '#ffdad8', fontSize: '12px', fontWeight: 600, marginBottom: '4px' },
-              dropdown: { backgroundColor: '#140707', borderColor: '#4e2a2a' },
-              option: { color: '#ffdad8', '&[data-selected]': { backgroundColor: '#ff003c' } }
+              input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)', color: '#fff' },
+              label: { color: 'var(--color-on-bg)', fontSize: '12px', fontWeight: 600, marginBottom: '4px' },
+              dropdown: { backgroundColor: '#140707', borderColor: 'var(--color-outline-variant)' },
+              option: { color: 'var(--color-on-bg)', '&[data-selected]': { backgroundColor: 'var(--color-primary)' } }
             }}
           />
 
@@ -950,7 +950,7 @@ export default function ExercisePage() {
               disabled={!newName.trim()}
               className="px-5 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 text-white"
               style={{
-                background: 'linear-gradient(135deg, #bf002a, #fe6b00)',
+                background: 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))',
                 border: 'none',
                 opacity: (!newName.trim()) ? 0.5 : 1,
                 cursor: (!newName.trim()) ? 'not-allowed' : 'pointer'
@@ -975,8 +975,8 @@ export default function ExercisePage() {
         styles={{
           content: {
             backgroundColor: '#140707',
-            color: '#ffdad8',
-            border: '1px solid #4e2a2a',
+            color: 'var(--color-on-bg)',
+            border: '1px solid var(--color-outline-variant)',
             borderRadius: '20px',
             padding: '8px',
           },
@@ -1006,8 +1006,8 @@ export default function ExercisePage() {
                   required
                   withAsterisk
                   styles={{
-                    input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a', color: '#fff' },
-                    label: { color: '#ffdad8', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }
+                    input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)', color: '#fff' },
+                    label: { color: 'var(--color-on-bg)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }
                   }}
                 />
 
@@ -1018,8 +1018,8 @@ export default function ExercisePage() {
                   required
                   withAsterisk
                   styles={{
-                    input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a', color: '#fff' },
-                    label: { color: '#ffdad8', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }
+                    input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)', color: '#fff' },
+                    label: { color: 'var(--color-on-bg)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }
                   }}
                 />
 
@@ -1036,10 +1036,10 @@ export default function ExercisePage() {
                   required
                   withAsterisk
                   styles={{
-                    input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a', color: '#fff' },
-                    label: { color: '#ffdad8', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' },
-                    dropdown: { backgroundColor: '#140707', borderColor: '#4e2a2a' },
-                    option: { color: '#ffdad8', '&[data-selected]': { backgroundColor: '#ff003c' } }
+                    input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)', color: '#fff' },
+                    label: { color: 'var(--color-on-bg)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' },
+                    dropdown: { backgroundColor: '#140707', borderColor: 'var(--color-outline-variant)' },
+                    option: { color: 'var(--color-on-bg)', '&[data-selected]': { backgroundColor: 'var(--color-primary)' } }
                   }}
                 />
 
@@ -1055,10 +1055,10 @@ export default function ExercisePage() {
                   required
                   withAsterisk
                   styles={{
-                    input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a', color: '#fff' },
-                    label: { color: '#ffdad8', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' },
-                    dropdown: { backgroundColor: '#140707', borderColor: '#4e2a2a' },
-                    option: { color: '#ffdad8', '&[data-selected]': { backgroundColor: '#ff003c' } }
+                    input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)', color: '#fff' },
+                    label: { color: 'var(--color-on-bg)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' },
+                    dropdown: { backgroundColor: '#140707', borderColor: 'var(--color-outline-variant)' },
+                    option: { color: 'var(--color-on-bg)', '&[data-selected]': { backgroundColor: 'var(--color-primary)' } }
                   }}
                 />
 
@@ -1067,8 +1067,8 @@ export default function ExercisePage() {
                   value={editDescription}
                   onChange={(e) => setEditDescription(e.target.value)}
                   styles={{
-                    input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: '#4e2a2a', color: '#fff' },
-                    label: { color: '#ffdad8', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }
+                    input: { backgroundColor: 'rgba(46, 20, 20, 0.3)', borderColor: 'var(--color-outline-variant)', color: '#fff' },
+                    label: { color: 'var(--color-on-bg)', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase' }
                   }}
                 />
 
@@ -1091,7 +1091,7 @@ export default function ExercisePage() {
                     disabled={!editName.trim() || !editTarget.trim()}
                     className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all text-white"
                     style={{
-                      backgroundColor: '#ff003c',
+                      backgroundColor: 'var(--color-primary)',
                       border: 'none',
                       opacity: (!editName.trim() || !editTarget.trim()) ? 0.5 : 1,
                       cursor: (!editName.trim() || !editTarget.trim()) ? 'not-allowed' : 'pointer'
@@ -1153,13 +1153,13 @@ export default function ExercisePage() {
                     className="pl-3 border-l-2 text-[11px] font-bold tracking-wider uppercase"
                     style={{
                       fontFamily: 'var(--font-jetbrains)',
-                      color: '#ffb3b2',
-                      borderColor: '#ff003c',
+                      color: 'var(--color-on-surface-variant)',
+                      borderColor: 'var(--color-primary)',
                     }}
                   >
                     {strings.techniqueTitle}
                   </h4>
-                  <p className="text-sm leading-relaxed opacity-85 whitespace-pre-wrap" style={{ color: '#ffdad8' }}>
+                  <p className="text-sm leading-relaxed opacity-85 whitespace-pre-wrap" style={{ color: 'var(--color-on-bg)' }}>
                     {selectedExercise.description || strings.techniqueBody}
                   </p>
                 </div>

@@ -31,6 +31,10 @@
     "records": {
       "title": "体重追踪日志",
       "description": "追踪您训练的重量进展。"
+    },
+    "measurements": {
+      "title": "身体测量",
+      "description": "随时间追踪和管理您的身体测量数据。"
     }
   },
   "common": {
@@ -52,6 +56,7 @@
     "nutrition": "营养",
     "progress": "进度",
     "records": "记录",
+    "measurements": "测量",
     "settings": "设置"
   },
   "header": {
@@ -62,6 +67,7 @@
       "nutrition": "营养",
       "progress": "进度",
       "records": "记录",
+      "measurements": "测量",
       "settings": "设置"
     }
   },
@@ -370,5 +376,38 @@
     "listView": "列表",
     "emptyList": "您还没有此项运动的记录。开始举重并更新您的体重吧！",
     "searchPlaceholder": "搜索动作..."
+  },
+  "measurements": {
+    "title": "身体测量",
+    "subtitle": "追踪您的身体变化",
+    "addMeasurement": "添加测量",
+    "export": "导出",
+    "name": "测量名称",
+    "value": "数值",
+    "unit": "单位",
+    "date": "日期",
+    "actions": "操作",
+    "edit": "编辑",
+    "delete": "删除",
+    "deleteConfirmTitle": "确认删除",
+    "deleteConfirmDesc": "您确定要删除此测量记录吗？",
+    "cancel": "取消",
+    "confirmDelete": "删除",
+    "save": "保存",
+    "noData": "暂无测量数据。",
+    "selectMeasurement": "选择测量项以查看图表",
+    "allMeasurements": "全部",
+    "chartTitle": "变化图表",
+    "suggestions": {
+      "chest": "胸围",
+      "waist": "腰围",
+      "hips": "臀围",
+      "biceps": "二头肌",
+      "thighs": "大腿",
+      "calves": "小腿",
+      "weight": "体重",
+      "shoulders": "肩膀",
+      "neck": "脖子"
+    }
   }
 }

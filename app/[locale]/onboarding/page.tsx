@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from '@/i18n/routing';
@@ -680,7 +680,7 @@ export default function OnboardingPage() {
   return (
     <div
       className="min-h-screen flex flex-col"
-      style={{ backgroundColor: '#140707', color: '#ffdad8', fontFamily: 'var(--font-hanken)' }}
+      style={{ backgroundColor: '#140707', color: 'var(--color-on-bg)', fontFamily: 'var(--font-hanken)' }}
     >
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <header
@@ -688,7 +688,7 @@ export default function OnboardingPage() {
         style={{
           backgroundColor: 'rgba(20, 7, 7, 0.85)',
           backdropFilter: 'blur(16px)',
-          borderColor: '#4e2a2a',
+          borderColor: 'var(--color-outline-variant)',
         }}
       >
         <div
@@ -711,7 +711,7 @@ export default function OnboardingPage() {
               fontFamily: 'var(--font-jetbrains)',
               fontSize: '11px',
               letterSpacing: '0.1em',
-              color: '#ffb3b2',
+              color: 'var(--color-on-surface-variant)',
             }}
           >
             <span>{dict.step}</span>
@@ -728,8 +728,8 @@ export default function OnboardingPage() {
           className="h-full transition-all duration-300"
           style={{
             width: `${progressPct}%`,
-            background: 'linear-gradient(90deg, #ff003c, #fe6b00)',
-            boxShadow: '0 0 10px #ff003c',
+            background: 'linear-gradient(90deg, var(--preset-gradient-from), var(--preset-gradient-to))',
+            boxShadow: '0 0 10px var(--color-primary)',
           }}
         />
       </div>
@@ -740,7 +740,7 @@ export default function OnboardingPage() {
           
           {/* Left panel: Motivation */}
           <div className="hidden md:block md:col-span-5 lg:col-span-4">
-            <div className="relative rounded-xl overflow-hidden aspect-[3/4]" style={{ border: '1px solid #4e2a2a' }}>
+            <div className="relative rounded-xl overflow-hidden aspect-[3/4]" style={{ border: '1px solid var(--color-outline-variant)' }}>
               <img
                 src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop"
                 alt="Gym Training Motivation"
@@ -759,7 +759,7 @@ export default function OnboardingPage() {
                     fontFamily: 'var(--font-jetbrains)',
                     fontSize: '10px',
                     letterSpacing: '0.15em',
-                    color: '#fe6b00',
+                    color: 'var(--color-secondary)',
                   }}
                 >
                   {currentStep.required ? dict.requiredInput : dict.optionalQuestion}
@@ -777,7 +777,7 @@ export default function OnboardingPage() {
           {/* Right panel: Questions */}
           <div className="md:col-span-7 lg:col-span-8 flex flex-col gap-6">
             <div className="space-y-1">
-              <span className="text-xs uppercase px-2 py-0.5 rounded border border-[#ff003c] text-[#ff003c] font-semibold" style={{ fontFamily: 'var(--font-jetbrains)' }}>
+              <span className="text-xs uppercase px-2 py-0.5 rounded border border-[var(--color-primary)] text-[var(--color-primary)] font-semibold" style={{ fontFamily: 'var(--font-jetbrains)' }}>
                 {currentStep.required ? dict.required : dict.optional}
               </span>
               <h2
@@ -810,9 +810,9 @@ export default function OnboardingPage() {
                       className="flex flex-col items-center justify-center py-8 rounded-xl border transition-all duration-300 card-glow"
                       style={{
                         backgroundColor: gender === g ? 'rgba(254,107,0,0.1)' : 'rgba(46,20,20,0.3)',
-                        borderColor: gender === g ? '#fe6b00' : '#4e2a2a',
+                        borderColor: gender === g ? 'var(--color-secondary)' : 'var(--color-outline-variant)',
                         cursor: 'pointer',
-                        color: gender === g ? '#fff' : '#ffdad8',
+                        color: gender === g ? '#fff' : 'var(--color-on-bg)',
                       }}
                     >
                       <span className="text-4xl mb-2">{g === 'male' ? '♂' : '♀'}</span>
@@ -850,7 +850,7 @@ export default function OnboardingPage() {
                     className="w-full px-4 py-3 rounded-lg border focus:outline-none transition-all"
                     style={{
                       backgroundColor: 'rgba(46,20,20,0.3)',
-                      borderColor: ageError ? '#ff003c' : '#4e2a2a',
+                      borderColor: ageError ? 'var(--color-primary)' : 'var(--color-outline-variant)',
                       color: '#fff',
                     }}
                   />
@@ -882,7 +882,7 @@ export default function OnboardingPage() {
                     className="w-full cursor-pointer h-2 rounded-lg appearance-none"
                     style={{
                       background: '#2e1414',
-                      accentColor: '#ff003c',
+                      accentColor: 'var(--color-primary)',
                     }}
                   />
                   <div className="flex justify-between text-xs opacity-50 font-mono">
@@ -912,7 +912,7 @@ export default function OnboardingPage() {
                     className="w-full cursor-pointer h-2 rounded-lg appearance-none"
                     style={{
                       background: '#2e1414',
-                      accentColor: '#ff003c',
+                      accentColor: 'var(--color-primary)',
                     }}
                   />
                   <div className="flex justify-between text-xs opacity-50 font-mono">
@@ -942,7 +942,7 @@ export default function OnboardingPage() {
                     className="w-full cursor-pointer h-2 rounded-lg appearance-none"
                     style={{
                       background: '#2e1414',
-                      accentColor: '#ff003c',
+                      accentColor: 'var(--color-primary)',
                     }}
                   />
                   <div className="flex justify-between text-xs opacity-50 font-mono">
@@ -950,7 +950,7 @@ export default function OnboardingPage() {
                     <span>{dict.currentWeightLabel.replace('{weight}', String(weight))}</span>
                     <span>200 KG</span>
                   </div>
-                  <div className="p-3 rounded bg-red-950/20 border border-red-900/30 text-xs text-center text-[#ffb3b2]">
+                  <div className="p-3 rounded bg-red-950/20 border border-red-900/30 text-xs text-center text-[var(--color-on-surface-variant)]">
                     {targetWeight < weight - 2 ? dict.goalCut : 
                      targetWeight > weight + 2 ? dict.goalBulk : 
                      dict.goalRecomp}
@@ -969,8 +969,8 @@ export default function OnboardingPage() {
                         onClick={() => setWorkoutDays(day)}
                         className="py-2.5 sm:py-4 rounded-xl text-sm sm:text-lg font-bold transition-all"
                         style={{
-                          backgroundColor: workoutDays === day ? '#ff003c' : 'rgba(46,20,20,0.3)',
-                          border: workoutDays === day ? '1px solid #ff525c' : '1px solid #4e2a2a',
+                          backgroundColor: workoutDays === day ? 'var(--color-primary)' : 'rgba(46,20,20,0.3)',
+                          border: workoutDays === day ? '1px solid #ff525c' : '1px solid var(--color-outline-variant)',
                           color: '#fff',
                           boxShadow: workoutDays === day ? '0 0 15px rgba(255, 0, 60, 0.4)' : 'none',
                           cursor: 'pointer',
@@ -987,9 +987,9 @@ export default function OnboardingPage() {
               {/* STEP 7: BODY TYPE (WITH WRIST MEASUREMENT GUIDE) */}
               {currentStep.id === 'bodyType' && (
                 <div className="space-y-4">
-                  <div className="p-4 rounded-xl border border-dashed border-[#fe6b00] bg-orange-950/10 space-y-2">
-                    <span className="text-xs font-bold text-[#fe6b00]" style={{ fontFamily: 'var(--font-jetbrains)' }}>{dict.bodyTypeGuideTitle}</span>
-                    <p className="text-xs text-[#ffdad8] leading-relaxed">
+                  <div className="p-4 rounded-xl border border-dashed border-[var(--color-secondary)] bg-orange-950/10 space-y-2">
+                    <span className="text-xs font-bold text-[var(--color-secondary)]" style={{ fontFamily: 'var(--font-jetbrains)' }}>{dict.bodyTypeGuideTitle}</span>
+                    <p className="text-xs text-[var(--color-on-bg)] leading-relaxed">
                       {dict.bodyTypeGuideDesc}
                     </p>
                   </div>
@@ -1004,16 +1004,16 @@ export default function OnboardingPage() {
                           className="p-4 text-left rounded-xl border transition-all duration-300 card-glow flex flex-col justify-between"
                           style={{
                             backgroundColor: bodyType === item.id ? 'rgba(254,107,0,0.1)' : 'rgba(46,20,20,0.2)',
-                            borderColor: bodyType === item.id ? '#fe6b00' : '#4e2a2a',
+                            borderColor: bodyType === item.id ? 'var(--color-secondary)' : 'var(--color-outline-variant)',
                             color: '#fff',
                             cursor: 'pointer',
                           }}
                         >
                           <div>
                             <div className="font-bold text-sm mb-1">{item.name}</div>
-                            <div className="text-[11px] text-[#fe6b00] font-medium mb-3 italic">{measureLabel}{item.desc}</div>
+                            <div className="text-[11px] text-[var(--color-secondary)] font-medium mb-3 italic">{measureLabel}{item.desc}</div>
                           </div>
-                          <div className="text-[11px] text-[#e9bcba] leading-relaxed mt-2 border-t pt-2 border-[#4e2a2a]/40">
+                          <div className="text-[11px] text-[#e9bcba] leading-relaxed mt-2 border-t pt-2 border-[var(--color-outline-variant)]/40">
                             {item.detail}
                           </div>
                         </button>
@@ -1034,9 +1034,9 @@ export default function OnboardingPage() {
                       className="flex flex-col items-center justify-center py-8 rounded-xl border transition-all duration-300 card-glow"
                       style={{
                         backgroundColor: trainingLocation === loc ? 'rgba(254,107,0,0.1)' : 'rgba(46,20,20,0.3)',
-                        borderColor: trainingLocation === loc ? '#fe6b00' : '#4e2a2a',
+                        borderColor: trainingLocation === loc ? 'var(--color-secondary)' : 'var(--color-outline-variant)',
                         cursor: 'pointer',
-                        color: trainingLocation === loc ? '#fff' : '#ffdad8',
+                        color: trainingLocation === loc ? '#fff' : 'var(--color-on-bg)',
                       }}
                     >
                       <span className="text-4xl mb-2">{loc === 'gym' ? '🏢' : '🏠'}</span>
@@ -1068,7 +1068,7 @@ export default function OnboardingPage() {
                     className="w-full cursor-pointer h-2 rounded-lg appearance-none"
                     style={{
                       background: '#2e1414',
-                      accentColor: '#ff003c',
+                      accentColor: 'var(--color-primary)',
                     }}
                   />
                   <div className="grid grid-cols-6 text-center text-xs opacity-50 font-mono">
@@ -1104,7 +1104,7 @@ export default function OnboardingPage() {
                     className="w-full cursor-pointer h-2 rounded-lg appearance-none"
                     style={{
                       background: '#2e1414',
-                      accentColor: '#ff003c',
+                      accentColor: 'var(--color-primary)',
                     }}
                   />
                   <div className="flex justify-between text-xs opacity-50 font-mono">
@@ -1132,7 +1132,7 @@ export default function OnboardingPage() {
                     className="w-full px-4 py-3 rounded-lg border focus:outline-none transition-all"
                     style={{
                       backgroundColor: 'rgba(46,20,20,0.3)',
-                      borderColor: '#4e2a2a',
+                      borderColor: 'var(--color-outline-variant)',
                       color: '#fff',
                     }}
                   />
@@ -1153,8 +1153,8 @@ export default function OnboardingPage() {
                           className="py-3 px-4 rounded-xl border text-center font-semibold text-sm transition-all"
                           style={{
                             backgroundColor: selected ? 'rgba(255, 0, 60, 0.15)' : 'rgba(46,20,20,0.2)',
-                            borderColor: selected ? '#ff003c' : '#4e2a2a',
-                            color: selected ? '#fff' : '#ffdad8',
+                            borderColor: selected ? 'var(--color-primary)' : 'var(--color-outline-variant)',
+                            color: selected ? '#fff' : 'var(--color-on-bg)',
                             cursor: 'pointer',
                           }}
                         >
@@ -1180,8 +1180,8 @@ export default function OnboardingPage() {
                           className="py-3 px-4 rounded-xl border text-center font-semibold text-sm transition-all"
                           style={{
                             backgroundColor: selected ? 'rgba(255, 0, 60, 0.15)' : 'rgba(46,20,20,0.2)',
-                            borderColor: selected ? '#ff003c' : '#4e2a2a',
-                            color: selected ? '#fff' : '#ffdad8',
+                            borderColor: selected ? 'var(--color-primary)' : 'var(--color-outline-variant)',
+                            color: selected ? '#fff' : 'var(--color-on-bg)',
                             cursor: 'pointer',
                           }}
                         >
@@ -1212,7 +1212,7 @@ export default function OnboardingPage() {
                     className="w-full cursor-pointer h-2 rounded-lg appearance-none"
                     style={{
                       background: '#2e1414',
-                      accentColor: '#ff003c',
+                      accentColor: 'var(--color-primary)',
                     }}
                   />
                   <div className="flex justify-between text-xs opacity-50 font-mono">
@@ -1234,7 +1234,7 @@ export default function OnboardingPage() {
         style={{
           backgroundColor: 'rgba(20, 7, 7, 0.95)',
           backdropFilter: 'blur(20px)',
-          borderColor: '#4e2a2a',
+          borderColor: 'var(--color-outline-variant)',
         }}
       >
         <div className="w-full max-w-[1100px] flex items-center justify-between">
@@ -1266,7 +1266,7 @@ export default function OnboardingPage() {
                 onClick={handleSkip}
                 className="px-6 py-3 rounded-lg border uppercase transition-all hover:bg-red-950/20 active:scale-95"
                 style={{
-                  borderColor: '#4e2a2a',
+                  borderColor: 'var(--color-outline-variant)',
                   color: '#e9bcba',
                   fontFamily: 'var(--font-jetbrains)',
                   fontSize: '12px',
@@ -1284,7 +1284,7 @@ export default function OnboardingPage() {
               onClick={handleNext}
               className="flex items-center gap-2 px-8 py-3 rounded-lg uppercase transition-all hover:brightness-110 active:scale-95 font-bold"
               style={{
-                background: 'linear-gradient(90deg, #ff003c, #fe6b00)',
+                background: 'linear-gradient(90deg, var(--preset-gradient-from), var(--preset-gradient-to))',
                 color: '#fff',
                 fontFamily: 'var(--font-jetbrains)',
                 fontSize: '12px',

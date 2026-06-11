@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, usePathname } from '@/i18n/routing';
@@ -45,7 +45,7 @@ export function LanguageSwitcher() {
           borderRadius: '12px',
         },
         item: {
-          color: '#ffdad8',
+          color: 'var(--color-on-bg)',
           borderRadius: '8px',
           '&[data-hovered]': {
             backgroundColor: 'rgba(255,255,255,0.06)',
@@ -84,7 +84,7 @@ export function LanguageSwitcher() {
             fontFamily: 'var(--font-jetbrains)',
             fontSize: '10px',
             letterSpacing: '0.08em',
-            color: '#5f3e3e',
+            color: 'var(--color-outline-variant)',
             textTransform: 'uppercase',
           }}
         >
@@ -99,7 +99,7 @@ export function LanguageSwitcher() {
             }
             rightSection={
               locale === lang.code ? (
-                <IconCheck size={14} color="#ff003c" />
+                <IconCheck size={14} color="var(--color-primary)" />
               ) : null
             }
           >

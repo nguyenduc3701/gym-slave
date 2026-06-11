@@ -4,13 +4,12 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import type { Metadata } from 'next';
 import { Anybody, Hanken_Grotesk, JetBrains_Mono } from 'next/font/google';
-import { ColorSchemeScript, MantineProvider } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
+import { ColorSchemeScript } from '@mantine/core';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import '@mantine/charts/styles.css';
 import '../globals.css';
-import { theme } from '@/styles/theme';
+import { ThemeProviderWrapper } from '@/components/layout/ThemeProviderWrapper';
 
 const anybody = Anybody({
   subsets: ['latin'],
@@ -87,12 +86,11 @@ export default async function LocaleLayout({
         <ColorSchemeScript forceColorScheme="dark" />
       </head>
       <body className={`${anybody.variable} ${hankenGrotesk.variable} ${jetbrainsMono.variable}`}>
-        <MantineProvider theme={theme} forceColorScheme="dark">
-          <Notifications position="top-right" />
+        <ThemeProviderWrapper>
           <NextIntlClientProvider locale={locale} messages={messages}>
             {children}
           </NextIntlClientProvider>
-        </MantineProvider>
+        </ThemeProviderWrapper>
       </body>
     </html>
   );

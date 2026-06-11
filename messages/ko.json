@@ -31,6 +31,10 @@
     "records": {
       "title": "체중 추적 로그",
       "description": "운동의 무게 진행 상황을 추적하세요."
+    },
+    "measurements": {
+      "title": "신체 측정",
+      "description": "시간 경과에 따른 신체 측정값을 추적하고 관리하세요."
     }
   },
   "common": {
@@ -52,6 +56,7 @@
     "nutrition": "영양",
     "progress": "진행 상황",
     "records": "기록",
+    "measurements": "측정",
     "settings": "설정"
   },
   "header": {
@@ -62,6 +67,7 @@
       "nutrition": "영양",
       "progress": "진행 상황",
       "records": "기록",
+      "measurements": "측정",
       "settings": "설정"
     }
   },
@@ -370,5 +376,38 @@
     "listView": "목록",
     "emptyList": "이 운동에 대한 기록이 아직 없습니다. 리프팅하고 체중을 업데이트하세요!",
     "searchPlaceholder": "운동 검색..."
+  },
+  "measurements": {
+    "title": "신체 측정",
+    "subtitle": "신체 변화 추적",
+    "addMeasurement": "측정값 추가",
+    "export": "내보내기",
+    "name": "측정 이름",
+    "value": "값",
+    "unit": "단위",
+    "date": "날짜",
+    "actions": "작업",
+    "edit": "편집",
+    "delete": "삭제",
+    "deleteConfirmTitle": "삭제 확인",
+    "deleteConfirmDesc": "이 측정값을 삭제하시겠습니까?",
+    "cancel": "취소",
+    "confirmDelete": "삭제",
+    "save": "저장",
+    "noData": "측정 데이터가 없습니다.",
+    "selectMeasurement": "차트를 볼 측정값을 선택하세요",
+    "allMeasurements": "전체",
+    "chartTitle": "변화 차트",
+    "suggestions": {
+      "chest": "가슴",
+      "waist": "허리",
+      "hips": "엉덩이",
+      "biceps": "이두근",
+      "thighs": "허벅지",
+      "calves": "종아리",
+      "weight": "체중",
+      "shoulders": "어깨",
+      "neck": "목"
+    }
   }
 }

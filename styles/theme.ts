@@ -1,15 +1,15 @@
-import { createTheme, MantineColorsTuple, rem } from '@mantine/core';
+﻿import { createTheme, MantineColorsTuple, rem } from '@mantine/core';
 
 // Apex Performance Color System from Stitch
 const fireRed: MantineColorsTuple = [
-  '#ffdad8', // 0
-  '#ffb3b2', // 1
+  'var(--color-on-bg)', // 0
+  'var(--color-on-surface-variant)', // 1
   '#ff8a8a', // 2
   '#ff6060', // 3
   '#ff3636', // 4
-  '#ff003c', // 5 - PRIMARY
+  'var(--color-primary)', // 5 - PRIMARY
   '#e0002f', // 6
-  '#bf002a', // 7
+  'var(--color-primary)', // 7
   '#92001e', // 8
   '#680012', // 9
 ];
@@ -20,7 +20,7 @@ const burnOrange: MantineColorsTuple = [
   '#ff9060', // 2
   '#ff7830', // 3
   '#ff8500', // 4
-  '#fe6b00', // 5 - SECONDARY
+  'var(--color-secondary)', // 5 - SECONDARY
   '#e06000', // 6
   '#bf5200', // 7
   '#7a3000', // 8
@@ -85,7 +85,7 @@ export const theme = createTheme({
           border: '1px solid rgba(255,255,255,0.06)',
           transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
           '&:hover': {
-            borderColor: '#fe6b00',
+            borderColor: 'var(--color-secondary)',
             boxShadow: '0 0 20px rgba(254, 107, 0, 0.15)',
           },
         },

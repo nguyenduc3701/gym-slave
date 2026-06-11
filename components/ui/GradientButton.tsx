@@ -14,7 +14,7 @@ export function GradientButton({ children, className, onClick, ...props }: Gradi
       radius="xl"
       onClick={onClick}
       style={{
-        background: 'linear-gradient(135deg, #ff003c, #fe6b00)',
+        background: 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))',
         border: 'none',
         fontFamily: 'var(--font-jetbrains)',
         fontWeight: 600,
@@ -27,7 +27,7 @@ export function GradientButton({ children, className, onClick, ...props }: Gradi
         root: {
           '&:hover': {
             filter: 'brightness(1.15)',
-            boxShadow: '0 0 20px rgba(255, 0, 60, 0.4)',
+            boxShadow: '0 0 20px color-mix(in srgb, var(--preset-gradient-from) 40%, transparent)',
           },
           '&:active': {
             transform: 'scale(0.98)',

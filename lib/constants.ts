@@ -1,4 +1,4 @@
-export const APP_NAME = 'Ignite Fitness';
+﻿export const APP_NAME = 'Ignite Fitness';
 export const APP_TAGLINE = 'TRAIN. TRACK. DOMINATE.';
 
 export const NAV_ITEMS = [
@@ -10,8 +10,8 @@ export const NAV_ITEMS = [
 ] as const;
 
 export const COLORS = {
-  primary: '#ff003c',
-  secondary: '#fe6b00',
+  primary: 'var(--color-primary)',
+  secondary: 'var(--color-secondary)',
   surface: '#1a1a1a',
   surfaceHigh: '#262626',
   background: '#0d0d0d',

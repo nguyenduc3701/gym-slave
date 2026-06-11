@@ -31,6 +31,10 @@
     "records": {
       "title": "Weight Tracking Log",
       "description": "Track the weight progression of your workouts."
+    },
+    "measurements": {
+      "title": "Body Measurements",
+      "description": "Track and manage your body measurements over time."
     }
   },
   "common": {
@@ -52,6 +56,7 @@
     "nutrition": "Nutrition",
     "progress": "Progress",
     "records": "Records",
+    "measurements": "Measurements",
     "settings": "Settings"
   },
   "header": {
@@ -62,6 +67,7 @@
       "nutrition": "Nutrition",
       "progress": "Progress",
       "records": "Records",
+      "measurements": "Measurements",
       "settings": "Settings"
     }
   },
@@ -370,5 +376,38 @@
     "listView": "List",
     "emptyList": "You have no records for this exercise yet. Lift and update your weight!",
     "searchPlaceholder": "Search exercises..."
+  },
+  "measurements": {
+    "title": "Body Measurements",
+    "subtitle": "Track your body changes",
+    "addMeasurement": "Add Measurement",
+    "export": "Export",
+    "name": "Measurement Name",
+    "value": "Value",
+    "unit": "Unit",
+    "date": "Date",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirmTitle": "Confirm Deletion",
+    "deleteConfirmDesc": "Are you sure you want to delete this measurement?",
+    "cancel": "Cancel",
+    "confirmDelete": "Delete",
+    "save": "Save",
+    "noData": "No measurement data available.",
+    "selectMeasurement": "Select measurement to view chart",
+    "allMeasurements": "All",
+    "chartTitle": "Variation Chart",
+    "suggestions": {
+      "chest": "Chest",
+      "waist": "Waist",
+      "hips": "Hips",
+      "biceps": "Biceps",
+      "thighs": "Thighs",
+      "calves": "Calves",
+      "weight": "Weight",
+      "shoulders": "Shoulders",
+      "neck": "Neck"
+    }
   }
 }

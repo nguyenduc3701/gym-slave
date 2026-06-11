@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 /* ── Base Design Tokens ───────────────────────────────── */
 :root {
@@ -6,14 +6,20 @@
   --color-surface: #1a1a1a;
   --color-surface-high: #262626;
   --color-surface-highest: #2e2e2e;
-  --color-primary: #ff003c;
-  --color-secondary: #fe6b00;
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
   --color-tertiary: #6cd7d8;
-  --color-on-bg: #ffdad8;
-  --color-on-surface: #ffdad8;
+  --color-on-bg: var(--color-on-bg);
+  --color-on-surface: var(--color-on-bg);
   --color-on-surface-variant: #e9bcba;
   --color-outline: #af8786;
-  --color-outline-variant: #5f3e3e;
+  --color-outline-variant: var(--color-outline-variant);
+
+  /* Preset dynamic vars (được ThemeProviderWrapper ghi đè) */
+  --preset-gradient-from: var(--color-primary);
+  --preset-gradient-to: var(--color-secondary);
+  --preset-header-bg: rgba(20, 7, 7, 0.85);
+  --preset-header-border: var(--color-outline-variant);
 
   --font-anybody: 'Anybody', sans-serif;
   --font-hanken: 'Hanken Grotesk', sans-serif;
@@ -38,26 +44,27 @@ html, body {
 
 /* ── Gradient Utilities ───────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(90deg, #ff003c, #fe6b00);
+  background: linear-gradient(90deg, var(--preset-gradient-from), var(--preset-gradient-to));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-bg {
-  background: linear-gradient(135deg, #ff003c, #fe6b00);
+  background: linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to));
 }
 
 .gradient-border {
   border: 1px solid transparent;
   background: linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
-              linear-gradient(135deg, #ff003c, #fe6b00) border-box;
+              linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to)) border-box;
 }
 
 /* ── Card Glow Effect ─────────────────────────────────── */
 .card-glow:hover {
-  border-color: #fe6b00 !important;
-  box-shadow: 0 0 24px rgba(254, 107, 0, 0.2), 0 0 8px rgba(255, 0, 60, 0.1) !important;
+  border-color: var(--preset-gradient-to) !important;
+  box-shadow: 0 0 24px color-mix(in srgb, var(--preset-gradient-to) 20%, transparent),
+              0 0 8px color-mix(in srgb, var(--preset-gradient-from) 10%, transparent) !important;
 }
 
 /* ── Sidebar ──────────────────────────────────────────── */
@@ -87,11 +94,11 @@ html, body {
 .sidebar-nav-item.active {
   background: linear-gradient(135deg, rgba(255,0,60,0.15), rgba(254,107,0,0.15));
   border-color: rgba(255,0,60,0.3);
-  color: #ffb3b2;
+  color: var(--color-on-surface-variant);
 }
 
 .sidebar-nav-item.active svg {
-  color: #ff003c;
+  color: var(--color-primary);
 }
 
 /* ── Stat Number ──────────────────────────────────────── */
@@ -138,13 +145,13 @@ html, body {
 }
 
 .mantine-Progress-bar {
-  background: linear-gradient(90deg, #ff003c, #fe6b00) !important;
+  background: linear-gradient(90deg, var(--preset-gradient-from), var(--preset-gradient-to)) !important;
 }
 
 /* ── Animations ───────────────────────────────────────── */
 @keyframes pulse-red {
-  0%, 100% { box-shadow: 0 0 8px rgba(255, 0, 60, 0.4); }
-  50% { box-shadow: 0 0 24px rgba(255, 0, 60, 0.8); }
+  0%, 100% { box-shadow: 0 0 8px color-mix(in srgb, var(--preset-gradient-from) 40%, transparent); }
+  50% { box-shadow: 0 0 24px color-mix(in srgb, var(--preset-gradient-from) 80%, transparent); }
 }
 
 .pulse-active {

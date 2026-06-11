@@ -31,6 +31,10 @@
     "records": {
       "title": "Journal de suivi du poids",
       "description": "Suivez la progression du poids de vos entraînements."
+    },
+    "measurements": {
+      "title": "Mesures Corporelles",
+      "description": "Suivez et gérez vos mesures corporelles au fil du temps."
     }
   },
   "common": {
@@ -52,6 +56,7 @@
     "nutrition": "Nutrition",
     "progress": "Progrès",
     "records": "Records",
+    "measurements": "Mesures",
     "settings": "Paramètres"
   },
   "header": {
@@ -62,6 +67,7 @@
       "nutrition": "Nutrition",
       "progress": "Progrès",
       "records": "Records",
+      "measurements": "Mesures",
       "settings": "Paramètres"
     }
   },
@@ -370,5 +376,38 @@
     "listView": "Liste",
     "emptyList": "Vous n'avez pas encore de records pour cet exercice. Soulevez et mettez à jour votre poids !",
     "searchPlaceholder": "Rechercher..."
+  },
+  "measurements": {
+    "title": "Mesures Corporelles",
+    "subtitle": "Suivez vos changements corporels",
+    "addMeasurement": "Ajouter une mesure",
+    "export": "Exporter",
+    "name": "Nom de la mesure",
+    "value": "Valeur",
+    "unit": "Unité",
+    "date": "Date",
+    "actions": "Actions",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "deleteConfirmTitle": "Confirmer la suppression",
+    "deleteConfirmDesc": "Êtes-vous sûr de vouloir supprimer cette mesure ?",
+    "cancel": "Annuler",
+    "confirmDelete": "Supprimer",
+    "save": "Enregistrer",
+    "noData": "Aucune donnée de mesure disponible.",
+    "selectMeasurement": "Sélectionnez une mesure pour afficher le graphique",
+    "allMeasurements": "Tous",
+    "chartTitle": "Graphique de variation",
+    "suggestions": {
+      "chest": "Poitrine",
+      "waist": "Taille",
+      "hips": "Hanches",
+      "biceps": "Biceps",
+      "thighs": "Cuisses",
+      "calves": "Mollets",
+      "weight": "Poids",
+      "shoulders": "Épaules",
+      "neck": "Cou"
+    }
   }
 }

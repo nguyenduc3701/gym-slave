@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import type { ThemePresetKey } from '@/styles/presets';
 import { persist } from 'zustand/middleware';
 
 export interface WeightRecord {
@@ -39,6 +40,9 @@ interface UserProfile {
   weightLogs?: WeightLogs;
   weightUnit?: 'kg' | 'lbs';
   
+  // Theme preset
+  themePreset?: ThemePresetKey;
+
   // Optional onboarding fields
   bodyFat?: number;
   avgDailyCalories?: number;
@@ -75,6 +79,7 @@ const defaultProfile: UserProfile = {
   tdee: 2200,
   customSchedule: null,
   weightUnit: 'kg',
+  themePreset: 'default',
 };
 
 
