@@ -46,6 +46,15 @@ export async function generateMetadata({
       default: t('title'),
     },
     description: t('description'),
+    icons: {
+      icon: '/icon.png',
+      apple: '/apple-icon.png',
+    },
+    appleWebApp: {
+      title: 'Gym Slave',
+      statusBarStyle: 'black-translucent',
+      capable: true,
+    },
   };
 }
 
