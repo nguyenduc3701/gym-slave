@@ -1,4 +1,4 @@
-﻿import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
 import { MeasurementRecord } from '@/store/useMeasurementStore';
 import { useTranslations } from 'next-intl';
 
@@ -10,14 +10,18 @@ interface MeasurementChartProps {
 export function MeasurementChart({ records, selectedName }: MeasurementChartProps) {
   const t = useTranslations('measurements');
 
-  const data = records
+  const filtered = records
     .filter((r) => r.name === selectedName)
-    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-    .map((r) => ({
-      date: new Date(r.createdAt).toLocaleDateString(),
-      value: r.value,
-      unit: r.unit,
-    }));
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+  const data = filtered.map((r) => ({
+    date: new Date(r.createdAt).toLocaleDateString(),
+    value: r.normalValue,
+    unit: r.unit,
+  }));
+
+  const latestWithMax = [...filtered].reverse().find((r) => r.maxValue !== undefined);
+  const maxValue = latestWithMax?.maxValue;
 
   if (data.length === 0) {
     return (
@@ -30,7 +34,7 @@ export function MeasurementChart({ records, selectedName }: MeasurementChartProp
   return (
     <div className="h-64 w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
+        <LineChart data={data} margin={{ top: 15, right: 20, bottom: 5, left: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
           <XAxis 
             dataKey="date" 
@@ -51,6 +55,14 @@ export function MeasurementChart({ records, selectedName }: MeasurementChartProp
             labelStyle={{ color: '#af8786', marginBottom: '4px' }}
             formatter={(value: number, name: string, props: { payload: { unit: string } }) => [`${value} ${props.payload.unit}`, selectedName]}
           />
+          {maxValue !== undefined && (
+            <ReferenceLine 
+              y={maxValue} 
+              stroke="#fa5252" 
+              strokeDasharray="3 3" 
+              label={{ value: `${t('maxValue')}: ${maxValue}`, fill: '#fa5252', fontSize: 10 }} 
+            />
+          )}
           <Line 
             type="monotone" 
             dataKey="value" 

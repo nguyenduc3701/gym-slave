@@ -1,4 +1,4 @@
-﻿import { Table, ActionIcon, Group, Text } from '@mantine/core';
+import { Table, ActionIcon, Group, Text } from '@mantine/core';
 import { IconEdit, IconTrash } from '@tabler/icons-react';
 import { useTranslations } from 'next-intl';
 import { MeasurementRecord } from '@/store/useMeasurementStore';
@@ -41,8 +41,13 @@ export function MeasurementTable({ records, onEdit, onDelete }: MeasurementTable
               </Table.Td>
               <Table.Td>
                 <Text fw={700} style={{ fontFamily: 'var(--font-jetbrains)', color: 'var(--color-primary)' }}>
-                  {record.value} <span className="text-xs text-gray-500 font-normal">{record.unit}</span>
+                  {record.normalValue} <span className="text-xs text-gray-500 font-normal">{record.unit}</span>
                 </Text>
+                {record.maxValue !== undefined && (
+                  <Text size="xs" c="dimmed" style={{ fontFamily: 'var(--font-jetbrains)', marginTop: 2 }}>
+                    {t('maxValue')}: {record.maxValue}
+                  </Text>
+                )}
               </Table.Td>
               <Table.Td>
                 <Text size="sm" c="dimmed">

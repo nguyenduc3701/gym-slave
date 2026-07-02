@@ -398,6 +398,8 @@
     "selectMeasurement": "Chọn số đo để xem biểu đồ",
     "allMeasurements": "Tất cả",
     "chartTitle": "Biểu đồ biến thiên",
+    "maxValue": "Giá trị tối đa",
+    "normalValue": "Giá trị bình thường",
     "suggestions": {
       "chest": "Vòng ngực",
       "waist": "Vòng eo",

@@ -1,18 +1,19 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { NumberInput, Select, Button, Group, Autocomplete } from '@mantine/core';
 import { useTranslations } from 'next-intl';
 
 interface MeasurementFormProps {
-  initialData?: { name: string; value: number; unit: string };
-  onSubmit: (data: { name: string; value: number; unit: 'cm' | 'inch' | 'kg' | 'lbs' }) => void;
+  initialData?: { name: string; unit: string; maxValue?: number; normalValue?: number };
+  onSubmit: (data: { name: string; unit: 'cm' | 'inch' | 'kg' | 'lbs' | 'mm'; maxValue?: number; normalValue: number }) => void;
   onCancel: () => void;
 }
 
 export function MeasurementForm({ initialData, onSubmit, onCancel }: MeasurementFormProps) {
   const t = useTranslations('measurements');
   const [name, setName] = useState(initialData?.name || '');
-  const [value, setValue] = useState<number | string>(initialData?.value || '');
-  const [unit, setUnit] = useState<string>(initialData?.unit || 'cm');
+  const [unit, setUnit] = useState<string>(initialData?.unit || 'mm');
+  const [maxValue, setMaxValue] = useState<number | string>(initialData?.maxValue !== undefined ? initialData.maxValue : '');
+  const [normalValue, setNormalValue] = useState<number | string>(initialData?.normalValue !== undefined ? initialData.normalValue : '');
 
   const suggestions = [
     t('suggestions.chest'),
@@ -28,42 +29,71 @@ export function MeasurementForm({ initialData, onSubmit, onCancel }: Measurement
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (name && value !== '') {
+    if (name && normalValue !== '') {
       onSubmit({
         name,
-        value: Number(value),
-        unit: unit as 'cm' | 'inch' | 'kg' | 'lbs',
+        unit: unit as 'cm' | 'inch' | 'kg' | 'lbs' | 'mm',
+        normalValue: Number(normalValue),
+        maxValue: maxValue !== '' ? Number(maxValue) : undefined,
       });
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <Autocomplete
-        label={t('name')}
-        placeholder={t('name')}
-        data={suggestions}
-        value={name}
-        onChange={setName}
-        required
-        styles={{
-          input: {
-            backgroundColor: '#111',
-            borderColor: 'rgba(255,255,255,0.08)',
-            color: 'var(--color-on-bg)',
-            fontFamily: 'var(--font-hanken)',
-          },
-          label: { fontFamily: 'var(--font-jetbrains)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#af8786' },
-          dropdown: { backgroundColor: '#1a1a1a', borderColor: 'rgba(255,255,255,0.08)' },
-          option: { color: 'var(--color-on-bg)', '&[data-selected]': { background: 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))' } },
-        }}
-      />
-      <Group grow>
+      <Group align="flex-end" wrap="nowrap" gap="sm">
+        <Autocomplete
+          label={t('name')}
+          placeholder={t('name')}
+          data={suggestions}
+          value={name}
+          onChange={setName}
+          required
+          style={{ flex: 1 }}
+          styles={{
+            input: {
+              backgroundColor: '#111',
+              borderColor: 'rgba(255,255,255,0.08)',
+              color: 'var(--color-on-bg)',
+              fontFamily: 'var(--font-hanken)',
+            },
+            label: { fontFamily: 'var(--font-jetbrains)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#af8786' },
+            dropdown: { backgroundColor: '#1a1a1a', borderColor: 'rgba(255,255,255,0.08)' },
+            option: { color: 'var(--color-on-bg)', '&[data-selected]': { background: 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))' } },
+          }}
+        />
+        <Select
+          label={t('unit')}
+          data={[
+            { value: 'mm', label: 'mm' },
+            { value: 'cm', label: 'cm' },
+            { value: 'inch', label: 'inch' },
+            { value: 'kg', label: 'kg' },
+            { value: 'lbs', label: 'lbs' },
+          ]}
+          value={unit}
+          onChange={(val) => setUnit(val || 'mm')}
+          required
+          style={{ width: '100px' }}
+          styles={{
+            input: {
+              backgroundColor: '#111',
+              borderColor: 'rgba(255,255,255,0.08)',
+              color: 'var(--color-on-bg)',
+              fontFamily: 'var(--font-hanken)',
+            },
+            label: { fontFamily: 'var(--font-jetbrains)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#af8786' },
+            dropdown: { backgroundColor: '#1a1a1a', borderColor: 'rgba(255,255,255,0.08)' },
+            option: { color: 'var(--color-on-bg)', '&[data-selected]': { background: 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))' } },
+          }}
+        />
+      </Group>
+      <Group grow align="flex-end" gap="sm">
         <NumberInput
-          label={t('value')}
+          label={t('normalValue')}
           placeholder="0"
-          value={value}
-          onChange={setValue}
+          value={normalValue}
+          onChange={setNormalValue}
           min={0}
           required
           hideControls
@@ -77,17 +107,13 @@ export function MeasurementForm({ initialData, onSubmit, onCancel }: Measurement
             label: { fontFamily: 'var(--font-jetbrains)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#af8786' },
           }}
         />
-        <Select
-          label={t('unit')}
-          data={[
-            { value: 'cm', label: 'cm' },
-            { value: 'inch', label: 'inch' },
-            { value: 'kg', label: 'kg' },
-            { value: 'lbs', label: 'lbs' },
-          ]}
-          value={unit}
-          onChange={(val) => setUnit(val || 'cm')}
-          required
+        <NumberInput
+          label={t('maxValue')}
+          placeholder="e.g. 100"
+          value={maxValue}
+          onChange={setMaxValue}
+          min={0}
+          hideControls
           styles={{
             input: {
               backgroundColor: '#111',
@@ -96,8 +122,6 @@ export function MeasurementForm({ initialData, onSubmit, onCancel }: Measurement
               fontFamily: 'var(--font-hanken)',
             },
             label: { fontFamily: 'var(--font-jetbrains)', fontSize: '11px', letterSpacing: '0.08em', textTransform: 'uppercase', color: '#af8786' },
-            dropdown: { backgroundColor: '#1a1a1a', borderColor: 'rgba(255,255,255,0.08)' },
-            option: { color: 'var(--color-on-bg)', '&[data-selected]': { background: 'linear-gradient(135deg, var(--preset-gradient-from), var(--preset-gradient-to))' } },
           }}
         />
       </Group>

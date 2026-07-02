@@ -4,8 +4,9 @@ import { persist } from 'zustand/middleware';
 export interface MeasurementRecord {
   id: string;
   name: string;
-  value: number;
-  unit: 'cm' | 'inch' | 'kg' | 'lbs';
+  unit: 'cm' | 'inch' | 'kg' | 'lbs' | 'mm';
+  maxValue?: number;
+  normalValue: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -50,6 +51,22 @@ export const useMeasurementStore = create<MeasurementState>()(
     }),
     {
       name: 'gym-slave-measurement-store',
+      version: 1,
+      migrate: (persistedState: any, version: number) => {
+        if (version === 0 && persistedState && Array.isArray(persistedState.records)) {
+          return {
+            ...persistedState,
+            records: persistedState.records.map((r: any) => {
+              const { value, ...rest } = r;
+              return {
+                ...rest,
+                normalValue: r.normalValue !== undefined ? r.normalValue : (value !== undefined ? value : 0),
+              };
+            }),
+          };
+        }
+        return persistedState;
+      }
     }
   )
 );

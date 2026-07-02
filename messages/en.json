@@ -398,6 +398,8 @@
     "selectMeasurement": "Select measurement to view chart",
     "allMeasurements": "All",
     "chartTitle": "Variation Chart",
+    "maxValue": "Max Value",
+    "normalValue": "Normal Value",
     "suggestions": {
       "chest": "Chest",
       "waist": "Waist",

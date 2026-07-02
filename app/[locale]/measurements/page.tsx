@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
@@ -16,6 +16,7 @@ export default function MeasurementsPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingRecord, setEditingRecord] = useState<MeasurementRecord | null>(null);
+  const [deleteRecordId, setDeleteRecordId] = useState<string | null>(null);
   
   const uniqueNames = useMemo(() => Array.from(new Set(records.map(r => r.name))), [records]);
   const [selectedChartName, setSelectedChartName] = useState<string | null>(uniqueNames[0] || null);
@@ -35,7 +36,7 @@ export default function MeasurementsPage() {
     setEditingRecord(null);
   };
 
-  const handleSubmit = (data: { name: string; value: number; unit: 'cm' | 'inch' | 'kg' | 'lbs' }) => {
+  const handleSubmit = (data: { name: string; unit: 'cm' | 'inch' | 'kg' | 'lbs' | 'mm'; maxValue?: number; normalValue: number }) => {
     if (editingRecord) {
       updateRecord(editingRecord.id, data);
     } else {
@@ -46,9 +47,7 @@ export default function MeasurementsPage() {
   };
 
   const handleDelete = (id: string) => {
-    if (window.confirm(t('deleteConfirmDesc'))) {
-      deleteRecord(id);
-    }
+    setDeleteRecordId(id);
   };
 
   const handleExport = () => {
@@ -68,7 +67,11 @@ export default function MeasurementsPage() {
       content += `[ ${name.toUpperCase()} ]\n`;
       const sorted = list.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
       sorted.forEach((item, index) => {
-        content += `  ${index + 1}. ${new Date(item.createdAt).toLocaleDateString()}: ${item.value} ${item.unit}\n`;
+        content += `  ${index + 1}. ${new Date(item.createdAt).toLocaleDateString()}: ${item.normalValue} ${item.unit}`;
+        if (item.maxValue !== undefined) {
+          content += ` (Max: ${item.maxValue} ${item.unit})`;
+        }
+        content += '\n';
       });
       content += '\n';
     }
@@ -169,10 +172,40 @@ export default function MeasurementsPage() {
         }}
       >
         <MeasurementForm 
-          initialData={editingRecord ? { name: editingRecord.name, value: editingRecord.value, unit: editingRecord.unit } : undefined}
+          initialData={editingRecord ? { name: editingRecord.name, unit: editingRecord.unit, maxValue: editingRecord.maxValue, normalValue: editingRecord.normalValue } : undefined}
           onSubmit={handleSubmit}
           onCancel={handleCloseModal}
         />
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        opened={deleteRecordId !== null}
+        onClose={() => setDeleteRecordId(null)}
+        title={<Text fw={700} style={{ fontFamily: 'var(--font-anybody)' }}>{t('deleteConfirmTitle')}</Text>}
+        centered
+        overlayProps={{ blur: 3, backgroundOpacity: 0.5 }}
+        styles={{
+          content: { backgroundColor: '#1a1a1a', color: 'var(--color-on-bg)', border: '1px solid var(--color-outline-variant)' },
+          header: { backgroundColor: '#1a1a1a' },
+        }}
+      >
+        <Text size="sm" mb="lg">
+          {t('deleteConfirmDesc')}
+        </Text>
+        <Group justify="flex-end">
+          <Button variant="default" onClick={() => setDeleteRecordId(null)} style={{ backgroundColor: 'transparent', borderColor: 'var(--color-outline-variant)', color: 'var(--color-on-bg)' }}>
+            {t('cancel')}
+          </Button>
+          <Button onClick={() => {
+            if (deleteRecordId) {
+              deleteRecord(deleteRecordId);
+              setDeleteRecordId(null);
+            }
+          }} style={{ background: 'var(--color-error, #fa5252)', color: '#fff', border: 'none' }}>
+            {t('confirmDelete')}
+          </Button>
+        </Group>
       </Modal>
     </div>
   );
